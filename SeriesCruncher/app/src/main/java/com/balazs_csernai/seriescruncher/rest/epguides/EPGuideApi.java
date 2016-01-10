@@ -1,9 +1,8 @@
 package com.balazs_csernai.seriescruncher.rest.epguides;
 
 import com.balazs_csernai.seriescruncher.rest.epguides.model.Show;
-import com.balazs_csernai.seriescruncher.rest.epguides.model.ShowShort;
+import com.balazs_csernai.seriescruncher.rest.epguides.model.ShowList;
 
-import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
 
@@ -13,8 +12,8 @@ import retrofit.http.Path;
 public interface EPGuideApi {
 
     @GET("/show/")
-    void loadShows(Callback<ShowShort[]> callback);
+    ShowList loadShows();
 
     @GET("/show/{showName}/")
-    void loadShow(@Path("showName") String showName, Callback<Show> callback);
+    Show loadShow(@Path("showName") String showName);
 }

@@ -1,11 +1,12 @@
 package com.balazs_csernai.seriescruncher.serieslist;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideService;
+import com.balazs_csernai.seriescruncher.rest.epguides.model.ShowList;
 import com.balazs_csernai.seriescruncher.rest.epguides.model.ShowShort;
 
 import java.util.Collections;
@@ -16,13 +17,10 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 import static com.balazs_csernai.seriescruncher.serieslist.component.SeriesListComponent.Injector.inject;
 
-public class SeriesListActivity extends AppCompatActivity implements Callback<ShowShort[]> {
+public class SeriesListActivity extends AppCompatActivity implements EPGuideService.Callback<ShowList> {
 
     @InjectView(R.id.contentTemp)
     TextView contentTemp;
@@ -39,18 +37,25 @@ public class SeriesListActivity extends AppCompatActivity implements Callback<Sh
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
+        epGuideService.bind();
         epGuideService.loadShows(this);
     }
 
     @Override
-    public void success(ShowShort[] showShorts, Response response) {
+    protected void onStop() {
+        epGuideService.unbind();
+        super.onStop();
+    }
+
+    @Override
+    public void onSuccess(ShowList result) {
         boolean first = true;
         List<String> showNames = new LinkedList<>();
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (ShowShort showShort : showShorts) {
+        for (ShowShort showShort : result) {
             showNames.add(showShort.getTitle());
         }
 
@@ -69,7 +74,7 @@ public class SeriesListActivity extends AppCompatActivity implements Callback<Sh
     }
 
     @Override
-    public void failure(RetrofitError error) {
+    public void onFailure() {
 
     }
 }

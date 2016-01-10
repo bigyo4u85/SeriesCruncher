@@ -3,6 +3,8 @@ package com.balazs_csernai.seriescruncher.rest.component;
 import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideService;
 import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideServiceImpl;
+import com.balazs_csernai.seriescruncher.rest.epguides.NetworkingSpiceService;
+import com.octo.android.robospice.SpiceManager;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,13 +15,14 @@ import retrofit.RestAdapter;
  */
 @Module
 public class RestModule {
+
     @Provides
-    EPGuideApi provideEPGuideApi() {
-        return new RestAdapter.Builder().setEndpoint("https://epguides.frecar.no").build().create(EPGuideApi.class);
+    SpiceManager provideSpiceManager() {
+        return new SpiceManager(NetworkingSpiceService.class);
     }
 
     @Provides
-    EPGuideService provideEPGuideService(EPGuideApi api) {
-        return new EPGuideServiceImpl(api);
+    EPGuideService provideEPGuideService(EPGuideServiceImpl impl) {
+        return impl;
     }
 }
