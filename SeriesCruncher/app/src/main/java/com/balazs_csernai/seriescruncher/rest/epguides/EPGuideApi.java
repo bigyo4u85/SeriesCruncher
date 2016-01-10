@@ -1,5 +1,6 @@
 package com.balazs_csernai.seriescruncher.rest.epguides;
 
+import com.balazs_csernai.seriescruncher.rest.epguides.model.EpisodeJson;
 import com.balazs_csernai.seriescruncher.rest.epguides.model.Show;
 import com.balazs_csernai.seriescruncher.rest.epguides.model.ShowList;
 
@@ -16,4 +17,11 @@ public interface EPGuideApi {
 
     @GET("/show/{showName}/")
     Show loadShow(@Path("showName") String showName);
+
+    @GET("/show/{showName}/next/")
+    EpisodeJson getNextEpisode(@Path("showName") String showName);
+
+    @GET("show/{showName}/last/")
+    EpisodeJson getLastEpisode(@Path("showName") String showName);
+
 }
