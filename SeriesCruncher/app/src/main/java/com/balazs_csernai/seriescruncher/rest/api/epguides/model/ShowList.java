@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.rest.epguides.model;
+package com.balazs_csernai.seriescruncher.rest.api.epguides.model;
 
 import java.util.ArrayList;
 

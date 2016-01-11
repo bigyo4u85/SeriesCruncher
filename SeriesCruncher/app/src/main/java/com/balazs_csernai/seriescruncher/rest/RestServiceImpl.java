@@ -1,9 +1,11 @@
-package com.balazs_csernai.seriescruncher.rest.epguides;
+package com.balazs_csernai.seriescruncher.rest;
 
 import android.app.Activity;
 
-import com.balazs_csernai.seriescruncher.rest.epguides.model.Show;
-import com.balazs_csernai.seriescruncher.rest.epguides.model.ShowList;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
+import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowList;
 import com.balazs_csernai.seriescruncher.rest.request.AllShowRequest;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -14,15 +16,19 @@ import javax.inject.Inject;
 /**
  * Created by Balazs_Csernai on 2016.01.08..
  */
-public class EPGuideServiceImpl implements EPGuideService {
+public class RestServiceImpl implements RestService {
 
     private final Activity activity;
     private final SpiceManager spiceManager;
+    private final EPGuideApi epGuideApi;
+    private final OmdbApi omdbApi;
 
     @Inject
-    public EPGuideServiceImpl(Activity activity, SpiceManager spiceManager) {
+    public RestServiceImpl(Activity activity, SpiceManager spiceManager, EPGuideApi epGuideApi, OmdbApi omdbApi) {
         this.activity = activity;
         this.spiceManager = spiceManager;
+        this.epGuideApi = epGuideApi;
+        this.omdbApi = omdbApi;
     }
 
     @Override
@@ -39,7 +45,7 @@ public class EPGuideServiceImpl implements EPGuideService {
 
     @Override
     public void loadShows(final Callback<ShowList> callback) {
-        spiceManager.execute(new AllShowRequest(), new RequestListener<ShowList>() {
+        spiceManager.execute(new AllShowRequest(epGuideApi, omdbApi), new RequestListener<ShowList>() {
             @Override
             public void onRequestFailure(SpiceException spiceException) {
                 callback.onFailure();

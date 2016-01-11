@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideService;
-import com.balazs_csernai.seriescruncher.rest.epguides.model.ShowList;
-import com.balazs_csernai.seriescruncher.rest.epguides.model.ShowShort;
+import com.balazs_csernai.seriescruncher.rest.RestService;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowList;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShort;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -20,13 +20,13 @@ import butterknife.InjectView;
 
 import static com.balazs_csernai.seriescruncher.serieslist.component.SeriesListComponent.Injector.inject;
 
-public class SeriesListActivity extends AppCompatActivity implements EPGuideService.Callback<ShowList> {
+public class SeriesListActivity extends AppCompatActivity implements RestService.Callback<ShowList> {
 
     @InjectView(R.id.contentTemp)
     TextView contentTemp;
 
     @Inject
-    EPGuideService epGuideService;
+    RestService restService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +39,13 @@ public class SeriesListActivity extends AppCompatActivity implements EPGuideServ
     @Override
     protected void onStart() {
         super.onStart();
-        epGuideService.bind();
-        epGuideService.loadShows(this);
+        restService.bind();
+        restService.loadShows(this);
     }
 
     @Override
     protected void onStop() {
-        epGuideService.unbind();
+        restService.unbind();
         super.onStop();
     }
 

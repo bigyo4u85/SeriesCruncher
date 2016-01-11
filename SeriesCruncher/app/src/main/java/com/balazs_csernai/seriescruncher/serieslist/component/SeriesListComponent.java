@@ -1,8 +1,8 @@
 package com.balazs_csernai.seriescruncher.serieslist.component;
 
 import com.balazs_csernai.seriescruncher.app.component.ActivityScope;
+import com.balazs_csernai.seriescruncher.app.component.ApplicationComponent;
 import com.balazs_csernai.seriescruncher.app.component.CommonActivityModule;
-import com.balazs_csernai.seriescruncher.app.component.SeriesCruncherApplicationComponent;
 import com.balazs_csernai.seriescruncher.rest.component.RestModule;
 import com.balazs_csernai.seriescruncher.serieslist.SeriesListActivity;
 
@@ -13,10 +13,12 @@ import dagger.Component;
  */
 @ActivityScope
 @Component(
-        dependencies = SeriesCruncherApplicationComponent.class,
+        dependencies = ApplicationComponent.class,
         modules = {
                 CommonActivityModule.class,
-                RestModule.class})
+                RestModule.class
+        }
+)
 public interface SeriesListComponent {
 
     void inject(SeriesListActivity activity);
@@ -24,7 +26,7 @@ public interface SeriesListComponent {
     final class Injector {
         public static void inject(SeriesListActivity activity) {
             DaggerSeriesListComponent.builder()
-                    .seriesCruncherApplicationComponent(SeriesCruncherApplicationComponent.Injector.component())
+                    .applicationComponent(ApplicationComponent.Injector.component())
                     .commonActivityModule(new CommonActivityModule(activity))
                     .restModule(new RestModule())
                     .build()

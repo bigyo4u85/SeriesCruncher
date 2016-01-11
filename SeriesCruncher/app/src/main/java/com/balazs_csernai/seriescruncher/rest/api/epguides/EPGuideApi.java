@@ -1,8 +1,8 @@
-package com.balazs_csernai.seriescruncher.rest.epguides;
+package com.balazs_csernai.seriescruncher.rest.api.epguides;
 
-import com.balazs_csernai.seriescruncher.rest.epguides.model.EpisodeJson;
-import com.balazs_csernai.seriescruncher.rest.epguides.model.Show;
-import com.balazs_csernai.seriescruncher.rest.epguides.model.ShowList;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.EpisodeJson;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowList;
 
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -11,6 +11,8 @@ import retrofit.http.Path;
  * Created by Balazs_Csernai on 2016.01.08..
  */
 public interface EPGuideApi {
+
+    String ENDPOINT_URL = "https://epguides.frecar.no";
 
     @GET("/show/")
     ShowList loadShows();

@@ -1,14 +1,12 @@
 package com.balazs_csernai.seriescruncher.rest.component;
 
-import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideApi;
-import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideService;
-import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideServiceImpl;
-import com.balazs_csernai.seriescruncher.rest.epguides.NetworkingSpiceService;
+import com.balazs_csernai.seriescruncher.rest.RestService;
+import com.balazs_csernai.seriescruncher.rest.RestServiceImpl;
+import com.balazs_csernai.seriescruncher.rest.NetworkingService;
 import com.octo.android.robospice.SpiceManager;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit.RestAdapter;
 
 /**
  * Created by Balazs_Csernai on 2016.01.08..
@@ -18,11 +16,11 @@ public class RestModule {
 
     @Provides
     SpiceManager provideSpiceManager() {
-        return new SpiceManager(NetworkingSpiceService.class);
+        return new SpiceManager(NetworkingService.class);
     }
 
     @Provides
-    EPGuideService provideEPGuideService(EPGuideServiceImpl impl) {
+    RestService provideEPGuideService(RestServiceImpl impl) {
         return impl;
     }
 }

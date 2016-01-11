@@ -21,7 +21,7 @@
         </activity>
 
         <service
-            android:name=".rest.epguides.NetworkingSpiceService"
+            android:name=".rest.NetworkingService"
             android:exported="false" />
 
     </application>
