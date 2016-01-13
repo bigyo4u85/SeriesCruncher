@@ -1,7 +1,7 @@
 package com.balazs_csernai.seriescruncher.rest;
 
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowList;
+import com.balazs_csernai.seriescruncher.details.model.ShowDetailsModel;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShortList;
 
 /**
  * Created by Balazs_Csernai on 2016.01.08..
@@ -17,7 +17,7 @@ public interface RestService {
 
     void unbind();
 
-    void loadShows(Callback<ShowList> callback);
+    void loadShows(Callback<ShowShortList> callback);
 
-    void loadShow(String showName, Callback<Show> callback);
+    void loadDetails(String showName, Callback<ShowDetailsModel> callback);
 }

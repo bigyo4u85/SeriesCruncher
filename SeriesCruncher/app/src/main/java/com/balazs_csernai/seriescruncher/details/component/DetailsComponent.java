@@ -16,16 +16,25 @@ import dagger.Component;
         dependencies = ApplicationComponent.class,
         modules = {
                 CommonActivityModule.class,
-                RestModule.class
+                RestModule.class,
+                DetailsModule.class
         }
 )
-public interface ShowDetailsComponent {
+public interface DetailsComponent {
     void inject(ShowDetailsActivity activity);
 
     final class Injector {
 
-        public static void inject(ShowDetailsActivity activity) {
+        private Injector() {}
 
+        public static void inject(ShowDetailsActivity activity) {
+            DaggerDetailsComponent.builder()
+                    .applicationComponent(ApplicationComponent.Injector.component())
+                    .commonActivityModule(new CommonActivityModule(activity))
+                    .restModule(new RestModule())
+                    .detailsModule(new DetailsModule())
+                    .build()
+                    .inject(activity);
         }
     }
 }

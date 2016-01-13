@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by ErikKramli on 2016.01.11..
  */
-public class ImdbDetailJson {
+public class OmdbDetailJson implements OmdbDetailModel {
 
     @SerializedName("imdbID")
     private String imdbId;
@@ -21,4 +21,19 @@ public class ImdbDetailJson {
 
     @SerializedName("imdbRating")
     private float imdbRating;
+
+    @Override
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getPosterUrl() {
+        return posterUrl;
+    }
 }

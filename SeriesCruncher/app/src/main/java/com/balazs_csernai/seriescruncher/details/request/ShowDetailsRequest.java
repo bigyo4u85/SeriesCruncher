@@ -2,9 +2,10 @@ package com.balazs_csernai.seriescruncher.details.request;
 
 import com.balazs_csernai.seriescruncher.details.model.ShowDetailsEntity;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.SeasonJson;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowJson;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
-import com.balazs_csernai.seriescruncher.rest.api.omdb.model.ImdbDetailJson;
+import com.balazs_csernai.seriescruncher.rest.api.omdb.model.OmdbDetailJson;
 import com.balazs_csernai.seriescruncher.rest.request.NetworkRequest;
 
 /**
@@ -12,19 +13,24 @@ import com.balazs_csernai.seriescruncher.rest.request.NetworkRequest;
  */
 public class ShowDetailsRequest extends NetworkRequest<ShowDetailsEntity> {
 
-    public ShowDetailsRequest(EPGuideApi epGuideApi, OmdbApi omdbApi) {
+    private final String showName;
+
+    public ShowDetailsRequest(String showName, EPGuideApi epGuideApi, OmdbApi omdbApi) {
         super(ShowDetailsEntity.class, epGuideApi, omdbApi);
+        this.showName = showName;
     }
 
     @Override
     public ShowDetailsEntity loadDataFromNetwork() throws Exception {
 
-        Show showJson = getEpGuideService().loadShow("blacksails");
+        SeasonJson showJsonJson = getEpGuideService().loadShow(showName);
 
-        ImdbDetailJson detailsJson = getOmdbApi().getShowDetails("blacksails_imdb_id");
+        OmdbDetailJson detailsJson = getOmdbApi().getShowDetails("tt0898266");
 
-        //todo: build ShowDetailsEntity from showJson and detailsJson
+        ShowDetailsEntity entity = new ShowDetailsEntity();
+        entity.showJson = showJsonJson;
+        entity.omdbDetailJson = detailsJson;
 
-        return null;
+        return entity;
     }
 }

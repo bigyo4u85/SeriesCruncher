@@ -1,8 +1,9 @@
 package com.balazs_csernai.seriescruncher.rest.api.epguides;
 
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.EpisodeJson;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowList;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.SeasonJson;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowJson;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShortList;
 
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -14,16 +15,16 @@ public interface EPGuideApi {
 
     String ENDPOINT_URL = "https://epguides.frecar.no";
 
-    @GET("/show/")
-    ShowList loadShows();
+    @GET("/showJson/")
+    ShowShortList loadShows();
 
-    @GET("/show/{showName}/")
-    Show loadShow(@Path("showName") String showName);
+    @GET("/showJson/{showName}/")
+    SeasonJson loadShow(@Path("showName") String showName);
 
-    @GET("/show/{showName}/next/")
+    @GET("/showJson/{showName}/next/")
     EpisodeJson getNextEpisode(@Path("showName") String showName);
 
-    @GET("show/{showName}/last/")
+    @GET("showJson/{showName}/last/")
     EpisodeJson getLastEpisode(@Path("showName") String showName);
 
 }

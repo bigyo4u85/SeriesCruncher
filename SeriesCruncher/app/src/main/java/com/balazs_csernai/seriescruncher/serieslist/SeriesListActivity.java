@@ -1,12 +1,14 @@
 package com.balazs_csernai.seriescruncher.serieslist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
+import com.balazs_csernai.seriescruncher.details.ShowDetailsActivity;
 import com.balazs_csernai.seriescruncher.rest.RestService;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowList;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShortList;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShort;
 
 import java.util.Collections;
@@ -17,10 +19,11 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import static com.balazs_csernai.seriescruncher.serieslist.component.SeriesListComponent.Injector.inject;
 
-public class SeriesListActivity extends AppCompatActivity implements RestService.Callback<ShowList> {
+public class SeriesListActivity extends AppCompatActivity implements RestService.Callback<ShowShortList> {
 
     @InjectView(R.id.contentTemp)
     TextView contentTemp;
@@ -50,7 +53,7 @@ public class SeriesListActivity extends AppCompatActivity implements RestService
     }
 
     @Override
-    public void onSuccess(ShowList result) {
+    public void onSuccess(ShowShortList result) {
         boolean first = true;
         List<String> showNames = new LinkedList<>();
         StringBuilder stringBuilder = new StringBuilder();
@@ -76,5 +79,10 @@ public class SeriesListActivity extends AppCompatActivity implements RestService
     @Override
     public void onFailure() {
 
+    }
+
+    @OnClick(R.id.to_details_btn)
+    void onToDetailsButtonClicked() {
+        startActivity(new Intent(this, ShowDetailsActivity.class));
     }
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by ErikKramli on 2016.01.10..
  */
-public class EpisodeJson {
+public class EpisodeJson implements Episode {
 
     @SerializedName("season")
     private int season;
@@ -21,10 +21,32 @@ public class EpisodeJson {
     @SerializedName("release_date")
     private Date releaseDate;
 
-    @SerializedName("show")
-    private Show show;
+    @SerializedName("showJson")
+    private ShowJson showJson;
 
 
+    @Override
+    public int getSeasonNumber() {
+        return season;
+    }
 
+    @Override
+    public int getEpisodeNumber() {
+        return number;
+    }
 
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public Show getShow() {
+        return showJson;
+    }
+
+    @Override
+    public Date getAirDate() {
+        return releaseDate;
+    }
 }

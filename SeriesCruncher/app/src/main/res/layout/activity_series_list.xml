@@ -7,6 +7,12 @@
     android:padding="@dimen/spacing_simple"
     tools:context=".serieslist.SeriesListActivity">
 
+    <Button
+        android:id="@+id/to_details_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To details" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
