@@ -15,16 +15,16 @@ public interface EPGuideApi {
 
     String ENDPOINT_URL = "https://epguides.frecar.no";
 
-    @GET("/showJson/")
+    @GET("/show/")
     ShowShortList loadShows();
 
-    @GET("/showJson/{showName}/")
+    @GET("/show/{showName}/")
     SeasonJson loadShow(@Path("showName") String showName);
 
-    @GET("/showJson/{showName}/next/")
+    @GET("/show/{showName}/next/")
     EpisodeJson getNextEpisode(@Path("showName") String showName);
 
-    @GET("showJson/{showName}/last/")
+    @GET("show/{showName}/last/")
     EpisodeJson getLastEpisode(@Path("showName") String showName);
 
 }
