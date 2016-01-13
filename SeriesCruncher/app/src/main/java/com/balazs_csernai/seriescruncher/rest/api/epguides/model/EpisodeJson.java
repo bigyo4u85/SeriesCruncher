@@ -19,9 +19,9 @@ public class EpisodeJson implements Episode {
     private String title;
 
     @SerializedName("release_date")
-    private Date releaseDate;
+    private String releaseDate;
 
-    @SerializedName("showJson")
+    @SerializedName("show")
     private ShowJson showJson;
 
 
@@ -46,7 +46,7 @@ public class EpisodeJson implements Episode {
     }
 
     @Override
-    public Date getAirDate() {
+    public String getAirDate() {
         return releaseDate;
     }
 }

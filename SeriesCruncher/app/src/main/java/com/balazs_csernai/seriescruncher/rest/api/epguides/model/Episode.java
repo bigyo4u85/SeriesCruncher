@@ -15,5 +15,5 @@ public interface Episode {
 
     Show getShow();
 
-    Date getAirDate();
+    String getAirDate();
 }

@@ -1,9 +1,10 @@
 package com.balazs_csernai.seriescruncher.rest.api.epguides;
 
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.EpisodeJson;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.SeasonJson;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowJson;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShortList;
+
+import java.util.List;
+import java.util.Map;
 
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -19,7 +20,7 @@ public interface EPGuideApi {
     ShowShortList loadShows();
 
     @GET("/show/{showName}/")
-    SeasonJson loadShow(@Path("showName") String showName);
+    Map<Integer, List<EpisodeJson>> loadShow(@Path("showName") String showName);
 
     @GET("/show/{showName}/next/")
     EpisodeJson getNextEpisode(@Path("showName") String showName);

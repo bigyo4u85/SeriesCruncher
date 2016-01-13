@@ -1,15 +1,17 @@
 package com.balazs_csernai.seriescruncher.details.model;
 
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.SeasonJson;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowJson;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.EpisodeJson;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.model.OmdbDetailModel;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
 public interface ShowDetailsModel {
 
-    SeasonJson getShowJson();
+    Map<Integer, List<EpisodeJson>> getSeasonMap();
 
     OmdbDetailModel getOmdbDetails();
 }

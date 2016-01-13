@@ -34,9 +34,9 @@ public class DetailsControllerImpl implements DetailsController, RestService.Cal
 
     @Override
     public void onSuccess(ShowDetailsModel result) {
-        String text = result.getShowJson().get(0).getTitle() + "\n" + result.getOmdbDetails().getPosterUrl();
+        String text = result.getSeasonMap().get(1).get(0).getTitle() + "\n" + result.getOmdbDetails().getPosterUrl();
 
-        screen.show(text);
+        screen.show("loaded \n " + text);
     }
 
     @Override
