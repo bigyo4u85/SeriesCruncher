@@ -24,7 +24,7 @@ public class DetailsControllerImpl implements DetailsController, RestService.Cal
     public void onStart() {
         screen.onCreate();
         restService.bind();
-        restService.loadDetails("bigbangtheory", this);
+        restService.loadDetails("bigbangtheory", "tt0898266", this);
     }
 
     @Override

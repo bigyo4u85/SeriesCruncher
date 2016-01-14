@@ -3,6 +3,8 @@ package com.balazs_csernai.seriescruncher.rest.component;
 import com.balazs_csernai.seriescruncher.rest.RestService;
 import com.balazs_csernai.seriescruncher.rest.RestServiceImpl;
 import com.balazs_csernai.seriescruncher.rest.NetworkingService;
+import com.balazs_csernai.seriescruncher.rest.request.RequestFactory;
+import com.balazs_csernai.seriescruncher.rest.request.RequestFactoryImpl;
 import com.octo.android.robospice.SpiceManager;
 
 import dagger.Module;
@@ -21,6 +23,11 @@ public class RestModule {
 
     @Provides
     RestService provideEPGuideService(RestServiceImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    RequestFactory provideRequestFactory(RequestFactoryImpl impl) {
         return impl;
     }
 }

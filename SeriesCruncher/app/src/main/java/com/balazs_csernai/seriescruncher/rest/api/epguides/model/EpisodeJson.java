@@ -2,8 +2,6 @@ package com.balazs_csernai.seriescruncher.rest.api.epguides.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 /**
  * Created by ErikKramli on 2016.01.10..
  */

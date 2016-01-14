@@ -19,5 +19,5 @@ public interface RestService {
 
     void loadShows(Callback<ShowShortList> callback);
 
-    void loadDetails(String showName, Callback<ShowDetailsModel> callback);
+    void loadDetails(String showName, String imdbId, Callback<ShowDetailsModel> callback);
 }
