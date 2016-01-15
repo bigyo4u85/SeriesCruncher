@@ -28,7 +28,7 @@
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".rest.NetworkingService"
+            android:name=".rest.loader.NetworkingService"
             android:exported="false" />
 
     </application>

@@ -3,6 +3,8 @@ package com.balazs_csernai.seriescruncher.rest.request;
 import com.balazs_csernai.seriescruncher.details.request.ShowDetailsRequest;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
+import com.octo.android.robospice.request.CachedSpiceRequest;
+import com.octo.android.robospice.request.SpiceRequest;
 
 import javax.inject.Inject;
 
@@ -28,5 +30,10 @@ public class RequestFactoryImpl implements RequestFactory {
     @Override
     public ShowDetailsRequest createShowDetailsRequest(String showName, String imdbId) {
         return new ShowDetailsRequest(showName, imdbId, epGuideApi, omdbApi);
+    }
+
+    @Override
+    public <JSON> CachedSpiceRequest<JSON> createCachedRequest(SpiceRequest<JSON> request, String cacheKey, long cacheDuration) {
+        return new CachedSpiceRequest<>(request, cacheKey, cacheDuration);
     }
 }

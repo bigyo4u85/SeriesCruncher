@@ -2,7 +2,7 @@ package com.balazs_csernai.seriescruncher.rest.component;
 
 import com.balazs_csernai.seriescruncher.app.component.ActivityScope;
 import com.balazs_csernai.seriescruncher.app.component.ApplicationComponent;
-import com.balazs_csernai.seriescruncher.rest.NetworkingService;
+import com.balazs_csernai.seriescruncher.rest.loader.NetworkingService;
 
 import dagger.Component;
 

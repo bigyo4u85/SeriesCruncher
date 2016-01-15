@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.details.ShowDetailsActivity;
-import com.balazs_csernai.seriescruncher.rest.RestService;
+import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShortList;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShort;
 
@@ -23,13 +23,13 @@ import butterknife.OnClick;
 
 import static com.balazs_csernai.seriescruncher.serieslist.component.SeriesListComponent.Injector.inject;
 
-public class SeriesListActivity extends AppCompatActivity implements RestService.Callback<ShowShortList> {
+public class SeriesListActivity extends AppCompatActivity implements SeriesLoader.Callback<ShowShortList> {
 
     @InjectView(R.id.contentTemp)
     TextView contentTemp;
 
     @Inject
-    RestService restService;
+    SeriesLoader seriesLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +42,13 @@ public class SeriesListActivity extends AppCompatActivity implements RestService
     @Override
     protected void onStart() {
         super.onStart();
-        restService.bind();
-        restService.loadShows(this);
+        seriesLoader.bind();
+        seriesLoader.loadShows(this);
     }
 
     @Override
     protected void onStop() {
-        restService.unbind();
+        seriesLoader.unbind();
         super.onStop();
     }
 

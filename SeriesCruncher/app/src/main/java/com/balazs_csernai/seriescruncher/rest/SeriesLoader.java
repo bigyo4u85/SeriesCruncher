@@ -2,20 +2,12 @@ package com.balazs_csernai.seriescruncher.rest;
 
 import com.balazs_csernai.seriescruncher.details.model.ShowDetailsModel;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShortList;
+import com.balazs_csernai.seriescruncher.rest.loader.Loader;
 
 /**
  * Created by Balazs_Csernai on 2016.01.08..
  */
-public interface RestService {
-
-    interface Callback<T> {
-        void onSuccess(T result);
-        void onFailure();
-    }
-
-    void bind();
-
-    void unbind();
+public interface SeriesLoader extends Loader {
 
     void loadShows(Callback<ShowShortList> callback);
 

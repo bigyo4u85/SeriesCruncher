@@ -2,34 +2,34 @@ package com.balazs_csernai.seriescruncher.details.controller;
 
 import com.balazs_csernai.seriescruncher.details.model.ShowDetailsModel;
 import com.balazs_csernai.seriescruncher.details.ui.DetailsScreen;
-import com.balazs_csernai.seriescruncher.rest.RestService;
+import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 
 import javax.inject.Inject;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
-public class DetailsControllerImpl implements DetailsController, RestService.Callback<ShowDetailsModel> {
+public class DetailsControllerImpl implements DetailsController, SeriesLoader.Callback<ShowDetailsModel> {
 
-    private final RestService restService;
+    private final SeriesLoader seriesLoader;
     private final DetailsScreen screen;
 
     @Inject
-    public DetailsControllerImpl(RestService restService, DetailsScreen screen) {
-        this.restService = restService;
+    public DetailsControllerImpl(SeriesLoader seriesLoader, DetailsScreen screen) {
+        this.seriesLoader = seriesLoader;
         this.screen = screen;
     }
 
     @Override
     public void onStart() {
         screen.onCreate();
-        restService.bind();
-        restService.loadDetails("bigbangtheory", "tt0898266", this);
+        seriesLoader.bind();
+        seriesLoader.loadDetails("bigbangtheory", "tt0898266", this);
     }
 
     @Override
     public void onStop() {
-        restService.unbind();
+        seriesLoader.unbind();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.rest;
+package com.balazs_csernai.seriescruncher.rest.loader;
 
 import android.app.Application;
 
