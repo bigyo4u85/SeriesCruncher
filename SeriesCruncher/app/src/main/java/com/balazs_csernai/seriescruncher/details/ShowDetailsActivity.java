@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.details.component.DetailsComponent;
 import com.balazs_csernai.seriescruncher.details.controller.DetailsController;
-import com.balazs_csernai.seriescruncher.utils.IntentUtils;
+import com.balazs_csernai.seriescruncher.utils.common.IntentUtils;
 
 import javax.inject.Inject;
 

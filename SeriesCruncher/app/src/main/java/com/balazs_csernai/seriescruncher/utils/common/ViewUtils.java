@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.utils;
+package com.balazs_csernai.seriescruncher.utils.common;
 
 import android.view.View;
 
