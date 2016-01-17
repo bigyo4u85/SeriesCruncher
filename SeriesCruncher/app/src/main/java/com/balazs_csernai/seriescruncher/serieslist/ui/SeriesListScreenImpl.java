@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.details.ShowDetailsActivity;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesModel;
 
 import javax.inject.Inject;
@@ -19,13 +20,14 @@ import butterknife.OnClick;
 /**
  * Created by ErikKramli on 2016.01.17..
  */
-public class SeriesListScreenImpl implements SeriesListScreen {
+public class SeriesListScreenImpl implements SeriesListScreen, SeriesAdapter.OnShowListener {
 
     @InjectView(R.id.series_recyclerview)
     RecyclerView seriesRecyclerView;
 
     private final Activity activity;
     private final SeriesAdapter adapter;
+    private Callbacks callbacks;
 
     @Inject
     public SeriesListScreenImpl(Activity activity, Provider<SeriesAdapter> adapterProvider) {
@@ -34,7 +36,8 @@ public class SeriesListScreenImpl implements SeriesListScreen {
     }
 
     @Override
-    public void onCrate() {
+    public void onCrate(Callbacks callbacks) {
+        this.callbacks = callbacks;
         ButterKnife.inject(this, activity);
         seriesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
         seriesRecyclerView.setAdapter(adapter);
@@ -42,11 +45,20 @@ public class SeriesListScreenImpl implements SeriesListScreen {
 
     @Override
     public void displaySeries(SeriesModel model) {
+        adapter.setOnShowListener(this);
         adapter.setItems(model.getSeries());
     }
 
     @OnClick(R.id.to_details_btn)
     void onToDetailsButtonClicked() {
         activity.startActivity(new Intent(activity, ShowDetailsActivity.class));
+    }
+
+    @Override
+    public void onShowTapped(Show show) {
+        callbacks.onShowTapped(show);
+
+        //todo: remove
+        activity.startActivity(ShowDetailsActivity.createLaunchIntent(activity, show.getEpGuideName(), show.getImdbId()));
     }
 }
