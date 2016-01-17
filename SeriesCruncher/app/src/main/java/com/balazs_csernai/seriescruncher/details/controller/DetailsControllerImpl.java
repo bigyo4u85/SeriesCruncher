@@ -24,7 +24,11 @@ public class DetailsControllerImpl implements DetailsController, SeriesLoader.Ca
     public void onStart() {
         screen.onCreate();
         seriesLoader.bind();
-        seriesLoader.loadDetails("bigbangtheory", "tt0898266", this);
+    }
+
+    @Override
+    public void loadShowDetails(String showName, String imdbId) {
+        seriesLoader.loadDetails(showName, imdbId, this);
     }
 
     @Override
