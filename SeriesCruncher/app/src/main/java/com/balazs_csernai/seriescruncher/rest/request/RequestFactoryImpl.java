@@ -24,7 +24,7 @@ public class RequestFactoryImpl implements RequestFactory {
     }
 
     @Override
-    public SeriesRequest createAllShowRequest() {
+    public SeriesRequest createSeriesRequest() {
         return new SeriesRequest(epGuideApi, omdbApi);
     }
 

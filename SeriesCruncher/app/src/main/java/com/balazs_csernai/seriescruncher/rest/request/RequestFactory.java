@@ -10,7 +10,7 @@ import com.octo.android.robospice.request.SpiceRequest;
  */
 public interface RequestFactory {
 
-    SeriesRequest createAllShowRequest();
+    SeriesRequest createSeriesRequest();
 
     ShowDetailsRequest createShowDetailsRequest(String showName, String imdbId);
 
