@@ -9,6 +9,7 @@ import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesModel;
 import com.balazs_csernai.seriescruncher.utils.common.ViewUtils;
+import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -42,6 +43,7 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesAdapter.OnS
         this.callbacks = callbacks;
         ButterKnife.inject(this, activity);
         seriesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        seriesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources()));
         seriesRecyclerView.setAdapter(adapter);
     }
 
