@@ -1,7 +1,7 @@
 package com.balazs_csernai.seriescruncher.rest.api.epguides;
 
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.EpisodeJson;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowShortList;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.ShowJson;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ public interface EPGuideApi {
     String ENDPOINT_URL = "https://epguides.frecar.no";
 
     @GET("/show/")
-    ShowShortList loadShows();
+    List<ShowJson> loadSeries();
 
     @GET("/show/{showName}/")
     Map<Integer, List<EpisodeJson>> loadShow(@Path("showName") String showName);

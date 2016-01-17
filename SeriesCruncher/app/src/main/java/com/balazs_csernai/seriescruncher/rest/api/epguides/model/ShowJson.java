@@ -16,6 +16,21 @@ public class ShowJson implements Show {
     @SerializedName("epguide_name")
     private String epGuideName;
 
+    @SerializedName("epguides_url")
+    private String epGuidesURL;
+
+    @SerializedName("episodes")
+    private String episodesURL;
+
+    @SerializedName("first_episode")
+    private String firstEpisodeURL;
+
+    @SerializedName("next_episode")
+    private String nextEpisodeURL;
+
+    @SerializedName("last_episode")
+    private String lastEpisodeURL;
+
     @Override
     public String getImdbId() {
         return imdbId;
