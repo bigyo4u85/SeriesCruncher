@@ -10,7 +10,9 @@ public interface SeriesListScreen {
 
     void onCrate(Callbacks callbacks);
 
-    void displaySeries(SeriesModel model);
+    void displayLoadingView();
+
+    void displaySeriesList(SeriesModel model);
 
     interface Callbacks {
 

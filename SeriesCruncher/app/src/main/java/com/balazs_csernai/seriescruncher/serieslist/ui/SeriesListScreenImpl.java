@@ -1,26 +1,29 @@
 package com.balazs_csernai.seriescruncher.serieslist.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ProgressBar;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.details.ShowDetailsActivity;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesModel;
+import com.balazs_csernai.seriescruncher.utils.ViewUtils;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 
 /**
  * Created by ErikKramli on 2016.01.17..
  */
 public class SeriesListScreenImpl implements SeriesListScreen, SeriesAdapter.OnShowListener {
+
+    @InjectView(R.id.series_progress)
+    ProgressBar progressBar;
 
     @InjectView(R.id.series_recyclerview)
     RecyclerView seriesRecyclerView;
@@ -44,14 +47,18 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesAdapter.OnS
     }
 
     @Override
-    public void displaySeries(SeriesModel model) {
-        adapter.setOnShowListener(this);
-        adapter.setItems(model.getSeries());
+    public void displayLoadingView() {
+        ViewUtils.gone(seriesRecyclerView);
+        ViewUtils.visible(progressBar);
     }
 
-    @OnClick(R.id.to_details_btn)
-    void onToDetailsButtonClicked() {
-        activity.startActivity(new Intent(activity, ShowDetailsActivity.class));
+    @Override
+    public void displaySeriesList(SeriesModel model) {
+        ViewUtils.gone(progressBar);
+        ViewUtils.visible(seriesRecyclerView);
+
+        adapter.setOnShowListener(this);
+        adapter.setItems(model.getSeries());
     }
 
     @Override

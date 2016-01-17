@@ -26,6 +26,8 @@ public class SeriesListControllerImpl implements SeriesListController, Loader.Ca
     public void onStart() {
         screen.onCrate(this);
         loader.bind();
+
+        screen.displayLoadingView();
         loader.loadSeries(this);
     }
 
@@ -36,7 +38,7 @@ public class SeriesListControllerImpl implements SeriesListController, Loader.Ca
 
     @Override
     public void onSuccess(SeriesModel series) {
-        screen.displaySeries(series);
+        screen.displaySeriesList(series);
     }
 
     @Override
