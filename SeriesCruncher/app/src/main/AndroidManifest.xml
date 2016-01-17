@@ -3,6 +3,7 @@
     package="com.balazs_csernai.seriescruncher">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".app.SeriesCruncherApplication"
@@ -11,13 +12,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".serieslist.SeriesListActivity">
+
+        <activity
+            android:name=".serieslist.SeriesListActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".details.ShowDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".rest.loader.NetworkingService"
+            android:exported="false" />
+
+    </application>
 </manifest>

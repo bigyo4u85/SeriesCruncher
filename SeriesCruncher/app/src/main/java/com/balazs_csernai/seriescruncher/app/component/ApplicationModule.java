@@ -13,11 +13,11 @@ import dagger.Provides;
  * Created by Balazs_Csernai on 2016.01.08..
  */
 @Module
-public class SeriesCruncherApplicationModule {
+public class ApplicationModule {
 
     private final Application application;
 
-    public SeriesCruncherApplicationModule(Application application) {
+    public ApplicationModule(Application application) {
         this.application = application;
     }
 

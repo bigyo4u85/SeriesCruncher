@@ -1,25 +1,40 @@
 package com.balazs_csernai.seriescruncher.rest.component;
 
-import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideApi;
-import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideService;
-import com.balazs_csernai.seriescruncher.rest.epguides.EPGuideServiceImpl;
+import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
+import com.balazs_csernai.seriescruncher.rest.SeriesLoaderImpl;
+import com.balazs_csernai.seriescruncher.rest.loader.NetworkingService;
+import com.balazs_csernai.seriescruncher.rest.loader.RequestLoader;
+import com.balazs_csernai.seriescruncher.rest.loader.RequestLoaderImpl;
+import com.balazs_csernai.seriescruncher.rest.request.RequestFactory;
+import com.balazs_csernai.seriescruncher.rest.request.RequestFactoryImpl;
+import com.octo.android.robospice.SpiceManager;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit.RestAdapter;
 
 /**
  * Created by Balazs_Csernai on 2016.01.08..
  */
 @Module
 public class RestModule {
+
     @Provides
-    EPGuideApi provideEPGuideApi() {
-        return new RestAdapter.Builder().setEndpoint("https://epguides.frecar.no").build().create(EPGuideApi.class);
+    SpiceManager provideSpiceManager() {
+        return new SpiceManager(NetworkingService.class);
     }
 
     @Provides
-    EPGuideService provideEPGuideService(EPGuideApi api) {
-        return new EPGuideServiceImpl(api);
+    RequestLoader provideRequestLoader(RequestLoaderImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    SeriesLoader provideSeriesLoader(SeriesLoaderImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    RequestFactory provideRequestFactory(RequestFactoryImpl impl) {
+        return impl;
     }
 }

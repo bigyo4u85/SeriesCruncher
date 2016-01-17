@@ -1,34 +1,38 @@
-package com.balazs_csernai.seriescruncher.serieslist.component;
+package com.balazs_csernai.seriescruncher.details.component;
 
 import com.balazs_csernai.seriescruncher.app.component.ActivityScope;
 import com.balazs_csernai.seriescruncher.app.component.ApplicationComponent;
 import com.balazs_csernai.seriescruncher.app.component.CommonActivityModule;
+import com.balazs_csernai.seriescruncher.details.ShowDetailsActivity;
 import com.balazs_csernai.seriescruncher.rest.component.RestModule;
-import com.balazs_csernai.seriescruncher.serieslist.SeriesListActivity;
 
 import dagger.Component;
 
 /**
- * Created by Balazs_Csernai on 2016.01.08..
+ * Created by ErikKramli on 2016.01.10..
  */
 @ActivityScope
 @Component(
         dependencies = ApplicationComponent.class,
         modules = {
                 CommonActivityModule.class,
-                RestModule.class
+                RestModule.class,
+                DetailsModule.class
         }
 )
-public interface SeriesListComponent {
-
-    void inject(SeriesListActivity activity);
+public interface DetailsComponent {
+    void inject(ShowDetailsActivity activity);
 
     final class Injector {
-        public static void inject(SeriesListActivity activity) {
-            DaggerSeriesListComponent.builder()
+
+        private Injector() {}
+
+        public static void inject(ShowDetailsActivity activity) {
+            DaggerDetailsComponent.builder()
                     .applicationComponent(ApplicationComponent.Injector.component())
                     .commonActivityModule(new CommonActivityModule(activity))
                     .restModule(new RestModule())
+                    .detailsModule(new DetailsModule())
                     .build()
                     .inject(activity);
         }
