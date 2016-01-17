@@ -16,7 +16,8 @@ import dagger.Component;
         dependencies = ApplicationComponent.class,
         modules = {
                 CommonActivityModule.class,
-                RestModule.class
+                RestModule.class,
+                SeriesListModule.class
         }
 )
 public interface SeriesListComponent {
@@ -29,6 +30,7 @@ public interface SeriesListComponent {
                     .applicationComponent(ApplicationComponent.Injector.component())
                     .commonActivityModule(new CommonActivityModule(activity))
                     .restModule(new RestModule())
+                    .seriesListModule(new SeriesListModule())
                     .build()
                     .inject(activity);
         }
