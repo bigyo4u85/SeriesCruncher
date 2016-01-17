@@ -6,6 +6,7 @@ import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.rest.request.NetworkRequest;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesEntity;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,6 +21,9 @@ public class SeriesRequest extends NetworkRequest<SeriesEntity> {
     @Override
     public SeriesEntity loadDataFromNetwork() throws Exception {
         List<ShowJson> series = getEpGuideService().loadSeries();
+
+        Collections.sort(series);
+
         return new SeriesEntity(series);
     }
 }
