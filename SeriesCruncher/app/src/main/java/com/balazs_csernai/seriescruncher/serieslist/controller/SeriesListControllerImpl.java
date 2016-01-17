@@ -5,6 +5,7 @@ import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesModel;
 import com.balazs_csernai.seriescruncher.serieslist.ui.SeriesListScreen;
+import com.balazs_csernai.seriescruncher.utils.navigator.Navigator;
 
 import javax.inject.Inject;
 
@@ -15,11 +16,13 @@ public class SeriesListControllerImpl implements SeriesListController, Loader.Ca
 
     private final SeriesLoader loader;
     private final SeriesListScreen screen;
+    private final Navigator navigator;
 
     @Inject
-    public SeriesListControllerImpl(SeriesLoader loader, SeriesListScreen screen) {
+    public SeriesListControllerImpl(SeriesLoader loader, SeriesListScreen screen, Navigator navigator) {
         this.loader = loader;
         this.screen = screen;
+        this.navigator = navigator;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class SeriesListControllerImpl implements SeriesListController, Loader.Ca
         screen.onCrate(this);
         loader.bind();
 
-        screen.displayLoadingView();
+        screen.displayProgressIndicator();
         loader.loadSeries(this);
     }
 
@@ -47,5 +50,6 @@ public class SeriesListControllerImpl implements SeriesListController, Loader.Ca
 
     @Override
     public void onShowTapped(Show show) {
+        navigator.launchShowDetails(show.getEpGuideName(), show.getImdbId());
     }
 }

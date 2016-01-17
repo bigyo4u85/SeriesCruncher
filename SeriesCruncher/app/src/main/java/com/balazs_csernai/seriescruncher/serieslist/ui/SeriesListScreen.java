@@ -10,7 +10,7 @@ public interface SeriesListScreen {
 
     void onCrate(Callbacks callbacks);
 
-    void displayLoadingView();
+    void displayProgressIndicator();
 
     void displaySeriesList(SeriesModel model);
 
