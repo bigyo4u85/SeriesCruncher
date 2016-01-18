@@ -26,7 +26,7 @@ public class SeriesDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_series_details);
         SeriesDetailsComponent.Injector.inject(this);
     }
 

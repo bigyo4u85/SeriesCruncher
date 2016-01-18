@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.details.component;
 
+import com.balazs_csernai.seriescruncher.details.model.SeasonItemsModelBuilder;
+import com.balazs_csernai.seriescruncher.details.model.SeasonItemsModelBuilderImpl;
 import com.balazs_csernai.seriescruncher.details.presenter.SeriesDetailsPresenter;
 import com.balazs_csernai.seriescruncher.details.presenter.SeriesDetailsPresenterImpl;
 import com.balazs_csernai.seriescruncher.details.ui.SeriesDetailsScreen;
@@ -21,6 +23,11 @@ public class SeriesDetailsModule {
 
     @Provides
     SeriesDetailsScreen provideScreen(SeriesDetailsScreenImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    SeasonItemsModelBuilder provideModelBuilder(SeasonItemsModelBuilderImpl impl) {
         return impl;
     }
 }
