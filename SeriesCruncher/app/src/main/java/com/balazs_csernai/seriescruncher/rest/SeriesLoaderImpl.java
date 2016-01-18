@@ -1,10 +1,10 @@
 package com.balazs_csernai.seriescruncher.rest;
 
-import com.balazs_csernai.seriescruncher.details.model.ShowDetailsModel;
-import com.balazs_csernai.seriescruncher.details.request.ShowDetailsRequest;
+import com.balazs_csernai.seriescruncher.details.model.SeriesDetailsModel;
+import com.balazs_csernai.seriescruncher.details.request.SeriesDetailsRequest;
 import com.balazs_csernai.seriescruncher.rest.loader.RequestLoader;
 import com.balazs_csernai.seriescruncher.rest.request.RequestFactory;
-import com.balazs_csernai.seriescruncher.serieslist.model.SeriesModel;
+import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 import javax.inject.Inject;
@@ -34,7 +34,7 @@ public class SeriesLoaderImpl implements SeriesLoader {
     }
 
     @Override
-    public void loadSeries(Callback<SeriesModel> callback) {
+    public void loadSeries(Callback<SeriesListModel> callback) {
         loader.perform(
                 requestFactory.createSeriesRequest(),
                 callback
@@ -42,8 +42,8 @@ public class SeriesLoaderImpl implements SeriesLoader {
     }
 
     @Override
-    public void loadDetails(String showName, String imdbId, final Callback<ShowDetailsModel> callback) {
-        ShowDetailsRequest request = requestFactory.createShowDetailsRequest(showName, imdbId);
+    public void loadDetails(String showName, String imdbId, final Callback<SeriesDetailsModel> callback) {
+        SeriesDetailsRequest request = requestFactory.createSeriesDetailsRequest(showName, imdbId);
         loader.perform(
                 requestFactory.createCachedRequest(request, showName, DurationInMillis.ONE_HOUR),
                 callback

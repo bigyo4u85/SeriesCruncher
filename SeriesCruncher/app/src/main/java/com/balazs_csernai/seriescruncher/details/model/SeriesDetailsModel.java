@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
-public interface ShowDetailsModel {
+public interface SeriesDetailsModel {
 
     Map<Integer, List<Episode>> getSeasonMap();
 

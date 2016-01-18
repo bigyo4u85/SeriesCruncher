@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
-import com.balazs_csernai.seriescruncher.serieslist.model.SeriesModel;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Series;
+import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
 import com.balazs_csernai.seriescruncher.utils.common.ViewUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 
@@ -20,7 +20,7 @@ import butterknife.InjectView;
 /**
  * Created by ErikKramli on 2016.01.17..
  */
-public class SeriesListScreenImpl implements SeriesListScreen, SeriesAdapter.OnShowListener {
+public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter.OnShowListener {
 
     @InjectView(R.id.series_progress)
     ProgressBar progressBar;
@@ -29,17 +29,17 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesAdapter.OnS
     RecyclerView seriesRecyclerView;
 
     private final Activity activity;
-    private final SeriesAdapter adapter;
+    private final SeriesListAdapter adapter;
     private Callbacks callbacks;
 
     @Inject
-    public SeriesListScreenImpl(Activity activity, Provider<SeriesAdapter> adapterProvider) {
+    public SeriesListScreenImpl(Activity activity, Provider<SeriesListAdapter> adapterProvider) {
         this.activity = activity;
         this.adapter = adapterProvider.get();
     }
 
     @Override
-    public void onCrate(Callbacks callbacks) {
+    public void onCreate(Callbacks callbacks) {
         this.callbacks = callbacks;
         ButterKnife.inject(this, activity);
         seriesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -54,16 +54,16 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesAdapter.OnS
     }
 
     @Override
-    public void displaySeriesList(SeriesModel model) {
+    public void displaySeriesList(SeriesListModel model) {
         ViewUtils.gone(progressBar);
         ViewUtils.visible(seriesRecyclerView);
 
         adapter.setOnShowListener(this);
-        adapter.setItems(model.getSeries());
+        adapter.setItems(model.getSeriesList());
     }
 
     @Override
-    public void onShowTapped(Show show) {
-        callbacks.onShowTapped(show);
+    public void onSeriesSelected(Series series) {
+        callbacks.onSeriesSelected(series);
     }
 }

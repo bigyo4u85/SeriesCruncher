@@ -11,7 +11,7 @@ public interface Episode {
 
     String getTitle();
 
-    Show getShow();
+    Series getShow();
 
     String getAirDate();
 }

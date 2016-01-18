@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by ErikKramli on 2016.01.11..
  */
-public class ShowDetailsEntity implements ShowDetailsModel {
+public class SeriesDetailsEntity implements SeriesDetailsModel {
 
     @Expose
     private Map<Integer, List<EpisodeJson>> seasonMapJson;
@@ -22,7 +22,7 @@ public class ShowDetailsEntity implements ShowDetailsModel {
     @Expose
     private OmdbDetailJson omdbDetailJson;
 
-    public ShowDetailsEntity(Map<Integer, List<EpisodeJson>> seasonMapJson, OmdbDetailJson omdbDetailJson) {
+    public SeriesDetailsEntity(Map<Integer, List<EpisodeJson>> seasonMapJson, OmdbDetailJson omdbDetailJson) {
         this.seasonMapJson = seasonMapJson;
         this.omdbDetailJson = omdbDetailJson;
     }

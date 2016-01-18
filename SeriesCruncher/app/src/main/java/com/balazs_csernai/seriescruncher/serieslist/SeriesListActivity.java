@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.serieslist.controller.SeriesListController;
+import com.balazs_csernai.seriescruncher.serieslist.presenter.SeriesListPresenter;
 
 import javax.inject.Inject;
 
@@ -13,7 +13,7 @@ import static com.balazs_csernai.seriescruncher.serieslist.component.SeriesListC
 public class SeriesListActivity extends AppCompatActivity {
 
     @Inject
-    SeriesListController controller;
+    SeriesListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +25,12 @@ public class SeriesListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        controller.onStart();
+        presenter.onStart();
     }
 
     @Override
     protected void onStop() {
-        controller.onStop();
+        presenter.onStop();
         super.onStop();
     }
 }

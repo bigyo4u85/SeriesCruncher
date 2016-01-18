@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.rest.request;
 
-import com.balazs_csernai.seriescruncher.details.request.ShowDetailsRequest;
+import com.balazs_csernai.seriescruncher.details.request.SeriesDetailsRequest;
 import com.balazs_csernai.seriescruncher.serieslist.request.SeriesRequest;
 import com.octo.android.robospice.request.CachedSpiceRequest;
 import com.octo.android.robospice.request.SpiceRequest;
@@ -12,7 +12,7 @@ public interface RequestFactory {
 
     SeriesRequest createSeriesRequest();
 
-    ShowDetailsRequest createShowDetailsRequest(String showName, String imdbId);
+    SeriesDetailsRequest createSeriesDetailsRequest(String showName, String imdbId);
 
     <JSON> CachedSpiceRequest<JSON> createCachedRequest(SpiceRequest<JSON> request, String cacheKey, long cacheDuration );
 }

@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.rest.request;
 
-import com.balazs_csernai.seriescruncher.details.request.ShowDetailsRequest;
+import com.balazs_csernai.seriescruncher.details.request.SeriesDetailsRequest;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.serieslist.request.SeriesRequest;
@@ -29,8 +29,8 @@ public class RequestFactoryImpl implements RequestFactory {
     }
 
     @Override
-    public ShowDetailsRequest createShowDetailsRequest(String showName, String imdbId) {
-        return new ShowDetailsRequest(showName, imdbId, epGuideApi, omdbApi);
+    public SeriesDetailsRequest createSeriesDetailsRequest(String seriesName, String imdbId) {
+        return new SeriesDetailsRequest(seriesName, imdbId, epGuideApi, omdbApi);
     }
 
     @Override

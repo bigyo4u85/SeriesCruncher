@@ -1,7 +1,7 @@
-package com.balazs_csernai.seriescruncher.details.controller;
+package com.balazs_csernai.seriescruncher.details.presenter;
 
-import com.balazs_csernai.seriescruncher.details.model.ShowDetailsModel;
-import com.balazs_csernai.seriescruncher.details.ui.DetailsScreen;
+import com.balazs_csernai.seriescruncher.details.model.SeriesDetailsModel;
+import com.balazs_csernai.seriescruncher.details.ui.SeriesDetailsScreen;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 
 import javax.inject.Inject;
@@ -9,13 +9,13 @@ import javax.inject.Inject;
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
-public class DetailsControllerImpl implements DetailsController, SeriesLoader.Callback<ShowDetailsModel> {
+public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, SeriesLoader.Callback<SeriesDetailsModel> {
 
     private final SeriesLoader seriesLoader;
-    private final DetailsScreen screen;
+    private final SeriesDetailsScreen screen;
 
     @Inject
-    public DetailsControllerImpl(SeriesLoader seriesLoader, DetailsScreen screen) {
+    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsScreen screen) {
         this.seriesLoader = seriesLoader;
         this.screen = screen;
     }
@@ -37,7 +37,7 @@ public class DetailsControllerImpl implements DetailsController, SeriesLoader.Ca
     }
 
     @Override
-    public void onSuccess(ShowDetailsModel result) {
+    public void onSuccess(SeriesDetailsModel result) {
         String text = result.getSeasonMap().get(1).get(0).getTitle() + "\n" + result.getOmdbDetails().getPosterUrl();
 
         screen.show("loaded \n " + text);

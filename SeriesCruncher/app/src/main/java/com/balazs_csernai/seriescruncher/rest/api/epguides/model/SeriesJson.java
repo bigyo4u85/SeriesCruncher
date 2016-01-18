@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Balazs_Csernai on 2016.01.08..
  */
-public class ShowJson implements Show, Comparable<ShowJson> {
+public class SeriesJson implements Series, Comparable<SeriesJson> {
 
     @SerializedName("imdb_id")
     private String imdbId;
@@ -53,7 +53,7 @@ public class ShowJson implements Show, Comparable<ShowJson> {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
 
-        ShowJson otherShowJson = (ShowJson) other;
+        SeriesJson otherShowJson = (SeriesJson) other;
 
         return imdbId.equals(otherShowJson.imdbId);
     }
@@ -69,7 +69,7 @@ public class ShowJson implements Show, Comparable<ShowJson> {
     }
 
     @Override
-    public int compareTo(@NonNull ShowJson another) {
+    public int compareTo(@NonNull SeriesJson another) {
         return title.compareTo(another.title);
     }
 }

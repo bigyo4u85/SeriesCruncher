@@ -1,9 +1,9 @@
-package com.balazs_csernai.seriescruncher.details.controller;
+package com.balazs_csernai.seriescruncher.details.presenter;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
-public interface DetailsController {
+public interface SeriesDetailsPresenter {
 
     void onStart();
 

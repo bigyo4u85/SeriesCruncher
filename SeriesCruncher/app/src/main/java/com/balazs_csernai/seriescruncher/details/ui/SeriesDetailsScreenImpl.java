@@ -13,7 +13,7 @@ import butterknife.InjectView;
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
-public class DetailsScreenImpl implements DetailsScreen {
+public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
 
     @InjectView(R.id.title)
     TextView title;
@@ -21,7 +21,7 @@ public class DetailsScreenImpl implements DetailsScreen {
     private final Activity activity;
 
     @Inject
-    public DetailsScreenImpl(Activity activity) {
+    public SeriesDetailsScreenImpl(Activity activity) {
         this.activity = activity;
     }
 

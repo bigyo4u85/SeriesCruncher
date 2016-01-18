@@ -10,7 +10,7 @@ import dagger.Provides;
 public class NavigatorModule {
 
     @Provides
-    Navigator provideNavigator(ActivityNavigator impl) {
+    SeriesListNavigator provideNavigator(SeriesListNavigatorImpl impl) {
         return impl;
     }
 }

@@ -1,7 +1,7 @@
 package com.balazs_csernai.seriescruncher.serieslist.component;
 
-import com.balazs_csernai.seriescruncher.serieslist.controller.SeriesListController;
-import com.balazs_csernai.seriescruncher.serieslist.controller.SeriesListControllerImpl;
+import com.balazs_csernai.seriescruncher.serieslist.presenter.SeriesListPresenter;
+import com.balazs_csernai.seriescruncher.serieslist.presenter.SeriesListPresenterImpl;
 import com.balazs_csernai.seriescruncher.serieslist.ui.SeriesListScreen;
 import com.balazs_csernai.seriescruncher.serieslist.ui.SeriesListScreenImpl;
 
@@ -20,7 +20,7 @@ public class SeriesListModule {
     }
 
     @Provides
-    SeriesListController provideController(SeriesListControllerImpl impl) {
+    SeriesListPresenter providePresenter(SeriesListPresenterImpl impl) {
         return impl;
     }
 }

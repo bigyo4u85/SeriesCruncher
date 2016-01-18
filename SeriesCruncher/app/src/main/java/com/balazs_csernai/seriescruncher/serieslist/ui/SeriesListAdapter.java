@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Show;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Series;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,22 +20,22 @@ import butterknife.InjectView;
 /**
  * Created by ErikKramli on 2016.01.17..
  */
-public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesViewHolder> {
+public class SeriesListAdapter extends RecyclerView.Adapter<SeriesListAdapter.SeriesViewHolder> {
 
     public interface OnShowListener {
-        void onShowTapped(Show show);
+        void onSeriesSelected(Series series);
     }
 
-    private List<Show> series;
+    private List<Series> seriesList;
     private OnShowListener listener;
 
     @Inject
-    public SeriesAdapter() {
-        series = Collections.emptyList();
+    public SeriesListAdapter() {
+        seriesList = Collections.emptyList();
     }
 
-    public void setItems(List<Show> series) {
-        this.series = series;
+    public void setItems(List<Series> seriesList) {
+        this.seriesList = seriesList;
         notifyDataSetChanged();
     }
 
@@ -45,7 +45,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesView
 
     @Override
     public int getItemCount() {
-        return series.size();
+        return seriesList.size();
     }
 
     @Override
@@ -56,18 +56,18 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.SeriesView
 
     @Override
     public void onBindViewHolder(SeriesViewHolder holder, int position) {
-        Show show = series.get(position);
-        bind(holder, show);
+        Series series = seriesList.get(position);
+        bind(holder, series);
     }
 
-    private void bind(SeriesViewHolder holder, final Show show) {
-        holder.title.setText(show.getTitle());
+    private void bind(SeriesViewHolder holder, final Series series) {
+        holder.title.setText(series.getTitle());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onShowTapped(show);
+                    listener.onSeriesSelected(series);
                 }
             }
         });
