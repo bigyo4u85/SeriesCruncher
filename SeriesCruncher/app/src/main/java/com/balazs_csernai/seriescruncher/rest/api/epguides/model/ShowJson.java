@@ -1,11 +1,13 @@
 package com.balazs_csernai.seriescruncher.rest.api.epguides.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Balazs_Csernai on 2016.01.08..
  */
-public class ShowJson implements Show {
+public class ShowJson implements Show, Comparable<ShowJson> {
 
     @SerializedName("imdb_id")
     private String imdbId;
@@ -15,6 +17,21 @@ public class ShowJson implements Show {
 
     @SerializedName("epguide_name")
     private String epGuideName;
+
+    @SerializedName("epguides_url")
+    private String epGuidesURL;
+
+    @SerializedName("episodes")
+    private String episodesURL;
+
+    @SerializedName("first_episode")
+    private String firstEpisodeURL;
+
+    @SerializedName("next_episode")
+    private String nextEpisodeURL;
+
+    @SerializedName("last_episode")
+    private String lastEpisodeURL;
 
     @Override
     public String getImdbId() {
@@ -29,5 +46,30 @@ public class ShowJson implements Show {
     @Override
     public String getEpGuideName() {
         return epGuideName;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+
+        ShowJson otherShowJson = (ShowJson) other;
+
+        return imdbId.equals(otherShowJson.imdbId);
+    }
+
+    @Override
+    public int hashCode() {
+        return imdbId.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return title;
+    }
+
+    @Override
+    public int compareTo(@NonNull ShowJson another) {
+        return title.compareTo(another.title);
     }
 }

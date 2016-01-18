@@ -7,5 +7,7 @@ public interface DetailsController {
 
     void onStart();
 
+    void loadShowDetails(String showName, String imdbId);
+
     void onStop();
 }

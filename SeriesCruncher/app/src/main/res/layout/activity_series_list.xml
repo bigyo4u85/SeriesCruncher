@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical"
-    android:padding="@dimen/spacing_simple"
     tools:context=".serieslist.SeriesListActivity">
 
-    <Button
-        android:id="@+id/to_details_btn"
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/series_progress"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To details" />
+        android:layout_centerInParent="true"
+        android:indeterminate="true" />
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/series_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
-        <TextView
-            android:id="@+id/contentTemp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-
-</LinearLayout>
+</RelativeLayout>
