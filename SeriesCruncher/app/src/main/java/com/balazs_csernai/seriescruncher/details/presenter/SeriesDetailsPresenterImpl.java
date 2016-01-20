@@ -38,9 +38,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
 
     @Override
     public void onSuccess(SeriesDetailsModel result) {
-        String text = result.getSeasonMap().get(1).get(0).getTitle() + "\n" + result.getOmdbDetails().getPosterUrl();
-
-        screen.show("loaded \n " + text);
+        screen.show(result.getOmdbDetails().getPosterUrl());
     }
 
     @Override

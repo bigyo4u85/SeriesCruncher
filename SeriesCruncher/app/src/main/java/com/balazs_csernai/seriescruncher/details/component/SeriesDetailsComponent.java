@@ -4,6 +4,7 @@ import com.balazs_csernai.seriescruncher.app.component.ActivityScope;
 import com.balazs_csernai.seriescruncher.app.component.ApplicationComponent;
 import com.balazs_csernai.seriescruncher.app.component.CommonActivityModule;
 import com.balazs_csernai.seriescruncher.details.SeriesDetailsActivity;
+import com.balazs_csernai.seriescruncher.image.ImageLoaderModule;
 import com.balazs_csernai.seriescruncher.rest.component.RestModule;
 
 import dagger.Component;
@@ -17,6 +18,7 @@ import dagger.Component;
         modules = {
                 CommonActivityModule.class,
                 RestModule.class,
+                ImageLoaderModule.class,
                 SeriesDetailsModule.class
         }
 )
@@ -32,6 +34,7 @@ public interface SeriesDetailsComponent {
                     .applicationComponent(ApplicationComponent.Injector.component())
                     .commonActivityModule(new CommonActivityModule(activity))
                     .restModule(new RestModule())
+                    .imageLoaderModule(new ImageLoaderModule())
                     .seriesDetailsModule(new SeriesDetailsModule())
                     .build()
                     .inject(activity);
