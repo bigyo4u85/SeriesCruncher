@@ -53,4 +53,9 @@ public class SeriesListPresenterImpl implements SeriesListPresenter, Loader.Call
     public void onSeriesSelected(Series series) {
         navigator.launchSeriesDetails(series.getEpGuideName(), series.getImdbId());
     }
+
+    @Override
+    public void onTextEntered(CharSequence text) {
+        screen.applyFilter(text);
+    }
 }

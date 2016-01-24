@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
@@ -17,21 +19,28 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import static com.balazs_csernai.seriescruncher.serieslist.ui.SeriesListAdapter.SeriesViewHolder;
+
 /**
  * Created by ErikKramli on 2016.01.17..
  */
-public class SeriesListAdapter extends RecyclerView.Adapter<SeriesListAdapter.SeriesViewHolder> {
+public class SeriesListAdapter extends RecyclerView.Adapter<SeriesViewHolder> implements Filterable {
 
     public interface OnShowListener {
         void onSeriesSelected(Series series);
     }
 
     private List<Series> seriesList;
+    private Filter filter;
     private OnShowListener listener;
 
     @Inject
     public SeriesListAdapter() {
         seriesList = Collections.emptyList();
+    }
+
+    public List<Series> getItems() {
+        return seriesList;
     }
 
     public void setItems(List<Series> seriesList) {
@@ -82,5 +91,13 @@ public class SeriesListAdapter extends RecyclerView.Adapter<SeriesListAdapter.Se
             super(itemView);
             ButterKnife.inject(this, itemView);
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (filter == null) {
+            filter = new PrefixFilter(this);
+        }
+        return filter;
     }
 }

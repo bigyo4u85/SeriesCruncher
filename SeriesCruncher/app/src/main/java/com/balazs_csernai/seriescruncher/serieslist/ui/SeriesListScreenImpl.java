@@ -1,8 +1,12 @@
 package com.balazs_csernai.seriescruncher.serieslist.ui;
 
 import android.app.Activity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.balazs_csernai.seriescruncher.R;
@@ -28,6 +32,12 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
     @InjectView(R.id.series_recyclerview)
     RecyclerView seriesRecyclerView;
 
+    @InjectView(R.id.filter_container)
+    CardView filterContainer;
+
+    @InjectView(R.id.series_filter)
+    EditText seriesFilter;
+
     private final Activity activity;
     private final SeriesListAdapter adapter;
     private Callbacks callbacks;
@@ -39,27 +49,48 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
     }
 
     @Override
-    public void onCreate(Callbacks callbacks) {
+    public void onCreate(final Callbacks callbacks) {
         this.callbacks = callbacks;
         ButterKnife.inject(this, activity);
+
         seriesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
         seriesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources()));
         seriesRecyclerView.setAdapter(adapter);
+
+        seriesFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                callbacks.onTextEntered(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     @Override
     public void displayProgressIndicator() {
-        ViewUtils.gone(seriesRecyclerView);
+        ViewUtils.gone(seriesRecyclerView, filterContainer);
         ViewUtils.visible(progressBar);
     }
 
     @Override
     public void displaySeriesList(SeriesListModel model) {
         ViewUtils.gone(progressBar);
-        ViewUtils.visible(seriesRecyclerView);
+        ViewUtils.visible(seriesRecyclerView, filterContainer);
 
         adapter.setOnShowListener(this);
         adapter.setItems(model.getSeriesList());
+    }
+
+    @Override
+    public void applyFilter(CharSequence constraint) {
+        adapter.getFilter().filter(constraint);
     }
 
     @Override

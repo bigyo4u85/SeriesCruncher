@@ -14,8 +14,12 @@ public interface SeriesListScreen {
 
     void displaySeriesList(SeriesListModel model);
 
+    void applyFilter(CharSequence constraint);
+
     interface Callbacks {
 
         void onSeriesSelected(Series series);
+
+        void onTextEntered(CharSequence text);
     }
 }
