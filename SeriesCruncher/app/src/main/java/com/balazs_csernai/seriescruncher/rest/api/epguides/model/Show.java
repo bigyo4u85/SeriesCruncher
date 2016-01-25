@@ -3,15 +3,11 @@ package com.balazs_csernai.seriescruncher.rest.api.epguides.model;
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
-public interface Episode {
+public interface Show {
 
-    int getSeasonNumber();
-
-    int getEpisodeNumber();
+    String getIMDBId();
 
     String getTitle();
 
-    Show getShow();
-
-    String getAirDate();
+    String getEPGuideName();
 }

@@ -5,14 +5,8 @@ import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Episode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.inject.Inject;
-
-import static com.balazs_csernai.seriescruncher.details.model.SeasonItemModel.ItemState.COLLAPSED;
-import static com.balazs_csernai.seriescruncher.details.model.SeasonItemModel.ItemType.EPISODE;
-import static com.balazs_csernai.seriescruncher.details.model.SeasonItemModel.ItemType.HEADER;
 
 /**
  * Created by Balazs_Csernai on 2016.01.18..
@@ -24,34 +18,33 @@ public class SeasonItemsModelBuilderImpl implements SeasonItemsModelBuilder {
     }
 
     @Override
-    public SeasonItemsModel empty() {
-        return new SeasonItemsEntity(Collections.<SeasonItemModel>emptyList());
+    public DetailsScreenModel empty() {
+        return new DetailsScreenEntity(Collections.<DetailScreenItemModel>emptyList());
     }
 
     @Override
-    public SeasonItemsModel build(Map<Integer, List<Episode>> seasonMap) {
-        List<SeasonItemModel> items = new ArrayList<>(seasonMap.size() + seasonMap.keySet().size());
-        for (Entry<Integer, List<Episode>> season : seasonMap.entrySet()) {
-            items.add(createSeasonHeaderItem(items.size(), season.getKey()));
-            for (Episode episode : season.getValue()) {
-                items.add(createSeasonEpisodeItem(items.size(), season.getKey(), episode));
+    public DetailsScreenModel build(SeasonsModel seasons) {
+        List<DetailScreenItemModel> items = new ArrayList<>();
+        for (Integer seasonKey : seasons.getSeasonKeys()) {
+            items.add(createHeaderItem(seasonKey));
+            for (Integer episodeKey : seasons.getEpisodeKeys(seasonKey)) {
+                items.add(createSeasonEpisodeItem(seasons.getEpisode(seasonKey, episodeKey)));
             }
         }
-        return new SeasonItemsEntity(items);
+        return new DetailsScreenEntity(items);
     }
 
-    private SeasonItemModel createSeasonHeaderItem(int position, int seasonNumber) {
-        return new SeasonItemEntity(
-                position,
-                HEADER,
-                COLLAPSED,
-                "Season " + seasonNumber);
+    private DetailScreenItemModel createHeaderItem(int seasonNumber) {
+        return new DetailScreenItemEntity(
+                true,
+                false,
+                String.format("Season %d" + seasonNumber));
     }
 
-    private SeasonItemModel createSeasonEpisodeItem(int position, int seasonNumber, Episode episode) {
-        return new SeasonItemEntity(position,
-                EPISODE,
-                COLLAPSED,
-                "Episode (" + (position - seasonNumber) + ") " + episode.getTitle() + " (" + episode.getAirDate() + ")");
+    private DetailScreenItemModel createSeasonEpisodeItem(Episode episode) {
+        return new DetailScreenItemEntity(
+                false,
+                false,
+                String.format("Episode %d - %s (%s)", episode.getEpisodeNumber(), episode.getTitle(), episode.getAirDate()));
     }
 }

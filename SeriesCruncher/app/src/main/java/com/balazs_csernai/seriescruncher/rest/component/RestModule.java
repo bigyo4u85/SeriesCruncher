@@ -1,12 +1,12 @@
 package com.balazs_csernai.seriescruncher.rest.component;
 
-import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
-import com.balazs_csernai.seriescruncher.rest.SeriesLoaderImpl;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.loader.DataLoader;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.loader.DataLoaderImpl;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.request.RequestFactory;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.request.RequestFactoryImpl;
 import com.balazs_csernai.seriescruncher.rest.loader.NetworkingService;
 import com.balazs_csernai.seriescruncher.rest.loader.RequestLoader;
 import com.balazs_csernai.seriescruncher.rest.loader.RequestLoaderImpl;
-import com.balazs_csernai.seriescruncher.rest.request.RequestFactory;
-import com.balazs_csernai.seriescruncher.rest.request.RequestFactoryImpl;
 import com.octo.android.robospice.SpiceManager;
 
 import dagger.Module;
@@ -29,7 +29,7 @@ public class RestModule {
     }
 
     @Provides
-    SeriesLoader provideSeriesLoader(SeriesLoaderImpl impl) {
+    DataLoader provideSeriesLoader(DataLoaderImpl impl) {
         return impl;
     }
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
-    tools:context=".serieslist.SeriesListActivity">
+    tools:context=".showlist.ShowListActivity">
 
     <ProgressBar
         android:id="@+id/series_progress"

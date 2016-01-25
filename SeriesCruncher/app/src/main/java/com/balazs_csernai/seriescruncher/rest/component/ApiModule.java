@@ -1,7 +1,8 @@
 package com.balazs_csernai.seriescruncher.rest.component;
 
-import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
+import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
+import com.balazs_csernai.seriescruncher.rest.api.tvmaze.TVMazeApi;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;
@@ -48,5 +49,15 @@ public class ApiModule {
                 .setConverter(converter)
                 .build()
                 .create(EPGuideApi.class);
+    }
+
+    @Provides
+    @Singleton
+    TVMazeApi provideTVMazeApi(Converter converter) {
+        return new RestAdapter.Builder()
+                .setEndpoint(TVMazeApi.ENDPOINT_URL)
+                .setConverter(converter)
+                .build()
+                .create(TVMazeApi.class);
     }
 }
