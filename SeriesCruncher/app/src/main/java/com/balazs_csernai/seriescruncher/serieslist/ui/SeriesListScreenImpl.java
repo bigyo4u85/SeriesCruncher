@@ -15,6 +15,8 @@ import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
 import com.balazs_csernai.seriescruncher.utils.common.ViewUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -64,7 +66,7 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                callbacks.onTextEntered(s);
+                callbacks.onFilterTextChanged(s);
             }
 
             @Override
@@ -85,12 +87,12 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
         ViewUtils.visible(seriesRecyclerView, filterContainer);
 
         adapter.setOnShowListener(this);
-        adapter.setItems(model.getSeriesList());
+        updateSeriesList(model.getSeriesList());
     }
 
     @Override
-    public void applyFilter(CharSequence constraint) {
-        adapter.getFilter().filter(constraint);
+    public void updateSeriesList(List<Series> series) {
+        adapter.setItems(series);
     }
 
     @Override
