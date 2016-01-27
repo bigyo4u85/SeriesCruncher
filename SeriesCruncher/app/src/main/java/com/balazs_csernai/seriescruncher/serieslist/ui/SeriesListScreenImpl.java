@@ -1,7 +1,6 @@
 package com.balazs_csernai.seriescruncher.serieslist.ui;
 
 import android.app.Activity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -34,10 +33,7 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
     @InjectView(R.id.series_recyclerview)
     RecyclerView seriesRecyclerView;
 
-    @InjectView(R.id.filter_container)
-    CardView filterContainer;
-
-    @InjectView(R.id.series_filter)
+    @InjectView(R.id.filter_edit)
     EditText seriesFilter;
 
     private final Activity activity;
@@ -77,14 +73,14 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
 
     @Override
     public void displayProgressIndicator() {
-        ViewUtils.gone(seriesRecyclerView, filterContainer);
+        ViewUtils.gone(seriesRecyclerView, seriesFilter);
         ViewUtils.visible(progressBar);
     }
 
     @Override
     public void displaySeriesList(SeriesListModel model) {
         ViewUtils.gone(progressBar);
-        ViewUtils.visible(seriesRecyclerView, filterContainer);
+        ViewUtils.visible(seriesRecyclerView, seriesFilter);
 
         adapter.setOnShowListener(this);
         updateSeriesList(model.getSeriesList());

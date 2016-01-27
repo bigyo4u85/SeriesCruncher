@@ -5,6 +5,7 @@ import com.balazs_csernai.seriescruncher.details.request.SeriesDetailsRequest;
 import com.balazs_csernai.seriescruncher.rest.loader.RequestLoader;
 import com.balazs_csernai.seriescruncher.rest.request.RequestFactory;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
+import com.balazs_csernai.seriescruncher.serieslist.request.SeriesRequest;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 import javax.inject.Inject;
@@ -35,8 +36,9 @@ public class SeriesLoaderImpl implements SeriesLoader {
 
     @Override
     public void loadSeries(Callback<SeriesListModel> callback) {
+        SeriesRequest request = requestFactory.createSeriesRequest();
         loader.perform(
-                requestFactory.createSeriesRequest(),
+                requestFactory.createCachedRequest(request, "series", DurationInMillis.ONE_HOUR),
                 callback
         );
     }
