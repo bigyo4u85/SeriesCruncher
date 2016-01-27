@@ -18,7 +18,7 @@ public abstract class NetworkRequest<JSON> extends SpiceRequest<JSON> {
         this.omdbApi = omdbApi;
     }
 
-    protected EPGuideApi getEpGuideService() {
+    protected EPGuideApi getEpGuideApi() {
         return epGuideApi;
     }
 

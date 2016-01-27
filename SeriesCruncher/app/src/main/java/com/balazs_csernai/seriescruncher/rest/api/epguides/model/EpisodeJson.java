@@ -39,7 +39,7 @@ public class EpisodeJson implements Episode {
     }
 
     @Override
-    public Series getShow() {
+    public Series getSeries() {
         return showJson;
     }
 

@@ -5,9 +5,9 @@ package com.balazs_csernai.seriescruncher.rest.api.epguides.model;
  */
 public interface Series {
 
-    String getImdbId();
-
     String getTitle();
 
-    String getEpGuideName();
+    String getName();
+
+    String getImdbId();
 }

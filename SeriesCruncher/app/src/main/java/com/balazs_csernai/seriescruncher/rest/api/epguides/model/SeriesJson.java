@@ -34,18 +34,18 @@ public class SeriesJson implements Series, Comparable<SeriesJson> {
     private String lastEpisodeURL;
 
     @Override
-    public String getImdbId() {
-        return imdbId;
-    }
-
-    @Override
     public String getTitle() {
         return title;
     }
 
     @Override
-    public String getEpGuideName() {
+    public String getName() {
         return epGuideName;
+    }
+
+    @Override
+    public String getImdbId() {
+        return imdbId;
     }
 
     @Override
