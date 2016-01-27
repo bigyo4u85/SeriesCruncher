@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.details.model.DetailScreenItemModel;
-import com.balazs_csernai.seriescruncher.details.model.DetailsScreenModel;
+import com.balazs_csernai.seriescruncher.details.model.SeasonItemModel;
+import com.balazs_csernai.seriescruncher.details.model.SeasonItemsModel;
 import com.balazs_csernai.seriescruncher.details.model.SeasonItemsModelBuilder;
-import com.balazs_csernai.seriescruncher.details.model.SeasonsModel;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Episode;
+
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -23,16 +26,16 @@ import butterknife.InjectView;
 public class SeasonsAdapter extends RecyclerView.Adapter<SeasonsAdapter.SeasonsViewHolder> implements View.OnClickListener {
 
     private final SeasonItemsModelBuilder modelBuilder;
-    private DetailsScreenModel model;
+    private SeasonItemsModel seasonsModel;
 
     @Inject
     public SeasonsAdapter(SeasonItemsModelBuilder modelBuilder) {
         this.modelBuilder = modelBuilder;
-        model = modelBuilder.empty();
+        seasonsModel = modelBuilder.empty();
     }
 
-    public void setItems(SeasonsModel model) {
-        this.model = modelBuilder.build(model);
+    public void setItems(Map<Integer, List<Episode>> seasonsMap) {
+        seasonsModel = modelBuilder.build(seasonsMap);
         notifyDataSetChanged();
     }
 
@@ -44,21 +47,21 @@ public class SeasonsAdapter extends RecyclerView.Adapter<SeasonsAdapter.SeasonsV
 
     @Override
     public void onBindViewHolder(SeasonsViewHolder holder, int position) {
-        DetailScreenItemModel seasonItem = model.getItem(position);
-        holder.title.setText(seasonItem.getText());
+        SeasonItemModel seasonItem = seasonsModel.getVisibleItem(position);
+        holder.title.setText(seasonItem.getTitle());
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);
     }
 
     @Override
     public int getItemCount() {
-        return model.getItemCount();
+        return seasonsModel.getVisibleItemsCount();
     }
 
     @Override
     public void onClick(View view) {
         int position = (int) view.getTag();
-        model.setExpandedOrCollapsed(position);
+        seasonsModel.setExpanded(position);
         notifyDataSetChanged();
     }
 

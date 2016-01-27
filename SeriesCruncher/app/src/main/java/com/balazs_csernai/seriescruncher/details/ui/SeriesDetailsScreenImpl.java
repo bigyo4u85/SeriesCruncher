@@ -6,8 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.details.model.ShowModel;
+import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Episode;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
+
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -49,7 +52,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
     }
 
     @Override
-    public void show(ShowModel model) {
-        adapter.setItems(model.getSeasons());
+    public void show(Map<Integer, List<Episode>> seasonsMap) {
+        adapter.setItems(seasonsMap);
     }
 }

@@ -20,7 +20,7 @@ public class EpisodeJson implements Episode {
     private String releaseDate;
 
     @SerializedName("show")
-    private ShowJSON showJson;
+    private SeriesJson showJson;
 
 
     @Override
@@ -39,7 +39,7 @@ public class EpisodeJson implements Episode {
     }
 
     @Override
-    public Show getShow() {
+    public Series getShow() {
         return showJson;
     }
 
