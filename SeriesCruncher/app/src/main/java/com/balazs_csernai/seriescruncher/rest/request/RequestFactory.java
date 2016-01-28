@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.rest.request;
 
-import com.balazs_csernai.seriescruncher.details.request.SeriesDetailsRequest;
+import com.balazs_csernai.seriescruncher.seriesdetails.request.SeriesDetailsRequest;
 import com.balazs_csernai.seriescruncher.serieslist.request.SeriesRequest;
 import com.octo.android.robospice.request.CachedSpiceRequest;
 import com.octo.android.robospice.request.SpiceRequest;

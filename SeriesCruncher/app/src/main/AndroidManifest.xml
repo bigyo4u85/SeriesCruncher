@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:debuggable="true"
         android:name=".app.SeriesCruncherApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +25,7 @@
         </activity>
 
         <activity
-            android:name=".details.SeriesDetailsActivity"
+            android:name=".seriesdetails.SeriesDetailsActivity"
             android:screenOrientation="portrait" />
 
         <service

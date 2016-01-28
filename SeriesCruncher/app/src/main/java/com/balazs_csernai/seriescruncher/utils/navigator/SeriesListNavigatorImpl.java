@@ -2,7 +2,7 @@ package com.balazs_csernai.seriescruncher.utils.navigator;
 
 import android.app.Activity;
 
-import com.balazs_csernai.seriescruncher.details.SeriesDetailsActivity;
+import com.balazs_csernai.seriescruncher.seriesdetails.SeriesDetailsActivity;
 
 import javax.inject.Inject;
 
