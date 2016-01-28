@@ -1,9 +1,8 @@
 package com.balazs_csernai.seriescruncher.rest.api.omdb;
 
-import com.balazs_csernai.seriescruncher.rest.api.omdb.model.OmdbDetailJson;
+import com.balazs_csernai.seriescruncher.rest.api.omdb.model.OmdbDetailsJson;
 
 import retrofit.http.GET;
-import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -14,6 +13,6 @@ public interface OmdbApi {
     String ENDPOINT_URL = "http://www.omdbapi.com";
 
     @GET("/")
-    OmdbDetailJson getShowDetails(@Query("i") String imdbId);
+    OmdbDetailsJson getSeriesDetails(@Query("i") String imdbId);
 
 }

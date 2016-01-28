@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.details.presenter;
+package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
