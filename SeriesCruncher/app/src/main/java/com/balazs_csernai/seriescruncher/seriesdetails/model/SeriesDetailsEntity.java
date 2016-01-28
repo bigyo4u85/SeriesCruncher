@@ -2,6 +2,7 @@ package com.balazs_csernai.seriescruncher.seriesdetails.model;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class SeriesDetailsEntity implements SeriesDetailsModel {
     @Expose
     private String imageUrl;
     @Expose
-    private List<EpisodeModel> episodes;
+    private List<EpisodeEntity> episodes;
 
     public SeriesDetailsEntity() {
     }
@@ -45,7 +46,7 @@ public class SeriesDetailsEntity implements SeriesDetailsModel {
 
     @Override
     public List<EpisodeModel> getEpisodes() {
-        return episodes;
+        return new ArrayList<EpisodeModel>(episodes);
     }
 
     public SeriesDetailsEntity setTitle(String title) {
@@ -68,7 +69,7 @@ public class SeriesDetailsEntity implements SeriesDetailsModel {
         return this;
     }
 
-    public SeriesDetailsEntity setEpisodes(List<EpisodeModel> episodes) {
+    public SeriesDetailsEntity setEpisodes(List<EpisodeEntity> episodes) {
         this.episodes = episodes;
         return this;
     }

@@ -4,9 +4,8 @@ import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Episode;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Series;
 import com.balazs_csernai.seriescruncher.rest.api.model.CombinedModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeComparator;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeEntity;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsEntity;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +17,7 @@ import javax.inject.Inject;
  * Created by Balazs_Csernai on 2016.01.27..
  */
 @SeriesDetails
-public class SeriesDetailsConverter implements ModelConverter<SeriesDetailsModel, CombinedModel> {
+public class SeriesDetailsConverter implements ModelConverter<SeriesDetailsEntity, CombinedModel> {
 
     private final ModelConverter episodeDetailsConverter;
 
@@ -28,16 +27,16 @@ public class SeriesDetailsConverter implements ModelConverter<SeriesDetailsModel
     }
 
     @Override
-    public SeriesDetailsModel convert(CombinedModel model) {
+    public SeriesDetailsEntity convert(CombinedModel model) {
         Series series = null;
-        List<EpisodeModel> episodes = new ArrayList<>();
+        List<EpisodeEntity> episodes = new ArrayList<>();
 
         for (Integer seasonKey : model.getEpisodeMap().keySet()) {
             for (Episode episode : model.getEpisodeMap().get(seasonKey)) {
                 if (series == null) {
                     series = episode.getSeries();
                 }
-                episodes.add((EpisodeModel) episodeDetailsConverter.convert(episode));
+                episodes.add((EpisodeEntity) episodeDetailsConverter.convert(episode));
             }
         }
 

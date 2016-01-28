@@ -1,13 +1,19 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Created by Balazs_Csernai on 2016.01.27..
  */
 public class EpisodeEntity implements EpisodeModel {
 
+    @Expose
     private String title;
+    @Expose
     private int seasonNumber;
+    @Expose
     private int episodeNumber;
+    @Expose
     private String airDate;
 
     public EpisodeEntity() {
