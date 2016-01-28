@@ -7,6 +7,9 @@ import android.widget.ImageView;
  */
 public interface ImageLoader {
 
-    void load(String url, ImageView target);
+    interface ImageTarget {
+        ImageView get();
+    }
 
+    void load(String url, ImageTarget target);
 }

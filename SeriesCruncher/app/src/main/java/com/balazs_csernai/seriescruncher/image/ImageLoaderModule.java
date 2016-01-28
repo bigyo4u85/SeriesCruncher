@@ -10,7 +10,7 @@ import dagger.Provides;
 public class ImageLoaderModule {
 
     @Provides
-    ImageLoader provideImageLoader(ImageLoaderImpl impl) {
+    ImageLoader provideImageLoader(GlideImageLoader impl) {
         return impl;
     }
 }
