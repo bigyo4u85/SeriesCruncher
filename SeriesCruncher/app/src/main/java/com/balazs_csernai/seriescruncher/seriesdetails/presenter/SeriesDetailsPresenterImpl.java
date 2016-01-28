@@ -1,8 +1,11 @@
-package com.balazs_csernai.seriescruncher.details.presenter;
+package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
-import com.balazs_csernai.seriescruncher.details.model.SeriesDetailsModel;
-import com.balazs_csernai.seriescruncher.details.ui.SeriesDetailsScreen;
+import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
+import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
 
 import javax.inject.Inject;
 
@@ -13,11 +16,14 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
 
     private final SeriesLoader seriesLoader;
     private final SeriesDetailsScreen screen;
+    private final ModelConverter converter;
+    private SeriesDetailsModel model;
 
     @Inject
-    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsScreen screen) {
+    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter) {
         this.seriesLoader = seriesLoader;
         this.screen = screen;
+        this.converter = converter;
     }
 
     @Override
@@ -38,7 +44,9 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
 
     @Override
     public void onSuccess(SeriesDetailsModel result) {
-        screen.show(result.getOmdbDetails().getPosterUrl());
+        model = result;
+        screen.show(model.getTitle());
+        screen.show((EpisodeListModel) converter.convert(result));
     }
 
     @Override

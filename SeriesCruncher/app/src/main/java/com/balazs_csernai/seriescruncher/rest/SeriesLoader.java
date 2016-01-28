@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.rest;
 
-import com.balazs_csernai.seriescruncher.details.model.SeriesDetailsModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
 

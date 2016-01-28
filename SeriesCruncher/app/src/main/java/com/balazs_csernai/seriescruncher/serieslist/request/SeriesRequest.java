@@ -20,7 +20,7 @@ public class SeriesRequest extends NetworkRequest<SeriesListEntity> {
 
     @Override
     public SeriesListEntity loadDataFromNetwork() throws Exception {
-        List<SeriesJson> series = getEpGuideService().loadSeries();
+        List<SeriesJson> series = getEpGuideApi().loadSeries();
 
         Collections.sort(series);
 

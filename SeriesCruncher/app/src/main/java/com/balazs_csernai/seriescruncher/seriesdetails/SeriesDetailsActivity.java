@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.details;
+package com.balazs_csernai.seriescruncher.seriesdetails;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.details.component.SeriesDetailsComponent;
-import com.balazs_csernai.seriescruncher.details.presenter.SeriesDetailsPresenter;
+import com.balazs_csernai.seriescruncher.seriesdetails.component.SeriesDetailsComponent;
+import com.balazs_csernai.seriescruncher.seriesdetails.presenter.SeriesDetailsPresenter;
 import com.balazs_csernai.seriescruncher.utils.common.IntentUtils;
 
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ public class SeriesDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_series_details);
         SeriesDetailsComponent.Injector.inject(this);
     }
 

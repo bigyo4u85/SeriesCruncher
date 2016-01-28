@@ -20,7 +20,7 @@ public interface EPGuideApi {
     List<SeriesJson> loadSeries();
 
     @GET("/show/{showName}/")
-    Map<Integer, List<EpisodeJson>> loadDetails(@Path("showName") String seriesName);
+    Map<Integer, List<EpisodeJson>> loadSeriesDetails(@Path("showName") String seriesName);
 
     @GET("/show/{showName}/next/")
     EpisodeJson getNextEpisode(@Path("showName") String showName);
