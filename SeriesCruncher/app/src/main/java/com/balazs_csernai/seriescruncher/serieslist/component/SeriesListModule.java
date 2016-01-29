@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.serieslist.component;
 
+import com.balazs_csernai.seriescruncher.serieslist.filter.SeriesFilter;
+import com.balazs_csernai.seriescruncher.serieslist.filter.SeriesFilterImpl;
 import com.balazs_csernai.seriescruncher.serieslist.presenter.SeriesListPresenter;
 import com.balazs_csernai.seriescruncher.serieslist.presenter.SeriesListPresenterImpl;
 import com.balazs_csernai.seriescruncher.serieslist.ui.SeriesListScreen;
@@ -21,6 +23,11 @@ public class SeriesListModule {
 
     @Provides
     SeriesListPresenter providePresenter(SeriesListPresenterImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    SeriesFilter provideFilter(SeriesFilterImpl impl) {
         return impl;
     }
 }
