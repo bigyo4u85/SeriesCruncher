@@ -1,9 +1,11 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +25,9 @@ import butterknife.InjectView;
  */
 public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
     @InjectView(R.id.poster_img)
     ImageView poster;
 
@@ -32,11 +37,11 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
     @InjectView(R.id.episodes_recyclerview)
     RecyclerView episodesRecyclerView;
 
-    private final Activity activity;
+    private final AppCompatActivity activity;
     private final EpisodeAdapter adapter;
 
     @Inject
-    public SeriesDetailsScreenImpl(Activity activity, Provider<EpisodeAdapter> adapterProvider) {
+    public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider) {
         this.activity = activity;
         this.adapter = adapterProvider.get();
     }
@@ -44,6 +49,10 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
     @Override
     public void onCreate() {
         ButterKnife.inject(this, activity);
+
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         episodesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
         episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources()));
         episodesRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -51,8 +60,8 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
     }
 
     @Override
-    public void show(String url) {
-        title.setText(url);
+    public void show(String text) {
+        title.setText(text);
     }
 
     @Override
