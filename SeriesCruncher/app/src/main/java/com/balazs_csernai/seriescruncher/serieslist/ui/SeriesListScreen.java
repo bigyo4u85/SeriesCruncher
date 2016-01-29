@@ -3,6 +3,8 @@ package com.balazs_csernai.seriescruncher.serieslist.ui;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Series;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
 
+import java.util.List;
+
 /**
  * Created by ErikKramli on 2016.01.17..
  */
@@ -14,8 +16,12 @@ public interface SeriesListScreen {
 
     void displaySeriesList(SeriesListModel model);
 
+    void updateSeriesList(List<Series> series);
+
     interface Callbacks {
 
         void onSeriesSelected(Series series);
+
+        void onFilterTextChanged(CharSequence text);
     }
 }

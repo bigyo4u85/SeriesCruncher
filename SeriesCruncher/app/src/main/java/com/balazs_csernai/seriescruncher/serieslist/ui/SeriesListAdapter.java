@@ -17,10 +17,12 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import static com.balazs_csernai.seriescruncher.serieslist.ui.SeriesListAdapter.SeriesViewHolder;
+
 /**
  * Created by ErikKramli on 2016.01.17..
  */
-public class SeriesListAdapter extends RecyclerView.Adapter<SeriesListAdapter.SeriesViewHolder> {
+public class SeriesListAdapter extends RecyclerView.Adapter<SeriesViewHolder> {
 
     public interface OnShowListener {
         void onSeriesSelected(Series series);

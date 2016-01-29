@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SeriesCruncher</string>
+    <string name="type_to_filter">Type to filter</string>
 </resources>
