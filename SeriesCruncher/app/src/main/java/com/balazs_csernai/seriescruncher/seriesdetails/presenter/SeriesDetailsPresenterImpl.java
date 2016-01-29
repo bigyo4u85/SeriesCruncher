@@ -6,6 +6,7 @@ import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
+import com.balazs_csernai.seriescruncher.image.ImageLoader;
 
 import javax.inject.Inject;
 
@@ -17,13 +18,14 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     private final SeriesLoader seriesLoader;
     private final SeriesDetailsScreen screen;
     private final ModelConverter converter;
-    private SeriesDetailsModel model;
+    private final ImageLoader imageLoader;
 
     @Inject
-    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter) {
+    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter, ImageLoader imageLoader) {
         this.seriesLoader = seriesLoader;
         this.screen = screen;
         this.converter = converter;
+        this.imageLoader = imageLoader;
     }
 
     @Override
@@ -43,14 +45,13 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     }
 
     @Override
-    public void onSuccess(SeriesDetailsModel result) {
-        model = result;
+    public void onSuccess(SeriesDetailsModel model) {
         screen.show(model.getTitle());
-        screen.show((EpisodeListModel) converter.convert(result));
+        screen.show((EpisodeListModel) converter.convert(model));
+        imageLoader.load(model.getImageUrl(), screen.getPosterImageTarget());
     }
 
     @Override
     public void onFailure() {
-
     }
 }

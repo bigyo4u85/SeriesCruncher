@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.image.ImageLoader.ImageTarget;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 
 import javax.inject.Inject;
@@ -20,6 +22,9 @@ import butterknife.InjectView;
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
 public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
+
+    @InjectView(R.id.poster_img)
+    ImageView poster;
 
     @InjectView(R.id.title)
     TextView title;
@@ -53,5 +58,15 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
     @Override
     public void show(EpisodeListModel episodes) {
         adapter.setItems(episodes);
+    }
+
+    @Override
+    public ImageTarget getPosterImageTarget() {
+        return new ImageTarget() {
+            @Override
+            public ImageView get() {
+                return poster;
+            }
+        };
     }
 }
