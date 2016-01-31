@@ -1,9 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
-import android.app.Activity;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -13,6 +11,8 @@ import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.image.ImageLoader.ImageTarget;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
+import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
+import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -23,7 +23,13 @@ import butterknife.InjectView;
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
-public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
+public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBarLayout.AppBarChangeListener {
+
+    @InjectView(R.id.appbar)
+    SmartAppBarLayout appbar;
+
+    @InjectView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -39,11 +45,13 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
 
     private final AppCompatActivity activity;
     private final EpisodeAdapter adapter;
+    private final SmartLayoutManager layoutManager;
 
     @Inject
     public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider) {
         this.activity = activity;
         this.adapter = adapterProvider.get();
+        layoutManager = new SmartLayoutManager(activity);
     }
 
     @Override
@@ -53,9 +61,10 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        episodesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        appbar.setOnAppBarChangeListener(this);
+
+        episodesRecyclerView.setLayoutManager(layoutManager);
         episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources()));
-        episodesRecyclerView.setItemAnimator(new DefaultItemAnimator());
         episodesRecyclerView.setAdapter(adapter);
     }
 
@@ -77,5 +86,15 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
                 return poster;
             }
         };
+    }
+
+    @Override
+    public void onAppBarCollapsed() {
+        layoutManager.setVerticalScrollEnabled(true);
+    }
+
+    @Override
+    public void onAppBarExpanded() {
+        layoutManager.setVerticalScrollEnabled(false);
     }
 }
