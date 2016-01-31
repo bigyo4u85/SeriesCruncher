@@ -18,9 +18,8 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             support:contentScrim="?attr/colorPrimary"
-            support:expandedTitleMarginEnd="64dp"
-            support:expandedTitleMarginStart="48dp"
-            support:layout_scrollFlags="scroll|exitUntilCollapsed">
+            support:layout_scrollFlags="scroll|exitUntilCollapsed"
+            support:titleEnabled="false">
 
             <ImageView
                 android:id="@+id/poster_img"
@@ -39,9 +38,11 @@
 
                 <TextView
                     android:id="@+id/title"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
+                    android:alpha="0"
+                    android:textIsSelectable="true"
+                    android:textSize="18sp" />
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -51,6 +52,6 @@
         android:id="@+id/episodes_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        support:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        support:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

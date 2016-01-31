@@ -34,11 +34,11 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
 
-    @InjectView(R.id.poster_img)
-    ImageView poster;
-
     @InjectView(R.id.title)
     TextView title;
+
+    @InjectView(R.id.poster_img)
+    ImageView poster;
 
     @InjectView(R.id.episodes_recyclerview)
     RecyclerView episodesRecyclerView;
@@ -60,6 +60,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         appbar.setOnAppBarChangeListener(this);
 
@@ -91,10 +92,16 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void onAppBarCollapsed() {
         layoutManager.setVerticalScrollEnabled(true);
+        animateTitle(1);
     }
 
     @Override
     public void onAppBarExpanded() {
         layoutManager.setVerticalScrollEnabled(false);
+        animateTitle(0);
+    }
+
+    private void animateTitle(float toAlpha) {
+        title.animate().alpha(toAlpha).start();
     }
 }
