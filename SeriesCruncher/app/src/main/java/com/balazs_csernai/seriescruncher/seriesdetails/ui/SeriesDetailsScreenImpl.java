@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.image.ImageLoader.ImageTarget;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.PosterModel;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 
 import javax.inject.Inject;
@@ -68,5 +69,12 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen {
                 return poster;
             }
         };
+    }
+
+    @Override
+    public void show(PosterModel posterModel) {
+        poster.setImageBitmap(posterModel.getPoster());
+        title.setTextColor(posterModel.getTextColor());
+        episodesRecyclerView.setBackgroundColor(posterModel.getBackgroundColor());
     }
 }

@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.rest.request;
 
+import com.balazs_csernai.seriescruncher.image.ImageLoader;
+import com.balazs_csernai.seriescruncher.seriesdetails.request.PosterRequest;
 import com.balazs_csernai.seriescruncher.seriesdetails.request.SeriesDetailsRequest;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.utils.converter.SeriesDetails;
@@ -19,12 +21,14 @@ public class RequestFactoryImpl implements RequestFactory {
     private final EPGuideApi epGuideApi;
     private final OmdbApi omdbApi;
     private final ModelConverter converter;
+    private final ImageLoader imageLoader;
 
     @Inject
-    public RequestFactoryImpl(EPGuideApi epGuideApi, OmdbApi omdbApi, @SeriesDetails ModelConverter converter) {
+    public RequestFactoryImpl(EPGuideApi epGuideApi, OmdbApi omdbApi, @SeriesDetails ModelConverter converter, ImageLoader imageLoader) {
         this.epGuideApi = epGuideApi;
         this.omdbApi = omdbApi;
         this.converter = converter;
+        this.imageLoader = imageLoader;
     }
 
     @Override
@@ -35,6 +39,11 @@ public class RequestFactoryImpl implements RequestFactory {
     @Override
     public SeriesDetailsRequest createSeriesDetailsRequest(String seriesName, String imdbId) {
         return new SeriesDetailsRequest(seriesName, imdbId, epGuideApi, omdbApi, converter);
+    }
+
+    @Override
+    public PosterRequest createPosterRequest(String url) {
+        return new PosterRequest(url, imageLoader);
     }
 
     @Override

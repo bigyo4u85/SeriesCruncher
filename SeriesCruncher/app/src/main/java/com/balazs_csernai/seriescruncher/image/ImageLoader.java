@@ -1,5 +1,6 @@
 package com.balazs_csernai.seriescruncher.image;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 /**
@@ -12,4 +13,6 @@ public interface ImageLoader {
     }
 
     void load(String url, ImageTarget target);
+
+    Bitmap load(String url);
 }

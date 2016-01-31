@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
+import com.balazs_csernai.seriescruncher.rest.loader.Loader;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.PosterModel;
 import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
@@ -48,7 +50,18 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     public void onSuccess(SeriesDetailsModel model) {
         screen.show(model.getTitle());
         screen.show((EpisodeListModel) converter.convert(model));
-        imageLoader.load(model.getImageUrl(), screen.getPosterImageTarget());
+
+        seriesLoader.loadPoster(model.getImageUrl(), new Loader.Callback<PosterModel>() {
+            @Override
+            public void onSuccess(PosterModel result) {
+                screen.show(result);
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
     @Override
