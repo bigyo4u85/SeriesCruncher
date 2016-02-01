@@ -12,8 +12,8 @@ import com.octo.android.robospice.request.SpiceRequest;
  */
 public class PosterRequest extends SpiceRequest<PosterEntity> {
 
-    ImageLoader imageLoader;
-    String url;
+    private final ImageLoader imageLoader;
+    private final String url;
     
     public PosterRequest(String url, ImageLoader imageLoader) {
         super(PosterEntity.class);
@@ -24,13 +24,13 @@ public class PosterRequest extends SpiceRequest<PosterEntity> {
     @Override
     public PosterEntity loadDataFromNetwork() throws Exception {
         Bitmap poster = imageLoader.load(url);
-        Palette palette = Palette.from(poster).generate();
 
-        Palette.Swatch darkMutedSwatch = palette.getSwatches().get(0);
+        Palette palette = Palette.from(poster).generate();
+        Palette.Swatch swatch = palette.getSwatches().get(0);
 
         return new PosterEntity()
                 .setPoster(poster)
-                .setBackgroundColor(darkMutedSwatch.getRgb())
-                .setTextColor(darkMutedSwatch.getTitleTextColor());
+                .setBackgroundColor(swatch.getRgb())
+                .setTextColor(swatch.getTitleTextColor());
     }
 }

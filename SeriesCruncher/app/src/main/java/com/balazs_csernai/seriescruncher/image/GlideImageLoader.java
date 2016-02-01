@@ -33,18 +33,13 @@ public class GlideImageLoader implements ImageLoader {
     }
 
     @Override
-    public Bitmap load(String url) {
-        Bitmap bitmap;
-        try {
-            bitmap = Glide.with(activity)
-                    .load(url)
-                    .asBitmap()
-                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                    .get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("GlideImageLoader", e.getMessage());
-            bitmap = null;
-        }
+    public Bitmap load(String url) throws ExecutionException, InterruptedException {
+        FutureTarget<Bitmap> target = Glide.with(activity)
+                .load(url)
+                .asBitmap()
+                .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+        Bitmap bitmap = target.get();
+        Glide.clear(target);
         return bitmap;
     }
 }

@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -93,10 +95,14 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void show(PosterModel posterModel) {
         poster.setImageBitmap(posterModel.getPoster());
+        collapsingToolbar.setContentScrimColor(posterModel.getBackgroundColor());
         title.setTextColor(posterModel.getTextColor());
-        episodesRecyclerView.setBackgroundColor(posterModel.getBackgroundColor());
+
+        Drawable backArrow = activity.getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        backArrow.setColorFilter(posterModel.getTextColor(), PorterDuff.Mode.SRC_IN);
+        activity.getSupportActionBar().setHomeAsUpIndicator(backArrow);
     }
-    
+
     @Override
     public void onAppBarCollapsed() {
         layoutManager.setVerticalScrollEnabled(true);
