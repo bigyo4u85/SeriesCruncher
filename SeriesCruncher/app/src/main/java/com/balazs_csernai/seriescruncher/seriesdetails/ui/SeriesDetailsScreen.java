@@ -10,7 +10,7 @@ public interface SeriesDetailsScreen {
 
     void onCreate();
 
-    void show(String url);
+    void show(String title);
 
     void show(EpisodeListModel episodes);
 

@@ -2,6 +2,7 @@ package com.balazs_csernai.seriescruncher.app.component;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,14 +13,19 @@ import dagger.Provides;
 @Module
 public class CommonActivityModule {
 
-    private final Activity activity;
+    private final AppCompatActivity activity;
 
-    public CommonActivityModule(Activity activity) {
+    public CommonActivityModule(AppCompatActivity activity) {
         this.activity = activity;
     }
 
     @Provides
     Activity provideActivity() {
+        return activity;
+    }
+
+    @Provides
+    AppCompatActivity provideAppCompatActivity() {
         return activity;
     }
 
