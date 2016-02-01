@@ -45,13 +45,12 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     private final AppCompatActivity activity;
     private final EpisodeAdapter adapter;
-    private final SmartLayoutManager layoutManager;
+    private SmartLayoutManager layoutManager;
 
     @Inject
     public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider) {
         this.activity = activity;
         this.adapter = adapterProvider.get();
-        layoutManager = new SmartLayoutManager(activity);
     }
 
     @Override
@@ -64,6 +63,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
         appbar.setOnAppBarChangeListener(this);
 
+        layoutManager = new SmartLayoutManager(activity);
         episodesRecyclerView.setLayoutManager(layoutManager);
         episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources()));
         episodesRecyclerView.setAdapter(adapter);
