@@ -31,9 +31,9 @@ public class ColorProviderImpl implements ColorProvider {
     public void generateColorPalette(Bitmap bitmap) {
         if (bitmap != null) {
             Palette palette = Palette.from(bitmap).generate();
-            swatch = getSwatch(palette.getDarkVibrantSwatch(),
+            swatch = getSwatch(palette.getVibrantSwatch(),
+                    palette.getDarkVibrantSwatch(),
                     palette.getMutedSwatch(),
-                    palette.getVibrantSwatch(),
                     palette.getSwatches().get(0));
         }
     }
@@ -53,18 +53,20 @@ public class ColorProviderImpl implements ColorProvider {
     @ColorInt
     @Override
     public int getTextColor() {
-        int color = getBackgroundColor();
-        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
-        int brightness = (int)Math.sqrt(
-                rgb[0] * rgb[0] * .241 +
-                rgb[1] * rgb[1] * .691 +
-                rgb[2] * rgb[2] * .068);
-
-        if (brightness >= BRIGHTNESS_THRESHOLD) {
+        if (calculateColorBrightness(getBackgroundColor()) >= BRIGHTNESS_THRESHOLD) {
             return getColor(R.color.black);
+
         } else {
             return getColor(R.color.white);
         }
+    }
+
+    private int calculateColorBrightness(@ColorInt int color) {
+        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
+        return  (int) Math.sqrt(
+                rgb[0] * rgb[0] * .241F +
+                rgb[1] * rgb[1] * .691F +
+                rgb[2] * rgb[2] * .068F);
     }
 
     @ColorInt
