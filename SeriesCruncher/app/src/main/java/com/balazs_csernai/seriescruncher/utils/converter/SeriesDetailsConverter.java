@@ -3,8 +3,8 @@ package com.balazs_csernai.seriescruncher.utils.converter;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Episode;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Series;
 import com.balazs_csernai.seriescruncher.rest.api.model.CombinedModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeComparator;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeEntity;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeComparator;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeEntity;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsEntity;
 
 import java.util.ArrayList;

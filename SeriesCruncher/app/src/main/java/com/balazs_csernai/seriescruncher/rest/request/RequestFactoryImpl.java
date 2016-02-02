@@ -1,40 +1,49 @@
 package com.balazs_csernai.seriescruncher.rest.request;
 
+import com.balazs_csernai.seriescruncher.seriesdetails.request.PosterRequest;
 import com.balazs_csernai.seriescruncher.seriesdetails.request.SeriesDetailsRequest;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
-import com.balazs_csernai.seriescruncher.utils.converter.SeriesDetails;
-import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.serieslist.request.SeriesRequest;
-import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
 import com.octo.android.robospice.request.CachedSpiceRequest;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 /**
  * Created by ErikKramli on 2016.01.14..
  */
 public class RequestFactoryImpl implements RequestFactory {
 
-    private final EPGuideApi epGuideApi;
-    private final OmdbApi omdbApi;
-    private final ModelConverter converter;
+    private final Provider<SeriesRequest> seriesRequestProvider;
+    private final Provider<SeriesDetailsRequest> seriesDetailsRequestProvider;
+    private final Provider<PosterRequest> posterRequestProvider;
 
     @Inject
-    public RequestFactoryImpl(EPGuideApi epGuideApi, OmdbApi omdbApi, @SeriesDetails ModelConverter converter) {
-        this.epGuideApi = epGuideApi;
-        this.omdbApi = omdbApi;
-        this.converter = converter;
+    public RequestFactoryImpl(Provider<SeriesRequest> seriesRequestProvider,
+                              Provider<SeriesDetailsRequest> seriesDetailsRequestProvider,
+                              Provider<PosterRequest> posterRequestProvider) {
+        this.seriesRequestProvider = seriesRequestProvider;
+        this.seriesDetailsRequestProvider = seriesDetailsRequestProvider;
+        this.posterRequestProvider = posterRequestProvider;
     }
 
     @Override
     public SeriesRequest createSeriesRequest() {
-        return new SeriesRequest(epGuideApi, omdbApi);
+        return seriesRequestProvider.get();
     }
 
     @Override
     public SeriesDetailsRequest createSeriesDetailsRequest(String seriesName, String imdbId) {
-        return new SeriesDetailsRequest(seriesName, imdbId, epGuideApi, omdbApi, converter);
+        SeriesDetailsRequest request = seriesDetailsRequestProvider.get();
+        request.setRequestParams(seriesName, imdbId);
+        return request;
+    }
+
+    @Override
+    public PosterRequest createPosterRequest(String url) {
+        PosterRequest request = posterRequestProvider.get();
+        request.setRequestParam(url);
+        return request;
     }
 
     @Override

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        support:titleTextColor="@android:color/white" />
+        support:titleTextColor="@color/white" />
 
     <ProgressBar
         android:id="@+id/series_progress"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/type_to_filter"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:textColorHint="@color/white_transparent" />
 
     </FrameLayout>

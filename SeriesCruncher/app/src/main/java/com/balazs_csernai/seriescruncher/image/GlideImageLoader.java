@@ -1,9 +1,13 @@
 package com.balazs_csernai.seriescruncher.image;
 
 import android.app.Activity;
-import android.util.Log;
+import android.graphics.Bitmap;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.Target;
+
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -20,11 +24,13 @@ public class GlideImageLoader implements ImageLoader {
     }
 
     @Override
-    public void load(String url, ImageTarget target) {
-        Log.d("imageloader", "url: " + url);
-        Glide.with(activity)
+    public Bitmap load(String url) throws ExecutionException, InterruptedException {
+        FutureTarget<Bitmap> target = Glide.with(activity)
                 .load(url)
-                .centerCrop()
-                .into(target.get());
+                .asBitmap()
+                .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+        Bitmap bitmap = target.get();
+        Glide.clear(target);
+        return bitmap;
     }
 }

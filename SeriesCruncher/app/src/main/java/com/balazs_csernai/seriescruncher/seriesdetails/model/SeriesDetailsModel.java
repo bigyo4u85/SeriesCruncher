@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.model;
 
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
+
 import java.util.List;
 
 /**

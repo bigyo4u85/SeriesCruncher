@@ -14,19 +14,25 @@ import com.balazs_csernai.seriescruncher.utils.converter.SeriesDetails;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 /**
  * Created by ErikKramli on 2016.01.11..
  */
 public class SeriesDetailsRequest extends NetworkRequest<SeriesDetailsEntity> {
 
-    private final String showName, imdbId;
     private final ModelConverter converter;
+    private String showName, imdbId;
 
-    public SeriesDetailsRequest(String showName, String imdbId, EPGuideApi epGuideApi, OmdbApi omdbApi, @SeriesDetails ModelConverter converter) {
+    @Inject
+    public SeriesDetailsRequest(EPGuideApi epGuideApi, OmdbApi omdbApi, @SeriesDetails ModelConverter converter) {
         super(SeriesDetailsEntity.class, epGuideApi, omdbApi);
+        this.converter = converter;
+    }
+
+    public void setRequestParams(String showName, String imdbId) {
         this.showName = showName;
         this.imdbId = imdbId;
-        this.converter = converter;
     }
 
     @Override
