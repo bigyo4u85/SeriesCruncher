@@ -7,6 +7,8 @@ import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterEntity
 import com.balazs_csernai.seriescruncher.utils.color.ColorProvider;
 import com.octo.android.robospice.request.SpiceRequest;
 
+import javax.inject.Inject;
+
 /**
  * Created by ErikKramli on 2016.01.31..
  */
@@ -15,7 +17,8 @@ public class PosterRequest extends SpiceRequest<PosterEntity> {
     private final ImageLoader imageLoader;
     private final ColorProvider colorProvider;
     private String url;
-    
+
+    @Inject
     public PosterRequest(ImageLoader imageLoader, ColorProvider colorProvider) {
         super(PosterEntity.class);
         this.imageLoader = imageLoader;

@@ -2,7 +2,6 @@ package com.balazs_csernai.seriescruncher.image;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
@@ -22,14 +21,6 @@ public class GlideImageLoader implements ImageLoader {
     @Inject
     public GlideImageLoader(Activity activity) {
         this.activity = activity;
-    }
-
-    @Override
-    public void load(String url, ImageTarget target) {
-        Glide.with(activity)
-                .load(url)
-                .centerCrop()
-                .into(target.get());
     }
 
     @Override
