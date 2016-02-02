@@ -1,6 +1,7 @@
 package com.balazs_csernai.seriescruncher.rest.loader;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.NetworkException;
@@ -72,6 +73,7 @@ public class RequestLoaderImpl implements RequestLoader {
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
+            Log.e("RequestLoaderImpl", spiceException.getMessage());
             if (callback != null) {
                 callback.onFailure();
             }

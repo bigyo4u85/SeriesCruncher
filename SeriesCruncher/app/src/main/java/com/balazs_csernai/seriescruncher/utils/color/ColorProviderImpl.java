@@ -5,10 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.v7.graphics.Palette;
 import android.support.v7.graphics.Palette.Swatch;
 
 import com.balazs_csernai.seriescruncher.R;
+
+import java.util.Iterator;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,24 +34,25 @@ public class ColorProviderImpl implements ColorProvider {
     @Override
     public void generateColorPalette(Bitmap bitmap) {
         if (bitmap != null) {
-            Palette palette = Palette.from(bitmap).generate();
-            swatch = getSwatch(palette.getVibrantSwatch(),
-                    palette.getDarkVibrantSwatch(),
-                    palette.getMutedSwatch(),
-                    palette.getSwatches().get(0));
+            List<Swatch> swatches = Palette.from(bitmap).generate().getSwatches();
+            if (swatches.isEmpty()) {
+                swatch = null;
+            } else {
+                swatch = findMostCommonSwatch(swatches);
+            }
         }
     }
 
-
-    private Swatch getSwatch(Swatch... swatches) {
-        Swatch desiredSwatch = null;
-        for (Swatch swatch : swatches) {
-            if (swatch != null) {
-                desiredSwatch = swatch;
-                break;
+    private Swatch findMostCommonSwatch(@NonNull List<Swatch> swatches) {
+        Iterator<Swatch> iterator = swatches.iterator();
+        Swatch swatch, mostCommonSwatch = iterator.next();
+        while (iterator.hasNext()) {
+            swatch = iterator.next();
+            if (swatch.getPopulation() > mostCommonSwatch.getPopulation()) {
+                mostCommonSwatch = swatch;
             }
         }
-        return desiredSwatch;
+        return mostCommonSwatch;
     }
 
     @ColorInt
