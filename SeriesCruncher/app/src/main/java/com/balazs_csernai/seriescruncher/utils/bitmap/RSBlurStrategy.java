@@ -2,6 +2,7 @@ package com.balazs_csernai.seriescruncher.utils.bitmap;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
@@ -28,18 +29,21 @@ public class RSBlurStrategy implements BlurStrategy {
         int scaledWidth = Math.round(original.getWidth() * SCALE);
         int scaledHeight = Math.round(original.getHeight() * SCALE);
 
-        //Bitmap result = Bitmap.createScaledBitmap(original, scaledWidth, scaledHeight, false);
         Bitmap result = Bitmap.createBitmap(scaledWidth, scaledHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
-        //canvas.translate(-scaledWidth, -scaledHeight);
+        canvas.scale(SCALE, SCALE);
+        Paint paint = new Paint();
+        paint.setFlags(Paint.FILTER_BITMAP_FLAG);
         canvas.drawBitmap(original, 0, 0, null);
 
-        Allocation alloc = Allocation.createFromBitmap(renderScript, result);
-        ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(renderScript, alloc.getElement());
-        blur.setInput(alloc);
+        Allocation input = Allocation.createFromBitmap(renderScript, result, Allocation.MipmapControl.MIPMAP_NONE, Allocation.USAGE_SCRIPT);
+        Allocation output = Allocation.createTyped(renderScript, input.getType());
+        ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript));
+
+        blur.setInput(input);
         blur.setRadius(BLUR_RADIUS);
-        blur.forEach(alloc);
-        alloc.copyTo(result);
+        blur.forEach(output);
+        output.copyTo(result);
 
         return result;
     }
