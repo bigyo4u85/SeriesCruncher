@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
-import com.balazs_csernai.seriescruncher.image.ImageLoader.ImageTarget;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
@@ -80,13 +82,14 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     }
 
     @Override
-    public ImageTarget getPosterImageTarget() {
-        return new ImageTarget() {
-            @Override
-            public ImageView get() {
-                return poster;
-            }
-        };
+    public void show(PosterModel posterModel) {
+        poster.setImageBitmap(posterModel.getPoster());
+        collapsingToolbar.setContentScrimColor(posterModel.getBackgroundColor());
+        title.setTextColor(posterModel.getTextColor());
+
+        Drawable backArrow = activity.getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        backArrow.setColorFilter(posterModel.getTextColor(), PorterDuff.Mode.SRC_IN);
+        activity.getSupportActionBar().setHomeAsUpIndicator(backArrow);
     }
 
     @Override

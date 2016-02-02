@@ -31,7 +31,9 @@ dependencies {
     // Android support
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    compile "com.android.support:palette-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
+
 
     // Dependency Injection
     compile 'com.google.dagger:dagger:2.0'

@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.model;
 
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeEntity;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;

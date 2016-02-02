@@ -1,6 +1,7 @@
 package com.balazs_csernai.seriescruncher.app.component;
 
 import android.app.Application;
+import android.content.res.Resources;
 
 import com.balazs_csernai.seriescruncher.app.SeriesCruncherApplication;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
@@ -26,6 +27,8 @@ public interface ApplicationComponent {
     void inject(SeriesCruncherApplication application);
 
     Application application();
+
+    Resources resources();
 
     Converter converter();
 

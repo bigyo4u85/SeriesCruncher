@@ -1,10 +1,10 @@
 package com.balazs_csernai.seriescruncher.utils.converter;
 
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListEntity;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListItemEntity;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListItemModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListEntity;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemEntity;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 
 import java.util.ArrayList;
