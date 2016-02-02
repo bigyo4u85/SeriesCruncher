@@ -9,6 +9,8 @@ android {
         applicationId "com.balazs_csernai.seriescruncher"
         minSdkVersion 18
         targetSdkVersion 23
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
         versionCode 1
         versionName "1.0"
     }

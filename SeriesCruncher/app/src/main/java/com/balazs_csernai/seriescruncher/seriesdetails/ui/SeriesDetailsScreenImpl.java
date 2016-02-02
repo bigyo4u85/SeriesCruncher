@@ -42,6 +42,9 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @InjectView(R.id.poster_img)
     ImageView poster;
 
+    @InjectView(R.id.poster_bg)
+    ImageView posterBackground;
+
     @InjectView(R.id.episodes_recyclerview)
     RecyclerView episodesRecyclerView;
 
@@ -84,6 +87,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void show(PosterModel posterModel) {
         poster.setImageBitmap(posterModel.getPoster());
+        posterBackground.setImageBitmap(posterModel.getPosterBackground());
         collapsingToolbar.setContentScrimColor(posterModel.getBackgroundColor());
         title.setTextColor(posterModel.getTextColor());
 

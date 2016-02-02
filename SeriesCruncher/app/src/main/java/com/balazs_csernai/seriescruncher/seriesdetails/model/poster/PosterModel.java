@@ -9,6 +9,8 @@ public interface PosterModel {
 
     Bitmap getPoster();
 
+    Bitmap getPosterBackground();
+
     int getBackgroundColor();
 
     int getTextColor();
