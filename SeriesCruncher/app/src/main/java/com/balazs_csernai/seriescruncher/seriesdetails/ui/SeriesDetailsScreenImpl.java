@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
-import com.balazs_csernai.seriescruncher.image.ImageLoader.ImageTarget;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.PosterModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
@@ -80,16 +79,6 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void show(EpisodeListModel episodes) {
         adapter.setItems(episodes);
-    }
-
-    @Override
-    public ImageTarget getPosterImageTarget() {
-        return new ImageTarget() {
-            @Override
-            public ImageView get() {
-                return poster;
-            }
-        };
     }
 
     @Override

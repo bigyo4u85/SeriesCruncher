@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.support.v7.graphics.Palette;
 
 import com.balazs_csernai.seriescruncher.image.ImageLoader;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.PosterEntity;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterEntity;
 import com.octo.android.robospice.request.SpiceRequest;
 
 /**

@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.seriesdetails.model;
+package com.balazs_csernai.seriescruncher.seriesdetails.model.episode;
 
 import java.util.Comparator;
 

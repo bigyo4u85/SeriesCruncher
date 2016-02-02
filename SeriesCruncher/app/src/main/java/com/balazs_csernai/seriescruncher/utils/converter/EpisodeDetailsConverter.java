@@ -1,7 +1,7 @@
 package com.balazs_csernai.seriescruncher.utils.converter;
 
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Episode;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeEntity;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeEntity;
 
 import javax.inject.Inject;
 

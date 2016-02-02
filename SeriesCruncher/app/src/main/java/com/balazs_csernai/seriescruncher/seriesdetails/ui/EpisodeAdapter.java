@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListEntity;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListItemModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListEntity;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
 
 import javax.inject.Inject;
 

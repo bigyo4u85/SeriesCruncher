@@ -2,8 +2,8 @@ package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.EpisodeListModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.PosterModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
 import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
@@ -64,7 +64,6 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
 
         @Override
         public void onFailure() {
-
         }
     };
 }

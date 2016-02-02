@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.seriesdetails.model;
+package com.balazs_csernai.seriescruncher.seriesdetails.model.episode;
 
 /**
  * Created by Balazs_Csernai on 2016.01.27..
