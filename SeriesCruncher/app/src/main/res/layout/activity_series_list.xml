@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:support="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        support:titleTextColor="@color/white" />
 
     <ProgressBar
         android:id="@+id/series_progress"
@@ -13,20 +21,30 @@
         android:layout_gravity="center"
         android:indeterminate="true" />
 
-    <EditText
-        android:id="@+id/filter_edit"
+    <FrameLayout
+        android:id="@+id/filter_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/spacing_double"
-        android:hint="@string/type_to_filter"
-        android:padding="@dimen/spacing_double" />
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/spacing_double">
+
+        <EditText
+            android:id="@+id/filter_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/type_to_filter"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white_transparent" />
+
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/series_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/filter_edit"
+        android:layout_above="@id/filter_container"
+        android:layout_below="@id/toolbar"
         android:scrollbars="vertical" />
 
 </RelativeLayout>
