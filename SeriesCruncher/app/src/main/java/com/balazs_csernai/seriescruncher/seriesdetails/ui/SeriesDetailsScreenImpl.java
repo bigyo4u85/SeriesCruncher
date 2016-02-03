@@ -82,7 +82,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @Override
     public void setBackgroundColor(int color) {
-        //collapsingToolbar.setContentScrimColor(color);
+        collapsingToolbar.setContentScrimColor(color);
     }
 
     @Override
