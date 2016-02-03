@@ -1,6 +1,7 @@
 package com.balazs_csernai.seriescruncher.serieslist.ui;
 
 import android.app.Activity;
+import android.graphics.drawable.ShapeDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -52,7 +53,7 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
         ButterKnife.inject(this, activity);
 
         seriesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        seriesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources()));
+        seriesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getDrawable(R.drawable.line_divider)));
         seriesRecyclerView.setAdapter(adapter);
 
         seriesFilter.addTextChangedListener(new TextWatcher() {

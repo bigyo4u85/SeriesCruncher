@@ -1,7 +1,8 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
+import android.graphics.Bitmap;
+
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
@@ -10,9 +11,15 @@ public interface SeriesDetailsScreen {
 
     void onCreate();
 
-    void show(String title);
+    void setTitle(String title);
 
-    void show(EpisodeListModel episodes);
+    void setBackgroundColor(int color);
 
-    void show(PosterModel posterModel);
+    void setTextColor(int color);
+
+    void setPoster(Bitmap bitmap);
+
+    void setBackground(Bitmap bitmap);
+
+    void setEpisodes(EpisodeListModel episodes);
 }

@@ -7,12 +7,16 @@ public class EpisodeListItemEntity implements EpisodeListItemModel {
 
     private boolean episode;
     private boolean expanded;
-    private String text;
+    private String episodeNumber;
+    private String title;
+    private String airDate;
 
     public EpisodeListItemEntity() {
-        this.episode = false;
-        this.expanded = false;
-        this.text = "";
+        episode = false;
+        expanded = false;
+        episodeNumber = "";
+        title = "";
+        airDate = "";
     }
 
     @Override
@@ -31,8 +35,18 @@ public class EpisodeListItemEntity implements EpisodeListItemModel {
     }
 
     @Override
-    public String getText() {
-        return text;
+    public String getEpisodeNumber() {
+        return episodeNumber;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getAirDate() {
+        return airDate;
     }
 
     public EpisodeListItemEntity setEpisode(boolean episode) {
@@ -45,8 +59,18 @@ public class EpisodeListItemEntity implements EpisodeListItemModel {
         return this;
     }
 
-    public EpisodeListItemEntity setText(String text) {
-        this.text = text;
+    public EpisodeListItemEntity setEpisodeNumber(String episodeNumber) {
+        this.episodeNumber = episodeNumber;
+        return this;
+    }
+
+    public EpisodeListItemEntity setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public EpisodeListItemEntity setAirDate(String airDate) {
+        this.airDate = airDate;
         return this;
     }
 }

@@ -1,5 +1,6 @@
 package com.balazs_csernai.seriescruncher.utils.bitmap;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -8,11 +9,14 @@ import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
 
+import com.balazs_csernai.seriescruncher.app.component.ActivityScope;
+
 import javax.inject.Inject;
 
 /**
  * Created by Balazs_Csernai on 2016.02.02..
  */
+@ActivityScope
 public class RSBlurStrategy implements BlurStrategy {
 
     private final RenderScript renderScript;
@@ -20,8 +24,8 @@ public class RSBlurStrategy implements BlurStrategy {
     private static final float BLUR_RADIUS = 8.0f;
 
     @Inject
-    public RSBlurStrategy(RenderScript renderScript) {
-        this.renderScript = renderScript;
+    public RSBlurStrategy(Context context) {
+        this.renderScript = RenderScript.create(context);
     }
 
     @Override
@@ -44,6 +48,8 @@ public class RSBlurStrategy implements BlurStrategy {
         blur.setRadius(BLUR_RADIUS);
         blur.forEach(output);
         output.copyTo(result);
+
+        renderScript.destroy();
 
         return result;
     }

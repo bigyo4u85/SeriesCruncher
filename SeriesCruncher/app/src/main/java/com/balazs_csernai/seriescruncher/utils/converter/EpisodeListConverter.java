@@ -1,11 +1,11 @@
 package com.balazs_csernai.seriescruncher.utils.converter;
 
-import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListEntity;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemEntity;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +37,7 @@ public class EpisodeListConverter implements ModelConverter<EpisodeListModel, Se
                 items.add(new EpisodeListItemEntity()
                         .setEpisode(false)
                         .setExpanded(false)
-                        .setText(String.format("S%02d",
-                                episodeModel.getSeasonNumber())));
+                        .setTitle(String.format("Season %2d", episodeModel.getSeasonNumber())));
 
                 currentSeason = episodeModel.getSeasonNumber();
 

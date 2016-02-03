@@ -3,7 +3,6 @@ package com.balazs_csernai.seriescruncher.app.component;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v8.renderscript.RenderScript;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,10 +32,5 @@ public class CommonActivityModule {
     @Provides
     Context provideContext() {
         return activity;
-    }
-
-    @Provides
-    RenderScript provideRenderScript() {
-        return RenderScript.create(activity);
     }
 }
