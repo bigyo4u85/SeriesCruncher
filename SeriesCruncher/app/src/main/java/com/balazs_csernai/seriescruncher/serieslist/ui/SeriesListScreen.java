@@ -18,6 +18,8 @@ public interface SeriesListScreen {
 
     void updateSeriesList(List<Series> series);
 
+    void clearFilterAndHideKeyboard();
+
     interface Callbacks {
 
         void onSeriesSelected(Series series);

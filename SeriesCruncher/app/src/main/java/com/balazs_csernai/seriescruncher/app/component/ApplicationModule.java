@@ -3,6 +3,7 @@ package com.balazs_csernai.seriescruncher.app.component;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.view.inputmethod.InputMethodManager;
 
 import javax.inject.Singleton;
 
@@ -37,5 +38,11 @@ public class ApplicationModule {
     @Singleton
     Resources provideResources() {
         return application.getResources();
+    }
+
+    @Provides
+    @Singleton
+    InputMethodManager provideInputMethodManager() {
+        return (InputMethodManager) application.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 }

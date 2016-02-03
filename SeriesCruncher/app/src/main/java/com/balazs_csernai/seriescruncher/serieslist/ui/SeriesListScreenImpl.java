@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -45,12 +46,14 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
     EditText seriesFilter;
 
     private final AppCompatActivity activity;
+    private final InputMethodManager inputMethodManager;
     private final SeriesListAdapter adapter;
     private Callbacks callbacks;
 
     @Inject
-    public SeriesListScreenImpl(AppCompatActivity activity, Provider<SeriesListAdapter> adapterProvider) {
+    public SeriesListScreenImpl(AppCompatActivity activity, InputMethodManager inputMethodManager, Provider<SeriesListAdapter> adapterProvider) {
         this.activity = activity;
+        this.inputMethodManager = inputMethodManager;
         this.adapter = adapterProvider.get();
     }
 
@@ -99,6 +102,12 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
     @Override
     public void updateSeriesList(List<Series> series) {
         adapter.setItems(series);
+    }
+
+    @Override
+    public void clearFilterAndHideKeyboard() {
+        seriesFilter.getText().clear();
+        inputMethodManager.hideSoftInputFromWindow(seriesFilter.getWindowToken(), 0);
     }
 
     @Override
