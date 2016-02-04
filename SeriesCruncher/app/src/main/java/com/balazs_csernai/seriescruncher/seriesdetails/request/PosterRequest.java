@@ -2,9 +2,9 @@ package com.balazs_csernai.seriescruncher.seriesdetails.request;
 
 import android.graphics.Bitmap;
 
-import com.balazs_csernai.seriescruncher.image.ImageLoader;
+import com.balazs_csernai.seriescruncher.utils.image.ImageLoader;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterEntity;
-import com.balazs_csernai.seriescruncher.utils.bitmap.BlurStrategy;
+import com.balazs_csernai.seriescruncher.utils.image.BlurStrategy;
 import com.balazs_csernai.seriescruncher.utils.color.ColorProvider;
 import com.octo.android.robospice.request.SpiceRequest;
 
