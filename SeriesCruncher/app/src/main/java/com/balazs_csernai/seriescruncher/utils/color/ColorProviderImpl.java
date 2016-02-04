@@ -22,6 +22,7 @@ import javax.inject.Inject;
 public class ColorProviderImpl implements ColorProvider {
 
     private static final int BRIGHTNESS_THRESHOLD = 200;
+    private static final int COLOR_THRESHOLD = 150;
 
     private final Resources resources;
     private Swatch primarySwatch;
@@ -70,8 +71,8 @@ public class ColorProviderImpl implements ColorProvider {
 
         while (iterator.hasNext()) {
             swatch = iterator.next();
-            if (swatch.getPopulation() < primarySwatch.getPopulation()
-                    && swatch.getPopulation() > secondarySwatch.getPopulation()) {
+            if (isPopulationHighestAfterPrimary(swatch, secondarySwatch)
+                    && areColorsDifferent(primarySwatch, swatch)) {
                 secondarySwatch = swatch;
             }
         }
@@ -116,7 +117,22 @@ public class ColorProviderImpl implements ColorProvider {
     private int calculateColorBrightness(@ColorInt int color) {
         int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
         return (int) Math.sqrt(rgb[0] * rgb[0] * .241F +
-                        rgb[1] * rgb[1] * .691F +
-                        rgb[2] * rgb[2] * .068F);
+                rgb[1] * rgb[1] * .691F +
+                rgb[2] * rgb[2] * .068F);
+    }
+
+    private boolean isPopulationHighestAfterPrimary(Swatch swatchOne, Swatch swatchTwo) {
+        return swatchOne.getPopulation() < primarySwatch.getPopulation()
+                && swatchOne.getPopulation() > swatchTwo.getPopulation();
+    }
+
+    private boolean areColorsDifferent(Swatch swatchOne, Swatch swatchTwo) {
+        return COLOR_THRESHOLD < calculateColorDifference(swatchOne.getRgb(), swatchTwo.getRgb());
+    }
+
+    private int calculateColorDifference(@ColorInt int colorOne, @ColorInt int colorTwo) {
+        return Math.abs(Color.red(colorOne) - Color.red(colorTwo))
+                + Math.abs(Color.green(colorOne) - Color.green(colorTwo))
+                + Math.abs(Color.blue(colorOne) - Color.blue(colorTwo));
     }
 }

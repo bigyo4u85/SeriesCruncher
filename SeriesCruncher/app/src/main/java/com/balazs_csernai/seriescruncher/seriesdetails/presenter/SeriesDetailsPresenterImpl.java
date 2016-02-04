@@ -63,8 +63,8 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
         public void onSuccess(PosterModel result) {
             screen.setPrimaryBackgroundColor(result.getPrimaryBackgroundColor());
             screen.setPrimaryTextColor(result.getPrimaryTextColor());
-            screen.setSecondaryBackgroundColor(result.getSecondaryTextColor());
-            screen.setSecondaryTextColor(result.getSecondaryBackgroundColor());
+            screen.setSecondaryBackgroundColor(result.getSecondaryBackgroundColor());
+            screen.setSecondaryTextColor(result.getSecondaryTextColor());
             screen.setEpisodes(adapterModel);
             screen.setPoster(result.getPoster());
             screen.setBackground(result.getPosterBackground());
