@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
-import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,12 +24,13 @@ import butterknife.InjectView;
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsViewHolder> implements View.OnClickListener {
 
     private EpisodeListModel episodes;
+    @ColorInt
     private int primaryBackgroundColor, primaryTextColor, secondaryTextColor, secondaryBackgroundColor;
 
     @Inject
-    public EpisodeAdapter(Resources resources) {
+    public EpisodeAdapter() {
         episodes = new EpisodeListEntity();
-        primaryBackgroundColor = primaryTextColor = secondaryBackgroundColor = secondaryTextColor = resources.getColor(R.color.white);
+        primaryBackgroundColor = primaryTextColor = secondaryBackgroundColor = secondaryTextColor = Color.WHITE;
     }
 
     public void setItems(EpisodeListModel episodes) {
