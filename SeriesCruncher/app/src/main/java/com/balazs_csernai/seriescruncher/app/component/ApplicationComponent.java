@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.view.inputmethod.InputMethodManager;
 
 import com.balazs_csernai.seriescruncher.app.SeriesCruncherApplication;
+import com.balazs_csernai.seriescruncher.preferences.PreferenceHandler;
+import com.balazs_csernai.seriescruncher.preferences.component.PreferenceModule;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.rest.component.ApiModule;
@@ -21,7 +23,8 @@ import retrofit.converter.Converter;
 @Component(
         modules = {
                 ApplicationModule.class,
-                ApiModule.class
+                ApiModule.class,
+                PreferenceModule.class
         }
 )
 public interface ApplicationComponent {
@@ -34,6 +37,7 @@ public interface ApplicationComponent {
     Converter converter();
     EPGuideApi epGuideApi();
     OmdbApi omdbApi();
+    PreferenceHandler preferenceHandler();
 
     final class Injector {
         private static ApplicationComponent component;
@@ -45,6 +49,7 @@ public interface ApplicationComponent {
             component = DaggerApplicationComponent.builder()
                     .applicationModule(new ApplicationModule(application))
                     .apiModule(new ApiModule())
+                    .preferenceModule(new PreferenceModule())
                     .build();
 
             component.inject(application);

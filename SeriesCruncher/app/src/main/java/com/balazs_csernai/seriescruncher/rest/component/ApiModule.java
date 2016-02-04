@@ -2,7 +2,13 @@ package com.balazs_csernai.seriescruncher.rest.component;
 
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
+import com.balazs_csernai.seriescruncher.utils.common.LinkedHashSetSerializer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.inject.Singleton;
 
@@ -21,7 +27,9 @@ public class ApiModule {
     @Provides
     @Singleton
     Gson provideGson() {
-        return new Gson();
+        return new GsonBuilder()
+                .registerTypeAdapter(Set.class, new LinkedHashSetSerializer())
+                .create();
     }
 
     @Provides
