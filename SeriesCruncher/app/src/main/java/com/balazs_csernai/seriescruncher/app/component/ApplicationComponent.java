@@ -5,8 +5,8 @@ import android.content.res.Resources;
 import android.view.inputmethod.InputMethodManager;
 
 import com.balazs_csernai.seriescruncher.app.SeriesCruncherApplication;
-import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
+import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.component.ApiModule;
 
 import javax.inject.Singleton;

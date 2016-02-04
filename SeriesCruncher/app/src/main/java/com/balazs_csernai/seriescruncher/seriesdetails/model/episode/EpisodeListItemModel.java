@@ -11,5 +11,9 @@ public interface EpisodeListItemModel {
 
     void toggle();
 
-    String getText();
+    String getEpisodeNumber();
+
+    String getTitle();
+
+    String getAirDate();
 }

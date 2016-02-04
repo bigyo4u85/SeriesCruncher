@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:support="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,6 +9,7 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="400dp"
+        android:background="@android:color/transparent"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -16,18 +17,30 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/transparent"
             android:fitsSystemWindows="true"
-            support:contentScrim="?attr/colorPrimary"
+            support:contentScrim="@android:color/transparent"
             support:layout_scrollFlags="scroll|exitUntilCollapsed"
             support:titleEnabled="false">
 
-            <ImageView
-                android:id="@+id/poster_img"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                support:layout_collapseMode="parallax" />
+                support:layout_collapseMode="parallax">
+
+                <ImageView
+                    android:id="@+id/background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="32dp"
+                    android:scaleType="fitCenter" />
+            </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

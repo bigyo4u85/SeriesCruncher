@@ -35,14 +35,16 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
 
     @Override
     public SeasonsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.series_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.episode_list_item, parent, false);
         return new SeasonsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(SeasonsViewHolder holder, int position) {
         EpisodeListItemModel item = episodes.getItem(position);
-        holder.title.setText(item.getText());
+        holder.episodeNumber.setText(item.getEpisodeNumber());
+        holder.title.setText(item.getTitle());
+        holder.airDate.setText(item.getAirDate());
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);
     }
@@ -60,8 +62,12 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
     }
 
     public class SeasonsViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.series_title)
+        @InjectView(R.id.episode_number)
+        TextView episodeNumber;
+        @InjectView(R.id.episode_title)
         TextView title;
+        @InjectView(R.id.episode_airdate)
+        TextView airDate;
 
         public SeasonsViewHolder(View view) {
             super(view);

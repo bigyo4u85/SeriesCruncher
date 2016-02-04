@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.image;
+package com.balazs_csernai.seriescruncher.utils.image;
 
 import android.graphics.Bitmap;
 

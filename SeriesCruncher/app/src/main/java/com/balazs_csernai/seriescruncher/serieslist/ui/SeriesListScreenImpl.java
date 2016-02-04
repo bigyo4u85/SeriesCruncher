@@ -65,7 +65,7 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
         activity.setSupportActionBar(toolbar);
 
         seriesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        seriesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources()));
+        seriesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getDrawable(R.drawable.line_divider)));
         seriesRecyclerView.setAdapter(adapter);
 
         seriesFilter.addTextChangedListener(new TextWatcher() {

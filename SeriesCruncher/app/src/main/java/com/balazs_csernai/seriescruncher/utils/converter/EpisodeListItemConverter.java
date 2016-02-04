@@ -1,9 +1,9 @@
 package com.balazs_csernai.seriescruncher.utils.converter;
 
 
-import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemEntity;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 
 import javax.inject.Inject;
 
@@ -22,10 +22,8 @@ public class EpisodeListItemConverter implements ModelConverter<EpisodeListItemM
         return new EpisodeListItemEntity()
                 .setEpisode(true)
                 .setExpanded(false)
-                .setText(String.format("S%02d-E%02d %s (%s)",
-                        episodeModel.getSeasonNumber(),
-                        episodeModel.getEpisodeNumber(),
-                        episodeModel.getTitle(),
-                        episodeModel.getAirDate()));
+                .setEpisodeNumber(String.format("E%02d", episodeModel.getEpisodeNumber()))
+                .setTitle(episodeModel.getTitle())
+                .setAirDate(episodeModel.getAirDate());
     }
 }

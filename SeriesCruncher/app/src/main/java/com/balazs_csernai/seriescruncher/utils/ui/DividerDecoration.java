@@ -1,12 +1,9 @@
 package com.balazs_csernai.seriescruncher.utils.ui;
 
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
-import com.balazs_csernai.seriescruncher.R;
 
 /**
  * Created by ErikKramli on 2016.01.17..
@@ -15,8 +12,8 @@ public class DividerDecoration extends RecyclerView.ItemDecoration {
 
     private Drawable divider;
 
-    public DividerDecoration(Resources resources) {
-        divider = resources.getDrawable(R.drawable.line_divider);
+    public DividerDecoration(Drawable divider) {
+        this.divider = divider;
     }
 
     @Override
