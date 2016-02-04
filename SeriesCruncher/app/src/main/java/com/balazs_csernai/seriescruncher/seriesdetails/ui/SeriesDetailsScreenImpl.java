@@ -84,17 +84,29 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     }
 
     @Override
-    public void setBackgroundColor(int color) {
+    public void setPrimaryBackgroundColor(int color) {
         coordinatorLayout.setBackgroundColor(color);
         collapsingToolbar.setContentScrimColor(color);
+        adapter.setPrimaryBackgroundColor(color);
     }
 
     @Override
-    public void setTextColor(int color) {
+    public void setPrimaryTextColor(int color) {
         title.setTextColor(color);
+        adapter.setPrimaryTextColor(color);
         Drawable backArrow = activity.getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         backArrow.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         activity.getSupportActionBar().setHomeAsUpIndicator(backArrow);
+    }
+
+    @Override
+    public void setSecondaryBackgroundColor(int color) {
+        adapter.setSecondaryBackgroundColor(color);
+    }
+
+    @Override
+    public void setSecondaryTextColor(int color) {
+        adapter.setSecondaryTextColor(color);
     }
 
     @Override

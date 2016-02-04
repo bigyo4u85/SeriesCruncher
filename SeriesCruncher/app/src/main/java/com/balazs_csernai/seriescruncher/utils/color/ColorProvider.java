@@ -11,8 +11,14 @@ public interface ColorProvider {
     void generateColorPalette(Bitmap bitmap);
 
     @ColorInt
-    int getTextColor();
+    int getPrimaryTextColor();
 
     @ColorInt
-    int getBackgroundColor();
+    int getPrimaryBackgroundColor();
+
+    @ColorInt
+    int getSecondaryTextColor();
+
+    @ColorInt
+    int getSecondaryBackgroundColor();
 }

@@ -2,10 +2,10 @@ package com.balazs_csernai.seriescruncher.seriesdetails.request;
 
 import android.graphics.Bitmap;
 
-import com.balazs_csernai.seriescruncher.utils.image.ImageLoader;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterEntity;
-import com.balazs_csernai.seriescruncher.utils.image.BlurStrategy;
 import com.balazs_csernai.seriescruncher.utils.color.ColorProvider;
+import com.balazs_csernai.seriescruncher.utils.image.BlurStrategy;
+import com.balazs_csernai.seriescruncher.utils.image.ImageLoader;
 import com.octo.android.robospice.request.SpiceRequest;
 
 import javax.inject.Inject;
@@ -41,7 +41,9 @@ public class PosterRequest extends SpiceRequest<PosterEntity> {
         return new PosterEntity()
                 .setPoster(poster)
                 .setPosterBackground(posterBackground)
-                .setBackgroundColor(colorProvider.getBackgroundColor())
-                .setTextColor(colorProvider.getTextColor());
+                .setPrimaryBackgroundColor(colorProvider.getPrimaryBackgroundColor())
+                .setPrimaryTextColor(colorProvider.getPrimaryTextColor())
+                .setSecondaryBackgroundColor(colorProvider.getSecondaryBackgroundColor())
+                .setSecondaryTextColor(colorProvider.getSecondaryTextColor());
     }
 }

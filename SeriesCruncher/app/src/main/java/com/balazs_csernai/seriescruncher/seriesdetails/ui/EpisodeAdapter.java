@@ -22,10 +22,26 @@ import butterknife.InjectView;
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsViewHolder> implements View.OnClickListener {
 
     private EpisodeListModel episodes;
+    private int primaryBackgroundColor, primaryTextColor, secondaryTextColor, secondaryBackgroundColor;
 
     @Inject
     public EpisodeAdapter() {
         episodes = new EpisodeListEntity();
+    }
+
+    public void setPrimaryBackgroundColor(int color) {
+        primaryBackgroundColor = color;
+    }
+    public void setPrimaryTextColor(int color) {
+        primaryTextColor = color;
+    }
+
+    public void setSecondaryBackgroundColor(int color) {
+        secondaryBackgroundColor = color;
+    }
+
+    public void setSecondaryTextColor(int color) {
+        secondaryTextColor = color;
     }
 
     public void setItems(EpisodeListModel episodes) {
@@ -42,6 +58,13 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
     @Override
     public void onBindViewHolder(SeasonsViewHolder holder, int position) {
         EpisodeListItemModel item = episodes.getItem(position);
+        if (item.isEpisode()) {
+            holder.episodeNumber.setBackgroundColor(secondaryBackgroundColor);
+            holder.episodeNumber.setTextColor(secondaryTextColor);
+        } else {
+            holder.episodeNumber.setBackgroundColor(primaryBackgroundColor);
+            holder.episodeNumber.setTextColor(primaryTextColor);
+        }
         holder.episodeNumber.setText(item.getEpisodeNumber());
         holder.title.setText(item.getTitle());
         holder.airDate.setText(item.getAirDate());

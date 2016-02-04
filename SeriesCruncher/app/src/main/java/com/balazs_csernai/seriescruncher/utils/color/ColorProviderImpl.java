@@ -24,7 +24,8 @@ public class ColorProviderImpl implements ColorProvider {
     private static final int BRIGHTNESS_THRESHOLD = 200;
 
     private final Resources resources;
-    private Swatch swatch;
+    private Swatch primarySwatch;
+    private Swatch secondarySwatch;
 
     @Inject
     public ColorProviderImpl(Resources resources) {
@@ -36,52 +37,86 @@ public class ColorProviderImpl implements ColorProvider {
         if (bitmap != null) {
             List<Swatch> swatches = Palette.from(bitmap).generate().getSwatches();
             if (swatches.isEmpty()) {
-                swatch = null;
+                primarySwatch = null;
+                secondarySwatch = null;
             } else {
-                swatch = findMostCommonSwatch(swatches);
+                primarySwatch = findPrimaryCommonSwatch(swatches);
+                secondarySwatch = findSecondarySwatch(swatches);
             }
         }
     }
 
-    private Swatch findMostCommonSwatch(@NonNull List<Swatch> swatches) {
+    private Swatch findPrimaryCommonSwatch(@NonNull List<Swatch> swatches) {
         Iterator<Swatch> iterator = swatches.iterator();
-        Swatch swatch, mostCommonSwatch = iterator.next();
+        Swatch swatch, primarySwatch = iterator.next();
+
         while (iterator.hasNext()) {
             swatch = iterator.next();
-            if (swatch.getPopulation() > mostCommonSwatch.getPopulation()) {
-                mostCommonSwatch = swatch;
+            if (swatch.getPopulation() > primarySwatch.getPopulation()) {
+                primarySwatch = swatch;
             }
         }
-        return mostCommonSwatch;
+        return primarySwatch;
+    }
+
+    private Swatch findSecondarySwatch(@NonNull List<Swatch> swatches) {
+        Iterator<Swatch> iterator = swatches.iterator();
+        Swatch swatch, secondarySwatch = iterator.next();
+
+        // Make sure that the primary swatch is not selected as secondary swatch
+        if (secondarySwatch.getPopulation() == primarySwatch.getPopulation()) {
+            secondarySwatch = iterator.next();
+        }
+
+        while (iterator.hasNext()) {
+            swatch = iterator.next();
+            if (swatch.getPopulation() < primarySwatch.getPopulation()
+                    && swatch.getPopulation() > secondarySwatch.getPopulation()) {
+                secondarySwatch = swatch;
+            }
+        }
+        return secondarySwatch;
     }
 
     @ColorInt
     @Override
-    public int getTextColor() {
-        if (calculateColorBrightness(getBackgroundColor()) >= BRIGHTNESS_THRESHOLD) {
+    public int getPrimaryTextColor() {
+        if (calculateColorBrightness(getPrimaryBackgroundColor()) >= BRIGHTNESS_THRESHOLD) {
             return getColor(R.color.black);
-
         } else {
             return getColor(R.color.white);
         }
     }
 
-    private int calculateColorBrightness(@ColorInt int color) {
-        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
-        return  (int) Math.sqrt(
-                rgb[0] * rgb[0] * .241F +
-                rgb[1] * rgb[1] * .691F +
-                rgb[2] * rgb[2] * .068F);
-    }
-
     @ColorInt
     @Override
-    public int getBackgroundColor() {
-        return swatch == null ? getColor(R.color.colorPrimary) : swatch.getRgb();
+    public int getPrimaryBackgroundColor() {
+        return primarySwatch == null ? getColor(R.color.colorPrimary) : primarySwatch.getRgb();
+    }
+
+    @Override
+    public int getSecondaryTextColor() {
+        if (calculateColorBrightness(getSecondaryBackgroundColor()) >= BRIGHTNESS_THRESHOLD) {
+            return getColor(R.color.black);
+        } else {
+            return getColor(R.color.white);
+        }
+    }
+
+    @Override
+    public int getSecondaryBackgroundColor() {
+        return secondarySwatch == null ? getColor(R.color.colorAccent) : secondarySwatch.getRgb();
     }
 
     @ColorInt
     private int getColor(@ColorRes int res) {
         return resources.getColor(res);
+    }
+
+    private int calculateColorBrightness(@ColorInt int color) {
+        int[] rgb = {Color.red(color), Color.green(color), Color.blue(color)};
+        return (int) Math.sqrt(rgb[0] * rgb[0] * .241F +
+                        rgb[1] * rgb[1] * .691F +
+                        rgb[2] * rgb[2] * .068F);
     }
 }

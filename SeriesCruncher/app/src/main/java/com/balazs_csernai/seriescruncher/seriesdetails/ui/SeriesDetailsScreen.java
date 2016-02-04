@@ -13,9 +13,13 @@ public interface SeriesDetailsScreen {
 
     void setTitle(String title);
 
-    void setBackgroundColor(int color);
+    void setPrimaryBackgroundColor(int color);
 
-    void setTextColor(int color);
+    void setPrimaryTextColor(int color);
+
+    void setSecondaryBackgroundColor(int color);
+
+    void setSecondaryTextColor(int color);
 
     void setPoster(Bitmap bitmap);
 
