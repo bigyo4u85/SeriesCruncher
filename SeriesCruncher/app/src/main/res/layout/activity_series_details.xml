@@ -38,8 +38,7 @@
                     android:id="@+id/poster"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_margin="32dp"
                     android:scaleType="fitCenter" />
             </RelativeLayout>
 
