@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
+import android.content.res.Resources;
+import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,27 +27,21 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
     private int primaryBackgroundColor, primaryTextColor, secondaryTextColor, secondaryBackgroundColor;
 
     @Inject
-    public EpisodeAdapter() {
+    public EpisodeAdapter(Resources resources) {
         episodes = new EpisodeListEntity();
-    }
-
-    public void setPrimaryBackgroundColor(int color) {
-        primaryBackgroundColor = color;
-    }
-    public void setPrimaryTextColor(int color) {
-        primaryTextColor = color;
-    }
-
-    public void setSecondaryBackgroundColor(int color) {
-        secondaryBackgroundColor = color;
-    }
-
-    public void setSecondaryTextColor(int color) {
-        secondaryTextColor = color;
+        primaryBackgroundColor = primaryTextColor = secondaryBackgroundColor = secondaryTextColor = resources.getColor(R.color.white);
     }
 
     public void setItems(EpisodeListModel episodes) {
         this.episodes = episodes;
+        notifyDataSetChanged();
+    }
+
+    public void setColors(@ColorInt int primaryBackgroundColor, @ColorInt int secondaryBackgroundColor, @ColorInt int primaryTextColor, @ColorInt int secondaryTextColor) {
+        this.primaryBackgroundColor = primaryBackgroundColor;
+        this.secondaryBackgroundColor = secondaryBackgroundColor;
+        this.primaryTextColor = primaryTextColor;
+        this.secondaryTextColor = secondaryTextColor;
         notifyDataSetChanged();
     }
 

@@ -19,7 +19,6 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     private final SeriesLoader seriesLoader;
     private final SeriesDetailsScreen screen;
     private final ModelConverter converter;
-    public EpisodeListModel adapterModel;
 
     @Inject
     public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter) {
@@ -49,7 +48,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
         @Override
         public void onSuccess(SeriesDetailsModel model) {
             screen.setTitle(model.getTitle());
-            adapterModel = (EpisodeListModel) converter.convert(model);
+            screen.setEpisodes((EpisodeListModel) converter.convert(model));
             seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
         }
 
@@ -61,11 +60,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     private final Callback<PosterModel> posterCallbacks = new Callback<PosterModel>() {
         @Override
         public void onSuccess(PosterModel result) {
-            screen.setPrimaryBackgroundColor(result.getPrimaryBackgroundColor());
-            screen.setPrimaryTextColor(result.getPrimaryTextColor());
-            screen.setSecondaryBackgroundColor(result.getSecondaryBackgroundColor());
-            screen.setSecondaryTextColor(result.getSecondaryTextColor());
-            screen.setEpisodes(adapterModel);
+            screen.setColors(result.getPrimaryBackgroundColor(), result.getSecondaryBackgroundColor(), result.getPrimaryTextColor(), result.getSecondaryTextColor());
             screen.setPoster(result.getPoster());
             screen.setBackground(result.getPosterBackground());
         }
