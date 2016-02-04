@@ -1,13 +1,13 @@
 package com.balazs_csernai.seriescruncher.preferences.user;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-02-04.
  */
 public interface UserPreferencesModel {
 
-    List<String> getFavoredSeries();
+    Set<String> getFavoredSeries();
 
     void addSeriesToFavorites(String seriesName);
 
