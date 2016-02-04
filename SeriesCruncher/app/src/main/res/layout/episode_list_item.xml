@@ -14,7 +14,7 @@
         android:layout_height="@dimen/size_thumbnail_normal"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="@dimen/spacing_simple"
-        android:background="@drawable/circular_background"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/list_item_text_thumbnail"
