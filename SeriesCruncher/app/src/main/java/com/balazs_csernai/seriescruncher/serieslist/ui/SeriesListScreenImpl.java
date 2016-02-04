@@ -1,12 +1,14 @@
 package com.balazs_csernai.seriescruncher.serieslist.ui;
 
-import android.app.Activity;
-import android.graphics.drawable.ShapeDrawable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.balazs_csernai.seriescruncher.R;
@@ -28,22 +30,30 @@ import butterknife.InjectView;
  */
 public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter.OnShowListener {
 
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
     @InjectView(R.id.series_progress)
     ProgressBar progressBar;
 
     @InjectView(R.id.series_recyclerview)
     RecyclerView seriesRecyclerView;
 
+    @InjectView(R.id.filter_container)
+    FrameLayout filterContainer;
+
     @InjectView(R.id.filter_edit)
     EditText seriesFilter;
 
-    private final Activity activity;
+    private final AppCompatActivity activity;
+    private final InputMethodManager inputMethodManager;
     private final SeriesListAdapter adapter;
     private Callbacks callbacks;
 
     @Inject
-    public SeriesListScreenImpl(Activity activity, Provider<SeriesListAdapter> adapterProvider) {
+    public SeriesListScreenImpl(AppCompatActivity activity, InputMethodManager inputMethodManager, Provider<SeriesListAdapter> adapterProvider) {
         this.activity = activity;
+        this.inputMethodManager = inputMethodManager;
         this.adapter = adapterProvider.get();
     }
 
@@ -51,6 +61,8 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
     public void onCreate(final Callbacks callbacks) {
         this.callbacks = callbacks;
         ButterKnife.inject(this, activity);
+
+        activity.setSupportActionBar(toolbar);
 
         seriesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
         seriesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getDrawable(R.drawable.line_divider)));
@@ -74,14 +86,14 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
 
     @Override
     public void displayProgressIndicator() {
-        ViewUtils.gone(seriesRecyclerView, seriesFilter);
+        ViewUtils.gone(seriesRecyclerView, filterContainer);
         ViewUtils.visible(progressBar);
     }
 
     @Override
     public void displaySeriesList(SeriesListModel model) {
         ViewUtils.gone(progressBar);
-        ViewUtils.visible(seriesRecyclerView, seriesFilter);
+        ViewUtils.visible(seriesRecyclerView, filterContainer);
 
         adapter.setOnShowListener(this);
         updateSeriesList(model.getSeriesList());
@@ -90,6 +102,12 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
     @Override
     public void updateSeriesList(List<Series> series) {
         adapter.setItems(series);
+    }
+
+    @Override
+    public void clearFilterAndHideKeyboard() {
+        seriesFilter.getText().clear();
+        inputMethodManager.hideSoftInputFromWindow(seriesFilter.getWindowToken(), 0);
     }
 
     @Override

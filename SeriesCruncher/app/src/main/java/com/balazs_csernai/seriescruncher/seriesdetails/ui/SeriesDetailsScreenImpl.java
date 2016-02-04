@@ -28,6 +28,9 @@ import butterknife.InjectView;
  */
 public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBarLayout.AppBarChangeListener {
 
+    @InjectView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
+
     @InjectView(R.id.appbar)
     SmartAppBarLayout appbar;
 
@@ -71,7 +74,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
         layoutManager = new SmartLayoutManager(activity);
         episodesRecyclerView.setLayoutManager(layoutManager);
-        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getDrawable(R.drawable.translucent_list_divider)));
+        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getDrawable(R.drawable.line_divider)));
         episodesRecyclerView.setAdapter(adapter);
     }
 
@@ -82,6 +85,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @Override
     public void setBackgroundColor(int color) {
+        coordinatorLayout.setBackgroundColor(color);
         collapsingToolbar.setContentScrimColor(color);
     }
 

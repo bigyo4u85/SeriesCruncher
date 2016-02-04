@@ -22,7 +22,7 @@ public class EpisodeListItemConverter implements ModelConverter<EpisodeListItemM
         return new EpisodeListItemEntity()
                 .setEpisode(true)
                 .setExpanded(false)
-                .setEpisodeNumber(String.format("Episode %02d", episodeModel.getEpisodeNumber()))
+                .setEpisodeNumber(String.format("E%02d", episodeModel.getEpisodeNumber()))
                 .setTitle(episodeModel.getTitle())
                 .setAirDate(episodeModel.getAirDate());
     }

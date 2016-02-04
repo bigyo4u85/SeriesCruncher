@@ -2,6 +2,7 @@ package com.balazs_csernai.seriescruncher.app.component;
 
 import android.app.Application;
 import android.content.res.Resources;
+import android.view.inputmethod.InputMethodManager;
 
 import com.balazs_csernai.seriescruncher.app.SeriesCruncherApplication;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
@@ -29,6 +30,8 @@ public interface ApplicationComponent {
     Application application();
 
     Resources resources();
+
+    InputMethodManager inputMethodManager();
 
     Converter converter();
 
