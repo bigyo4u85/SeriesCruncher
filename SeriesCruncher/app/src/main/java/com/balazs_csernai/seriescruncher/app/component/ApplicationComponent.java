@@ -25,18 +25,14 @@ import retrofit.converter.Converter;
         }
 )
 public interface ApplicationComponent {
+
     void inject(SeriesCruncherApplication application);
 
     Application application();
-
     Resources resources();
-
     InputMethodManager inputMethodManager();
-
     Converter converter();
-
     EPGuideApi epGuideApi();
-
     OmdbApi omdbApi();
 
     final class Injector {
