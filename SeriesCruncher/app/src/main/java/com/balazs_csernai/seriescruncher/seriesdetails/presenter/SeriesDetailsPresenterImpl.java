@@ -2,9 +2,9 @@ package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
 import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
 import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
@@ -34,8 +34,8 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     }
 
     @Override
-    public void loadShowDetails(String showName, String imdbId) {
-        seriesLoader.loadDetails(showName, imdbId, seriesCallbacks);
+    public void loadSeriesDetails(String seriesName, String imdbId) {
+        seriesLoader.loadDetails(seriesName, imdbId, seriesCallbacks);
     }
 
     @Override
@@ -46,8 +46,8 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     private final Callback<SeriesDetailsModel> seriesCallbacks = new Callback<SeriesDetailsModel>() {
         @Override
         public void onSuccess(SeriesDetailsModel model) {
-            screen.show(model.getTitle());
-            screen.show((EpisodeListModel) converter.convert(model));
+            screen.setTitle(model.getTitle());
+            screen.setEpisodes((EpisodeListModel) converter.convert(model));
             seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
         }
 
@@ -59,7 +59,10 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     private final Callback<PosterModel> posterCallbacks = new Callback<PosterModel>() {
         @Override
         public void onSuccess(PosterModel result) {
-            screen.show(result);
+            screen.setBackgroundColor(result.getBackgroundColor());
+            screen.setTextColor(result.getTextColor());
+            screen.setPoster(result.getPoster());
+            screen.setBackground(result.getPosterBackground());
         }
 
         @Override

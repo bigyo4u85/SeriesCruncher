@@ -7,7 +7,7 @@ public interface SeriesDetailsPresenter {
 
     void onStart();
 
-    void loadShowDetails(String showName, String imdbId);
+    void loadSeriesDetails(String seriesName, String imdbId);
 
     void onStop();
 }

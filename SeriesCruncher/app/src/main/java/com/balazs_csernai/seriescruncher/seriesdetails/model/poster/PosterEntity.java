@@ -8,13 +8,20 @@ import android.graphics.Bitmap;
 public class PosterEntity implements PosterModel {
 
     private Bitmap poster;
+    private Bitmap posterBackground;
     private int backgroundColor, textColor;
 
-    public PosterEntity() {}
+    public PosterEntity() {
+    }
 
     @Override
     public Bitmap getPoster() {
         return poster;
+    }
+
+    @Override
+    public Bitmap getPosterBackground() {
+        return posterBackground;
     }
 
     @Override
@@ -29,6 +36,11 @@ public class PosterEntity implements PosterModel {
 
     public PosterEntity setPoster(Bitmap poster) {
         this.poster = poster;
+        return this;
+    }
+
+    public PosterEntity setPosterBackground(Bitmap posterBackground) {
+        this.posterBackground = posterBackground;
         return this;
     }
 

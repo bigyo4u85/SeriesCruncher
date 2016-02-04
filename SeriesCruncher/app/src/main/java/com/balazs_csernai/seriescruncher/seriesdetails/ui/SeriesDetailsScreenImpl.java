@@ -1,8 +1,10 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +13,6 @@ import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
@@ -27,6 +28,9 @@ import butterknife.InjectView;
  */
 public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBarLayout.AppBarChangeListener {
 
+    @InjectView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
+
     @InjectView(R.id.appbar)
     SmartAppBarLayout appbar;
 
@@ -39,8 +43,11 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @InjectView(R.id.title)
     TextView title;
 
-    @InjectView(R.id.poster_img)
+    @InjectView(R.id.poster)
     ImageView poster;
+
+    @InjectView(R.id.background)
+    ImageView background;
 
     @InjectView(R.id.episodes_recyclerview)
     RecyclerView episodesRecyclerView;
@@ -67,29 +74,42 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
         layoutManager = new SmartLayoutManager(activity);
         episodesRecyclerView.setLayoutManager(layoutManager);
-        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources()));
+        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getDrawable(R.drawable.line_divider)));
         episodesRecyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void show(String text) {
+    public void setTitle(String text) {
         title.setText(text);
     }
 
     @Override
-    public void show(EpisodeListModel episodes) {
-        adapter.setItems(episodes);
+    public void setBackgroundColor(int color) {
+        coordinatorLayout.setBackgroundColor(color);
+        collapsingToolbar.setContentScrimColor(color);
     }
 
     @Override
-    public void show(PosterModel posterModel) {
-        poster.setImageBitmap(posterModel.getPoster());
-        collapsingToolbar.setContentScrimColor(posterModel.getBackgroundColor());
-        title.setTextColor(posterModel.getTextColor());
-
+    public void setTextColor(int color) {
+        title.setTextColor(color);
         Drawable backArrow = activity.getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        backArrow.setColorFilter(posterModel.getTextColor(), PorterDuff.Mode.SRC_IN);
+        backArrow.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         activity.getSupportActionBar().setHomeAsUpIndicator(backArrow);
+    }
+
+    @Override
+    public void setPoster(Bitmap bitmap) {
+        poster.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void setBackground(Bitmap bitmap) {
+        background.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void setEpisodes(EpisodeListModel episodes) {
+        adapter.setItems(episodes);
     }
 
     @Override

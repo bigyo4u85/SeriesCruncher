@@ -37,7 +37,7 @@ public class SeriesDetailsActivity extends AppCompatActivity {
         presenter.onStart();
         String seriesName = IntentUtils.getStringArgOrThrow(getIntent(), ARG_SERIES_NAME);
         String imdbId = IntentUtils.getStringArgOrThrow(getIntent(), ARG_IMDB_ID);
-        presenter.loadShowDetails(seriesName, imdbId);
+        presenter.loadSeriesDetails(seriesName, imdbId);
     }
 
     @Override
