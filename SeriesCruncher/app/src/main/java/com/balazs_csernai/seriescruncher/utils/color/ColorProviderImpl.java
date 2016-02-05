@@ -11,7 +11,9 @@ import android.support.v7.graphics.Palette.Swatch;
 
 import com.balazs_csernai.seriescruncher.R;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,6 +25,7 @@ public class ColorProviderImpl implements ColorProvider {
 
     private static final int BRIGHTNESS_THRESHOLD = 200;
     private static final int COLOR_THRESHOLD = 150;
+    private static final Comparator<Swatch> populationComparator = new PopulationComparator();
 
     private final Resources resources;
     private Swatch primarySwatch;
@@ -36,11 +39,12 @@ public class ColorProviderImpl implements ColorProvider {
     @Override
     public void generateColorPalette(Bitmap bitmap) {
         if (bitmap != null) {
-            List<Swatch> swatches = Palette.from(bitmap).generate().getSwatches();
+            List<Swatch> swatches = new ArrayList<>(Palette.from(bitmap).generate().getSwatches());
             if (swatches.isEmpty()) {
                 primarySwatch = null;
                 secondarySwatch = null;
             } else {
+                Collections.sort(swatches, populationComparator);
                 primarySwatch = findPrimaryCommonSwatch(swatches);
                 secondarySwatch = findSecondarySwatch(swatches);
             }
@@ -48,35 +52,24 @@ public class ColorProviderImpl implements ColorProvider {
     }
 
     private Swatch findPrimaryCommonSwatch(@NonNull List<Swatch> swatches) {
-        Iterator<Swatch> iterator = swatches.iterator();
-        Swatch swatch, primarySwatch = iterator.next();
-
-        while (iterator.hasNext()) {
-            swatch = iterator.next();
-            if (swatch.getPopulation() > primarySwatch.getPopulation()) {
-                primarySwatch = swatch;
-            }
-        }
-        return primarySwatch;
+        return swatches.get(0);
     }
 
     private Swatch findSecondarySwatch(@NonNull List<Swatch> swatches) {
-        Iterator<Swatch> iterator = swatches.iterator();
-        Swatch swatch, secondarySwatch = iterator.next();
-
-        // Make sure that the primary swatch is not selected as secondary swatch
-        if (secondarySwatch.getPopulation() == primarySwatch.getPopulation()) {
-            secondarySwatch = iterator.next();
+        if (swatches.size() <= 1) {
+            return null;
+        } else if (swatches.size() == 2) {
+            return swatches.get(1);
         }
 
-        while (iterator.hasNext()) {
-            swatch = iterator.next();
-            if (isPopulationHighestAfterPrimary(swatch, secondarySwatch)
-                    && areColorsDifferent(primarySwatch, swatch)) {
-                secondarySwatch = swatch;
-            }
+        int position = 2;
+        Swatch swatch = swatches.get(position);
+
+        while (!areColorsDifferent(primarySwatch, swatch)) {
+            swatch = swatches.get(++position);
         }
-        return secondarySwatch;
+
+        return swatch;
     }
 
     @ColorInt
@@ -121,11 +114,6 @@ public class ColorProviderImpl implements ColorProvider {
                 rgb[2] * rgb[2] * .068F);
     }
 
-    private boolean isPopulationHighestAfterPrimary(Swatch swatchOne, Swatch swatchTwo) {
-        return swatchOne.getPopulation() < primarySwatch.getPopulation()
-                && swatchOne.getPopulation() > swatchTwo.getPopulation();
-    }
-
     private boolean areColorsDifferent(Swatch swatchOne, Swatch swatchTwo) {
         return COLOR_THRESHOLD < calculateColorDifference(swatchOne.getRgb(), swatchTwo.getRgb());
     }
@@ -134,5 +122,13 @@ public class ColorProviderImpl implements ColorProvider {
         return Math.abs(Color.red(colorOne) - Color.red(colorTwo))
                 + Math.abs(Color.green(colorOne) - Color.green(colorTwo))
                 + Math.abs(Color.blue(colorOne) - Color.blue(colorTwo));
+    }
+
+    private static class PopulationComparator implements Comparator<Swatch> {
+
+        @Override
+        public int compare(Swatch swatchOne, Swatch swatchTwo) {
+            return swatchTwo.getPopulation()- swatchOne.getPopulation();
+        }
     }
 }
