@@ -28,7 +28,7 @@ public class ApiModule {
     @Singleton
     Gson provideGson() {
         return new GsonBuilder()
-                .registerTypeAdapter(Set.class, new LinkedHashSetSerializer())
+                .registerTypeAdapter(new TypeToken<Set<String>>(){}.getType(), new LinkedHashSetSerializer())
                 .create();
     }
 
