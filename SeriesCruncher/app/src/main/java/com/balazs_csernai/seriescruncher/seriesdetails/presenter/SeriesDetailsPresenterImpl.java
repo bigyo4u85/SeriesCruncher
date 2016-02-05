@@ -44,6 +44,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     }
 
     private final Callback<SeriesDetailsModel> seriesCallbacks = new Callback<SeriesDetailsModel>() {
+
         @Override
         public void onSuccess(SeriesDetailsModel model) {
             screen.setTitle(model.getTitle());
@@ -59,8 +60,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     private final Callback<PosterModel> posterCallbacks = new Callback<PosterModel>() {
         @Override
         public void onSuccess(PosterModel result) {
-            screen.setBackgroundColor(result.getBackgroundColor());
-            screen.setTextColor(result.getTextColor());
+            screen.setColors(result.getPrimaryBackgroundColor(), result.getSecondaryBackgroundColor(), result.getPrimaryTextColor(), result.getSecondaryTextColor());
             screen.setPoster(result.getPoster());
             screen.setBackground(result.getPosterBackground());
         }

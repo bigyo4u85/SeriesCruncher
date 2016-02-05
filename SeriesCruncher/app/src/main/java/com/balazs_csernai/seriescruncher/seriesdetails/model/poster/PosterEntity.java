@@ -9,7 +9,7 @@ public class PosterEntity implements PosterModel {
 
     private Bitmap poster;
     private Bitmap posterBackground;
-    private int backgroundColor, textColor;
+    private int primaryBackgroundColor, primaryTextColor, secondaryBackgroundColor, secondaryTextColor;
 
     public PosterEntity() {
     }
@@ -25,13 +25,23 @@ public class PosterEntity implements PosterModel {
     }
 
     @Override
-    public int getBackgroundColor() {
-        return backgroundColor;
+    public int getPrimaryBackgroundColor() {
+        return primaryBackgroundColor;
     }
 
     @Override
-    public int getTextColor() {
-        return textColor;
+    public int getPrimaryTextColor() {
+        return primaryTextColor;
+    }
+
+    @Override
+    public int getSecondaryBackgroundColor() {
+        return secondaryBackgroundColor;
+    }
+
+    @Override
+    public int getSecondaryTextColor() {
+        return secondaryTextColor;
     }
 
     public PosterEntity setPoster(Bitmap poster) {
@@ -44,13 +54,23 @@ public class PosterEntity implements PosterModel {
         return this;
     }
 
-    public PosterEntity setBackgroundColor(int color) {
-        backgroundColor = color;
+    public PosterEntity setPrimaryBackgroundColor(int color) {
+        primaryBackgroundColor = color;
         return this;
     }
 
-    public PosterEntity setTextColor(int color) {
-        textColor = color;
+    public PosterEntity setPrimaryTextColor(int color) {
+        primaryTextColor = color;
+        return this;
+    }
+
+    public PosterEntity setSecondaryBackgroundColor(int color) {
+        secondaryBackgroundColor = color;
+        return this;
+    }
+
+    public PosterEntity setSecondaryTextColor(int color) {
+        secondaryTextColor = color;
         return this;
     }
 }
