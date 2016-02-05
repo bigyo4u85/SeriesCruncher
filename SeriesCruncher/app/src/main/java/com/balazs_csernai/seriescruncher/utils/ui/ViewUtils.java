@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.utils.common;
+package com.balazs_csernai.seriescruncher.utils.ui;
 
 import android.view.View;
 
@@ -20,6 +20,12 @@ public final class ViewUtils {
     private static void setVisibility(int visibilityFlag, View... views) {
         for (View v : views) {
             v.setVisibility(visibilityFlag);
+        }
+    }
+
+    public static void alpha(float targetAlpha, View... views) {
+        for (View view : views) {
+            view.setAlpha(targetAlpha);
         }
     }
 }

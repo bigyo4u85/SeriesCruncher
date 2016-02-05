@@ -12,6 +12,10 @@ public interface SeriesDetailsScreen {
 
     void onCreate();
 
+    void displayProgressIndicator();
+
+    void displaySeriesDetails(EpisodeListModel episodes);
+
     void setTitle(String title);
 
     void setColors(@ColorInt int primaryBackgroundColor, @ColorInt int secondaryBackgroundColor, @ColorInt int primaryTextColor, @ColorInt int secondaryTextColor);
@@ -20,5 +24,4 @@ public interface SeriesDetailsScreen {
 
     void setBackground(Bitmap bitmap);
 
-    void setEpisodes(EpisodeListModel episodes);
 }

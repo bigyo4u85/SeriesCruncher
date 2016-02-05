@@ -1,21 +1,32 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -27,6 +38,9 @@ import butterknife.InjectView;
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
 public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBarLayout.AppBarChangeListener {
+
+    @InjectView(R.id.details_progress)
+    View progressBar;
 
     @InjectView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
@@ -51,6 +65,9 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @InjectView(R.id.episodes_recyclerview)
     RecyclerView episodesRecyclerView;
+
+    @InjectView(R.id.favor_fab)
+    FloatingActionButton favorFab;
 
     private final AppCompatActivity activity;
     private final EpisodeAdapter adapter;
@@ -79,6 +96,58 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     }
 
     @Override
+    public void displayProgressIndicator() {
+        ViewUtils.gone(appbar, episodesRecyclerView, favorFab);
+        ViewUtils.alpha(1f, progressBar);
+        ViewUtils.visible(progressBar);
+    }
+
+    @Override
+    public void displaySeriesDetails(final EpisodeListModel episodes) {
+        adapter.setItems(episodes);
+
+        ViewUtils.alpha(0f, appbar, episodesRecyclerView, favorFab);
+        ViewUtils.visible(appbar, episodesRecyclerView, favorFab);
+
+
+        AnimatorSet contentAnimatorSet = new AnimatorSet();
+        contentAnimatorSet.setDuration(1000);
+        contentAnimatorSet.playTogether(
+                createDetailsShowAnimators(appbar, episodesRecyclerView)
+        );
+        contentAnimatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                ViewUtils.gone(progressBar);
+            }
+        });
+
+
+        AnimatorSet fabAnimatorSet = new AnimatorSet();
+        fabAnimatorSet.setInterpolator(new OvershootInterpolator());
+        fabAnimatorSet.setDuration(300);
+        fabAnimatorSet.playTogether(
+                ObjectAnimator.ofFloat(favorFab, View.ALPHA, 0f, 1f),
+                ObjectAnimator.ofFloat(favorFab, View.SCALE_X, 0f, 1f),
+                ObjectAnimator.ofFloat(favorFab, View.SCALE_Y, 0f, 1f)
+        );
+
+        AnimatorSet set = new AnimatorSet();
+        set.playSequentially(contentAnimatorSet, fabAnimatorSet);
+        set.start();
+    }
+
+    private List<Animator> createDetailsShowAnimators(View... views) {
+        List<Animator> animators = new ArrayList<>(views.length);
+        for (View v : views) {
+            animators.add( ObjectAnimator.ofFloat(v, View.ALPHA, 0f, 1f) );
+        }
+        animators.add( ObjectAnimator.ofFloat(progressBar, View.ALPHA, 1f, 0f) );
+        return animators;
+    }
+
+
+    @Override
     public void setTitle(String text) {
         title.setText(text);
     }
@@ -104,11 +173,6 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void setBackground(Bitmap bitmap) {
         background.setImageBitmap(bitmap);
-    }
-
-    @Override
-    public void setEpisodes(EpisodeListModel episodes) {
-        adapter.setItems(episodes);
     }
 
     @Override

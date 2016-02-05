@@ -35,6 +35,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
 
     @Override
     public void loadSeriesDetails(String seriesName, String imdbId) {
+        screen.displayProgressIndicator();
         seriesLoader.loadDetails(seriesName, imdbId, seriesCallbacks);
     }
 
@@ -43,13 +44,15 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
         seriesLoader.unbind();
     }
 
+    SeriesDetailsModel detailsModel;
+
     private final Callback<SeriesDetailsModel> seriesCallbacks = new Callback<SeriesDetailsModel>() {
 
         @Override
         public void onSuccess(SeriesDetailsModel model) {
             screen.setTitle(model.getTitle());
-            screen.setEpisodes((EpisodeListModel) converter.convert(model));
             seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
+            detailsModel = model;
         }
 
         @Override
@@ -63,6 +66,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
             screen.setColors(result.getPrimaryBackgroundColor(), result.getSecondaryBackgroundColor(), result.getPrimaryTextColor(), result.getSecondaryTextColor());
             screen.setPoster(result.getPoster());
             screen.setBackground(result.getPosterBackground());
+            screen.displaySeriesDetails((EpisodeListModel) converter.convert(detailsModel));
         }
 
         @Override

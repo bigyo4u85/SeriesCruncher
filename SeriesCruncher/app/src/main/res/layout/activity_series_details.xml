@@ -63,6 +63,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/episodes_recyclerview"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         support:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -78,5 +79,11 @@
         support:layout_anchor="@id/collapsing_toolbar"
         support:layout_anchorGravity="bottom|right|end"
         support:pressedTranslationZ="8dp" />
+
+    <com.balazs_csernai.seriescruncher.utils.ui.ProgressView
+        android:id="@+id/details_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>

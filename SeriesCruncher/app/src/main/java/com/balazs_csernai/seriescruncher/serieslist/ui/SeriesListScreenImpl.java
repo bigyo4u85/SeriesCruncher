@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Series;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
-import com.balazs_csernai.seriescruncher.utils.common.ViewUtils;
+import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 
 import java.util.List;
