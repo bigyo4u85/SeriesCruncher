@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,14 +24,25 @@ import butterknife.InjectView;
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsViewHolder> implements View.OnClickListener {
 
     private EpisodeListModel episodes;
+    @ColorInt
+    private int primaryBackgroundColor, primaryTextColor, secondaryTextColor, secondaryBackgroundColor;
 
     @Inject
     public EpisodeAdapter() {
         episodes = new EpisodeListEntity();
+        primaryBackgroundColor = primaryTextColor = secondaryBackgroundColor = secondaryTextColor = Color.WHITE;
     }
 
     public void setItems(EpisodeListModel episodes) {
         this.episodes = episodes;
+        notifyDataSetChanged();
+    }
+
+    public void setColors(@ColorInt int primaryBackgroundColor, @ColorInt int secondaryBackgroundColor, @ColorInt int primaryTextColor, @ColorInt int secondaryTextColor) {
+        this.primaryBackgroundColor = primaryBackgroundColor;
+        this.secondaryBackgroundColor = secondaryBackgroundColor;
+        this.primaryTextColor = primaryTextColor;
+        this.secondaryTextColor = secondaryTextColor;
         notifyDataSetChanged();
     }
 
@@ -42,6 +55,13 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
     @Override
     public void onBindViewHolder(SeasonsViewHolder holder, int position) {
         EpisodeListItemModel item = episodes.getItem(position);
+        if (item.isEpisode()) {
+            holder.episodeNumber.setBackgroundColor(secondaryBackgroundColor);
+            holder.episodeNumber.setTextColor(secondaryTextColor);
+        } else {
+            holder.episodeNumber.setBackgroundColor(primaryBackgroundColor);
+            holder.episodeNumber.setTextColor(primaryTextColor);
+        }
         holder.episodeNumber.setText(item.getEpisodeNumber());
         holder.title.setText(item.getTitle());
         holder.airDate.setText(item.getAirDate());
