@@ -71,7 +71,7 @@
         android:id="@+id/favor_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/spacing_double"
+        android:layout_marginEnd="@dimen/fab_margin"
         android:clickable="true"
         support:backgroundTint="@color/red"
         support:elevation="4dp"

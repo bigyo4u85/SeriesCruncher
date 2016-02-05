@@ -21,4 +21,7 @@
     <!-- Screen -->
     <dimen name="details_header_height">400dp</dimen>
 
+    <!-- fab right margin -->
+    <dimen name="fab_margin">0dp</dimen>
+
 </resources>
