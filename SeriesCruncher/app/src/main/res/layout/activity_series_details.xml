@@ -67,4 +67,16 @@
         android:layout_height="match_parent"
         support:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/favor_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_double"
+        android:clickable="true"
+        support:backgroundTint="@color/red"
+        support:elevation="4dp"
+        support:layout_anchor="@id/collapsing_toolbar"
+        support:layout_anchorGravity="bottom|right|end"
+        support:pressedTranslationZ="8dp" />
+
 </android.support.design.widget.CoordinatorLayout>
