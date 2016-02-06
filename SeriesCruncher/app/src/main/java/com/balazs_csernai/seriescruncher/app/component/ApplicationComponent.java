@@ -10,6 +10,8 @@ import com.balazs_csernai.seriescruncher.preferences.component.PreferenceModule;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.component.ApiModule;
+import com.balazs_csernai.seriescruncher.utils.ui.animation.Animation;
+import com.balazs_csernai.seriescruncher.utils.ui.animation.AnimationModule;
 
 import javax.inject.Singleton;
 
@@ -24,7 +26,8 @@ import retrofit.converter.Converter;
         modules = {
                 ApplicationModule.class,
                 ApiModule.class,
-                PreferenceModule.class
+                PreferenceModule.class,
+                AnimationModule.class
         }
 )
 public interface ApplicationComponent {
@@ -38,6 +41,7 @@ public interface ApplicationComponent {
     EPGuideApi epGuideApi();
     OmdbApi omdbApi();
     PreferenceHandler preferenceHandler();
+    Animation provideAnimation();
 
     final class Injector {
         private static ApplicationComponent component;
@@ -50,6 +54,7 @@ public interface ApplicationComponent {
                     .applicationModule(new ApplicationModule(application))
                     .apiModule(new ApiModule())
                     .preferenceModule(new PreferenceModule())
+                    .animationModule(new AnimationModule())
                     .build();
 
             component.inject(application);
