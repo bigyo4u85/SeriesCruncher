@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.view.View;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 
@@ -24,15 +25,16 @@ public class AnimationImpl implements Animation {
     private static final float MIN = 0F;
     private static final float MAX = 1F;
 
-    private final int longAnimationTime, mediumAnimationTime;
-    private final Interpolator overshotInterpolator;
+    private final int longDuration, mediumDuration;
+    private final Interpolator overshot, anticipateOvershot;
     private List<Animator> sequentialAnimations, parallelAnimations;
 
     @Inject
     public AnimationImpl(Resources resources) {
-        longAnimationTime = resources.getInteger(android.R.integer.config_longAnimTime);
-        mediumAnimationTime = resources.getInteger(android.R.integer.config_mediumAnimTime);
-        overshotInterpolator = new OvershootInterpolator();
+        longDuration = resources.getInteger(android.R.integer.config_longAnimTime);
+        mediumDuration = resources.getInteger(android.R.integer.config_mediumAnimTime);
+        overshot = new OvershootInterpolator();
+        anticipateOvershot = new AnticipateOvershootInterpolator();
     }
 
     @Override
@@ -77,7 +79,7 @@ public class AnimationImpl implements Animation {
 
     private AnimatorSet createFadeAnimator(float fromAlpha, float toAlpha, View... views) {
         AnimatorSet fade = new AnimatorSet();
-        fade.setDuration(longAnimationTime);
+        fade.setDuration(longDuration);
         List<Animator> alphaAnimators = new ArrayList<>(views.length);
         for (View v : views) {
             alphaAnimators.add(ObjectAnimator.ofFloat(v, View.ALPHA, fromAlpha, toAlpha));
@@ -101,16 +103,32 @@ public class AnimationImpl implements Animation {
 
     private AnimatorSet createRevealAnimator(float from, float to, View... views) {
         AnimatorSet reveal = new AnimatorSet();
-        reveal.setInterpolator(overshotInterpolator);
-        reveal.setDuration(mediumAnimationTime);
-        List<Animator> scaleAnimators = new ArrayList<>(views.length);
+        reveal.setInterpolator(overshot);
+        reveal.setDuration(mediumDuration);
+        List<Animator> revealAnimators = new ArrayList<>(views.length * 3);
         for (View v : views) {
-            scaleAnimators.add(ObjectAnimator.ofFloat(v, View.ALPHA, from, to));
-            scaleAnimators.add(ObjectAnimator.ofFloat(v, View.SCALE_X, from, to));
-            scaleAnimators.add(ObjectAnimator.ofFloat(v, View.SCALE_Y, from, to));
+            revealAnimators.add(ObjectAnimator.ofFloat(v, View.ALPHA, from, to));
+            revealAnimators.add(ObjectAnimator.ofFloat(v, View.SCALE_X, from, to));
+            revealAnimators.add(ObjectAnimator.ofFloat(v, View.SCALE_Y, from, to));
         }
-        reveal.playTogether(scaleAnimators);
+        reveal.playTogether(revealAnimators);
         return reveal;
+    }
+
+    @Override
+    public Animation rotate(float degree, View... views) {
+        AnimatorSet rotate = new AnimatorSet();
+        rotate.setInterpolator(anticipateOvershot);
+        rotate.setDuration(mediumDuration);
+        List<Animator> rotateAnimators = new ArrayList<>(views.length);
+        for (View v : views) {
+            float start = v.getRotation();
+            float end = start + degree;
+            rotateAnimators.add(ObjectAnimator.ofFloat(v, View.ROTATION, start, end));
+        }
+        rotate.playTogether(rotateAnimators);
+        parallelAnimations.add(rotate);
+        return this;
     }
 
     @Override
@@ -134,6 +152,13 @@ public class AnimationImpl implements Animation {
 
         AnimatorSet fullAnimation = new AnimatorSet();
         fullAnimation.playSequentially(sequentialAnimations);
+        fullAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                parallelAnimations.clear();
+                sequentialAnimations.clear();
+            }
+        });
         fullAnimation.start();
     }
 }

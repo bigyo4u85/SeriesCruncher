@@ -35,6 +35,14 @@ public interface Animation {
     Animation reveal(View... views);
 
     /**
+     * Rotates the views with the given degree.
+     * @param degree Degree to rotate by.
+     * @param views Views to animate.
+     * @return The animation builder object.
+     */
+    Animation rotate(float degree, View... views);
+
+    /**
      * Wraps the current animations of the builder object into an animation step and creates the
      * next step. The wrapped animations will be played parallel.
      * @return The animation builder object.
