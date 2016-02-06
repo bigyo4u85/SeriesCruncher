@@ -1,5 +1,6 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,7 @@ import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
 import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.animation.Animation;
+import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -115,16 +117,17 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     }
 
     @Override
-    public void setColors(int primaryBackgroundColor, int secondaryBackgroundColor, int primaryTextColor, int secondaryTextColor) {
-        coordinatorLayout.setBackgroundColor(primaryBackgroundColor);
-        collapsingToolbar.setContentScrimColor(primaryBackgroundColor);
-        title.setTextColor(primaryTextColor);
+    public void setColors(ColorModel primaryColor, ColorModel secondaryColor, ColorModel accentColor) {
+        coordinatorLayout.setBackgroundColor(primaryColor.getBackgroundColor());
+        collapsingToolbar.setContentScrimColor(primaryColor.getBackgroundColor());
+        title.setTextColor(primaryColor.getForegroundColor());
 
         Drawable backArrow = activity.getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        backArrow.setColorFilter(primaryTextColor, PorterDuff.Mode.SRC_IN);
+        backArrow.setColorFilter(primaryColor.getForegroundColor(), PorterDuff.Mode.SRC_IN);
         activity.getSupportActionBar().setHomeAsUpIndicator(backArrow);
 
-        adapter.setColors(primaryBackgroundColor, secondaryBackgroundColor, primaryTextColor, secondaryTextColor);
+        adapter.setColors(primaryColor, secondaryColor);
+        favorFab.setBackgroundTintList(ColorStateList.valueOf(accentColor.getBackgroundColor()));
     }
 
     @Override

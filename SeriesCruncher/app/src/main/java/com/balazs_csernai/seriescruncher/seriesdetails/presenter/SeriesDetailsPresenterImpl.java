@@ -63,7 +63,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     private final Callback<PosterModel> posterCallbacks = new Callback<PosterModel>() {
         @Override
         public void onSuccess(PosterModel result) {
-            screen.setColors(result.getPrimaryBackgroundColor(), result.getSecondaryBackgroundColor(), result.getPrimaryTextColor(), result.getSecondaryTextColor());
+            screen.setColors(result.getPrimaryColor(), result.getSecondaryColor(), result.getAccentColor());
             screen.setPoster(result.getPoster());
             screen.setBackground(result.getPosterBackground());
             screen.displaySeriesDetails((EpisodeListModel) converter.convert(detailsModel));

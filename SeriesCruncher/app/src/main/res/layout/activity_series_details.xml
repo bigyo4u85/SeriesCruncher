@@ -74,7 +74,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/fab_margin"
         android:clickable="true"
-        support:backgroundTint="@color/red"
         support:elevation="4dp"
         support:layout_anchor="@id/collapsing_toolbar"
         support:layout_anchorGravity="bottom|right|end"

@@ -1,9 +1,9 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
 import android.graphics.Bitmap;
-import android.support.annotation.ColorInt;
 
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
@@ -18,7 +18,7 @@ public interface SeriesDetailsScreen {
 
     void setTitle(String title);
 
-    void setColors(@ColorInt int primaryBackgroundColor, @ColorInt int secondaryBackgroundColor, @ColorInt int primaryTextColor, @ColorInt int secondaryTextColor);
+    void setColors(ColorModel primaryColor, ColorModel secondaryColor, ColorModel accentColor);
 
     void setPoster(Bitmap bitmap);
 
