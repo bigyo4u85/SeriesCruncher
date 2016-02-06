@@ -28,6 +28,7 @@ import javax.inject.Provider;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
@@ -67,7 +68,10 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     private final AppCompatActivity activity;
     private final EpisodeAdapter adapter;
     private final Animation animation;
+    private Callbacks callbacks;
     private SmartLayoutManager layoutManager;
+
+    boolean favorite;
 
     @Inject
     public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider, Animation animation) {
@@ -77,7 +81,8 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     }
 
     @Override
-    public void onCreate() {
+    public void onCreate(Callbacks callbacks) {
+        this.callbacks = callbacks;
         ButterKnife.inject(this, activity);
 
         activity.setSupportActionBar(toolbar);
@@ -103,11 +108,14 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void displaySeriesDetails(final EpisodeListModel episodes) {
         adapter.setItems(episodes);
+        float initialFavorFabRotation = favorite ? 180 : 0;
         animation.create()
                 .fadeOut(progressBar)
                 .fadeIn(appbar, episodesRecyclerView)
                 .then()
                 .reveal(favorFab)
+                .then()
+                .rotate(initialFavorFabRotation, favorFab)
                 .play();
     }
 
@@ -145,6 +153,11 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     }
 
     @Override
+    public void setAsFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    @Override
     public void onAppBarCollapsed() {
         layoutManager.setVerticalScrollEnabled(true);
         animation.create().fadeIn(title).play();
@@ -154,5 +167,11 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     public void onAppBarExpanded() {
         layoutManager.setVerticalScrollEnabled(false);
         animation.create().fadeOut(title).play();
+    }
+
+    @OnClick(R.id.favor_fab)
+    void onFavorFabClicked() {
+        animation.create().rotate(180, favorFab).play();
+        callbacks.onFavorFabClicked();
     }
 }

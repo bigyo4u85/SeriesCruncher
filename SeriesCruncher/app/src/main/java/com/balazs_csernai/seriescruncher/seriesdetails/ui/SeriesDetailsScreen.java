@@ -10,7 +10,11 @@ import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
  */
 public interface SeriesDetailsScreen {
 
-    void onCreate();
+    interface Callbacks {
+        void onFavorFabClicked();
+    }
+
+    void onCreate(Callbacks callbacks);
 
     void displayProgressIndicator();
 
@@ -24,4 +28,5 @@ public interface SeriesDetailsScreen {
 
     void setBackground(Bitmap bitmap);
 
+    void setAsFavorite(boolean favorite);
 }
