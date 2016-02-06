@@ -1,9 +1,5 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -14,19 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
-import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
+import com.balazs_csernai.seriescruncher.utils.ui.animation.Animation;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -71,12 +64,14 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     private final AppCompatActivity activity;
     private final EpisodeAdapter adapter;
+    private final Animation animation;
     private SmartLayoutManager layoutManager;
 
     @Inject
-    public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider) {
+    public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider, Animation animation) {
         this.activity = activity;
         this.adapter = adapterProvider.get();
+        this.animation = animation;
     }
 
     @Override
@@ -93,6 +88,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
         episodesRecyclerView.setLayoutManager(layoutManager);
         episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getDrawable(R.drawable.line_divider)));
         episodesRecyclerView.setAdapter(adapter);
+        episodesRecyclerView.setHasFixedSize(true);
     }
 
     @Override
@@ -105,47 +101,13 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void displaySeriesDetails(final EpisodeListModel episodes) {
         adapter.setItems(episodes);
-
-        ViewUtils.alpha(0f, appbar, episodesRecyclerView, favorFab);
-        ViewUtils.visible(appbar, episodesRecyclerView, favorFab);
-
-
-        AnimatorSet contentAnimatorSet = new AnimatorSet();
-        contentAnimatorSet.setDuration(1000);
-        contentAnimatorSet.playTogether(
-                createDetailsShowAnimators(appbar, episodesRecyclerView)
-        );
-        contentAnimatorSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                ViewUtils.gone(progressBar);
-            }
-        });
-
-
-        AnimatorSet fabAnimatorSet = new AnimatorSet();
-        fabAnimatorSet.setInterpolator(new OvershootInterpolator());
-        fabAnimatorSet.setDuration(300);
-        fabAnimatorSet.playTogether(
-                ObjectAnimator.ofFloat(favorFab, View.ALPHA, 0f, 1f),
-                ObjectAnimator.ofFloat(favorFab, View.SCALE_X, 0f, 1f),
-                ObjectAnimator.ofFloat(favorFab, View.SCALE_Y, 0f, 1f)
-        );
-
-        AnimatorSet set = new AnimatorSet();
-        set.playSequentially(contentAnimatorSet, fabAnimatorSet);
-        set.start();
+        animation.create()
+                .fadeOut(progressBar)
+                .fadeIn(appbar, episodesRecyclerView)
+                .then()
+                .reveal(favorFab)
+                .play();
     }
-
-    private List<Animator> createDetailsShowAnimators(View... views) {
-        List<Animator> animators = new ArrayList<>(views.length);
-        for (View v : views) {
-            animators.add( ObjectAnimator.ofFloat(v, View.ALPHA, 0f, 1f) );
-        }
-        animators.add( ObjectAnimator.ofFloat(progressBar, View.ALPHA, 1f, 0f) );
-        return animators;
-    }
-
 
     @Override
     public void setTitle(String text) {
@@ -178,16 +140,12 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void onAppBarCollapsed() {
         layoutManager.setVerticalScrollEnabled(true);
-        animateTitle(1);
+        animation.create().fadeIn(title).play();
     }
 
     @Override
     public void onAppBarExpanded() {
         layoutManager.setVerticalScrollEnabled(false);
-        animateTitle(0);
-    }
-
-    private void animateTitle(float toAlpha) {
-        title.animate().alpha(toAlpha).start();
+        animation.create().fadeOut(title).play();
     }
 }
