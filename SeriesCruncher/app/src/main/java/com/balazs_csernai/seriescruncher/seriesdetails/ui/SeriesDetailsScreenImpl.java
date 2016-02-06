@@ -128,6 +128,10 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
         adapter.setColors(primaryColor, secondaryColor);
         favorFab.setBackgroundTintList(ColorStateList.valueOf(accentColor.getBackgroundColor()));
+
+        Drawable thumbUp = activity.getResources().getDrawable(R.drawable.ic_thumb_up);
+        thumbUp.setColorFilter(accentColor.getForegroundColor(), PorterDuff.Mode.SRC_IN);
+        favorFab.setImageDrawable(thumbUp);
     }
 
     @Override
