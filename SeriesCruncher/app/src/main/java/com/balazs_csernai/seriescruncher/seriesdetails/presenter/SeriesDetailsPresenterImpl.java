@@ -3,13 +3,11 @@ package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 import com.balazs_csernai.seriescruncher.preferences.PreferenceHandler;
 import com.balazs_csernai.seriescruncher.preferences.user.UserPreferencesModel;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
-import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Series;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
-import com.balazs_csernai.seriescruncher.serieslist.ui.SeriesListScreen;
 import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
 import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
 
@@ -26,6 +24,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     private final PreferenceHandler preference;
 
     private String seriesName;
+    private SeriesDetailsModel detailsModel;
 
     @Inject
     public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter, PreferenceHandler preference) {
@@ -54,15 +53,13 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
         seriesLoader.unbind();
     }
 
-    SeriesDetailsModel detailsModel;
-
     private final Callback<SeriesDetailsModel> seriesCallbacks = new Callback<SeriesDetailsModel>() {
 
         @Override
         public void onSuccess(SeriesDetailsModel model) {
-            screen.setTitle(model.getTitle());
-            seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
             detailsModel = model;
+            seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
+            screen.setTitle(model.getTitle());
         }
 
         @Override
