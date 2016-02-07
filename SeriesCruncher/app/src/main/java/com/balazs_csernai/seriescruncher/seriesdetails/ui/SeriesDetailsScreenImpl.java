@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
+import com.balazs_csernai.seriescruncher.utils.ui.DrawableUtil;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
 import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
@@ -29,6 +30,8 @@ import javax.inject.Provider;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
+import static com.balazs_csernai.seriescruncher.utils.ui.DrawableUtil.getColorizedDrawable;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
@@ -129,17 +132,10 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
         coordinatorLayout.setBackgroundColor(primaryColor.getBackgroundColor());
         collapsingToolbar.setContentScrimColor(primaryColor.getBackgroundColor());
         title.setTextColor(primaryColor.getForegroundColor());
-
-        Drawable backArrow = activity.getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        backArrow.setColorFilter(primaryColor.getForegroundColor(), PorterDuff.Mode.SRC_IN);
-        activity.getSupportActionBar().setHomeAsUpIndicator(backArrow);
-
+        activity.getSupportActionBar().setHomeAsUpIndicator(getColorizedDrawable(activity.getResources(), R.drawable.abc_ic_ab_back_mtrl_am_alpha, primaryColor.getForegroundColor()));
         adapter.setColors(primaryColor, secondaryColor);
         favorFab.setBackgroundTintList(ColorStateList.valueOf(accentColor.getBackgroundColor()));
-
-        Drawable thumbUp = activity.getResources().getDrawable(R.drawable.ic_thumb_up);
-        thumbUp.setColorFilter(accentColor.getForegroundColor(), PorterDuff.Mode.SRC_IN);
-        favorFab.setImageDrawable(thumbUp);
+        favorFab.setImageDrawable(getColorizedDrawable(activity.getResources(), R.drawable.ic_thumb_up, accentColor.getForegroundColor()));
     }
 
     @Override
