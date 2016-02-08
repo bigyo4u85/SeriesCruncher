@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="colorSecondary">@color/white</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">@color/white</color>
+    <color name="colorAccent">@color/red</color>
 
     <color name="white">#ffffff</color>
     <color name="white_transparent">#abffffff</color>
     <color name="black">#000000</color>
     <color name="gray">#c2c2c2</color>
+
+    <color name="red">#F44336</color>
 
 </resources>

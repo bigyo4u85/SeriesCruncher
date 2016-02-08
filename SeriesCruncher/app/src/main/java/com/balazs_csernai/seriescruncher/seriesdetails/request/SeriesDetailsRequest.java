@@ -44,6 +44,8 @@ public class SeriesDetailsRequest extends NetworkRequest<SeriesDetailsEntity> {
                 .setEpisodeMap(episodeMap)
                 .setOmdbDetails(omdbDetails);
 
+
+
         return (SeriesDetailsEntity) converter.convert(combined);
     }
 }

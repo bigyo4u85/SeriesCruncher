@@ -1,7 +1,7 @@
 package com.balazs_csernai.seriescruncher.utils.image;
 
-import com.balazs_csernai.seriescruncher.utils.color.ColorProvider;
-import com.balazs_csernai.seriescruncher.utils.color.ColorProviderImpl;
+import com.balazs_csernai.seriescruncher.utils.ui.color.ColorProvider;
+import com.balazs_csernai.seriescruncher.utils.ui.color.ColorProviderImpl;
 
 import dagger.Module;
 import dagger.Provides;

@@ -1,17 +1,15 @@
-package com.balazs_csernai.seriescruncher.seriesdetails.model.poster;
+package com.balazs_csernai.seriescruncher.utils.ui.color;
 
 import android.graphics.Bitmap;
 
 import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
 
 /**
- * Created by ErikKramli on 2016.01.31..
+ * Created by Erik_Markus_Kramli on 2016-02-02.
  */
-public interface PosterModel {
+public interface ColorProvider {
 
-    Bitmap getPoster();
-
-    Bitmap getPosterBackground();
+    void generateColorPalette(Bitmap bitmap);
 
     ColorModel getPrimaryColor();
 

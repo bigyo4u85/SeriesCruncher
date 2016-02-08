@@ -19,8 +19,10 @@ public class SmartAppBarLayout extends AppBarLayout implements OnOffsetChangedLi
         void onAppBarExpanded();
     }
 
+    private static final float INVALID = -1F;
     private static final float EXPANDED = 0F;
     private static final float COLLAPSED = 1F;
+    private float previousRatio;
 
     private AppBarChangeListener listener;
 
@@ -39,23 +41,26 @@ public class SmartAppBarLayout extends AppBarLayout implements OnOffsetChangedLi
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        previousRatio = INVALID;
         addOnOffsetChangedListener(this);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         removeOnOffsetChangedListener(this);
+        previousRatio = INVALID;
         super.onDetachedFromWindow();
     }
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         float ratio = Math.abs(verticalOffset) / (float) appBarLayout.getTotalScrollRange();
-        if (ratio == EXPANDED && listener != null) {
+        if (ratio == EXPANDED && ratio != previousRatio && listener != null) {
             listener.onAppBarExpanded();
 
-        } else if (ratio == COLLAPSED && listener != null) {
+        } else if (ratio == COLLAPSED && ratio != previousRatio && listener != null) {
             listener.onAppBarCollapsed();
         }
+        previousRatio = ratio;
     }
 }
