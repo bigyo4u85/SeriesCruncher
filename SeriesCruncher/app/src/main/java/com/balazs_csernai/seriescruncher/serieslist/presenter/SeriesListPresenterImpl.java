@@ -34,7 +34,10 @@ public class SeriesListPresenterImpl implements SeriesListPresenter, Loader.Call
     public void onStart() {
         screen.onCreate(this);
         loader.bind();
+        loadSeriesList();
+    }
 
+    private void loadSeriesList() {
         screen.displayProgressIndicator();
         loader.loadSeries(this);
     }
@@ -52,7 +55,7 @@ public class SeriesListPresenterImpl implements SeriesListPresenter, Loader.Call
 
     @Override
     public void onFailure() {
-        // TODO: Show error message
+        screen.showNetworkErrorDialog();
     }
 
     @Override
@@ -69,5 +72,15 @@ public class SeriesListPresenterImpl implements SeriesListPresenter, Loader.Call
     @Override
     public void onSeriesFiltered(List<Series> filteredSeries) {
         screen.updateSeriesList(filteredSeries);
+    }
+
+    @Override
+    public void onNetworkErrorRetry() {
+        loadSeriesList();
+    }
+
+    @Override
+    public void onNetworkErrorCancel() {
+        navigator.closeSeriesList();
     }
 }

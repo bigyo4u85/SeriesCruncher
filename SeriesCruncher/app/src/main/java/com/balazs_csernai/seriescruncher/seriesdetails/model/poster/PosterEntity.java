@@ -2,6 +2,8 @@ package com.balazs_csernai.seriescruncher.seriesdetails.model.poster;
 
 import android.graphics.Bitmap;
 
+import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
+
 /**
  * Created by ErikKramli on 2016.01.31..
  */
@@ -9,7 +11,7 @@ public class PosterEntity implements PosterModel {
 
     private Bitmap poster;
     private Bitmap posterBackground;
-    private int primaryBackgroundColor, primaryTextColor, secondaryBackgroundColor, secondaryTextColor;
+    private ColorModel primaryColor, secondaryColor, accentColor;
 
     public PosterEntity() {
     }
@@ -25,23 +27,18 @@ public class PosterEntity implements PosterModel {
     }
 
     @Override
-    public int getPrimaryBackgroundColor() {
-        return primaryBackgroundColor;
+    public ColorModel getPrimaryColor() {
+        return primaryColor;
     }
 
     @Override
-    public int getPrimaryTextColor() {
-        return primaryTextColor;
+    public ColorModel getSecondaryColor() {
+        return secondaryColor;
     }
 
     @Override
-    public int getSecondaryBackgroundColor() {
-        return secondaryBackgroundColor;
-    }
-
-    @Override
-    public int getSecondaryTextColor() {
-        return secondaryTextColor;
+    public ColorModel getAccentColor() {
+        return accentColor;
     }
 
     public PosterEntity setPoster(Bitmap poster) {
@@ -54,23 +51,18 @@ public class PosterEntity implements PosterModel {
         return this;
     }
 
-    public PosterEntity setPrimaryBackgroundColor(int color) {
-        primaryBackgroundColor = color;
+    public PosterEntity setPrimaryColor(ColorModel color) {
+        primaryColor = color;
         return this;
     }
 
-    public PosterEntity setPrimaryTextColor(int color) {
-        primaryTextColor = color;
+    public PosterEntity setSecondaryColor(ColorModel color) {
+        secondaryColor = color;
         return this;
     }
 
-    public PosterEntity setSecondaryBackgroundColor(int color) {
-        secondaryBackgroundColor = color;
-        return this;
-    }
-
-    public PosterEntity setSecondaryTextColor(int color) {
-        secondaryTextColor = color;
+    public PosterEntity setAccentColor(ColorModel color) {
+        accentColor = color;
         return this;
     }
 }

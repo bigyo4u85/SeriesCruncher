@@ -12,6 +12,7 @@ import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListEntity;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
 
 import javax.inject.Inject;
 
@@ -38,11 +39,11 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
         notifyDataSetChanged();
     }
 
-    public void setColors(@ColorInt int primaryBackgroundColor, @ColorInt int secondaryBackgroundColor, @ColorInt int primaryTextColor, @ColorInt int secondaryTextColor) {
-        this.primaryBackgroundColor = primaryBackgroundColor;
-        this.secondaryBackgroundColor = secondaryBackgroundColor;
-        this.primaryTextColor = primaryTextColor;
-        this.secondaryTextColor = secondaryTextColor;
+    public void setColors(ColorModel primaryColor, ColorModel secondaryColor) {
+        this.primaryBackgroundColor = primaryColor.getBackgroundColor();
+        this.secondaryBackgroundColor = secondaryColor.getBackgroundColor();
+        this.primaryTextColor = primaryColor.getForegroundColor();
+        this.secondaryTextColor = secondaryColor.getForegroundColor();
         notifyDataSetChanged();
     }
 

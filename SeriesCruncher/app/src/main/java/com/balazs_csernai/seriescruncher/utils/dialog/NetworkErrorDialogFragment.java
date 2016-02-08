@@ -28,7 +28,7 @@ public class NetworkErrorDialogFragment extends DialogFragment {
 
     private NetworkErrorDialogCallback callback;
     private Random random;
-    private String[] networkErrorMessages;
+    private String[] networkErrorTitles;
     private String[] networkErrorRetryResponses;
     private String[] networkErrorCancelResponses;
 
@@ -47,28 +47,42 @@ public class NetworkErrorDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         random = new Random();
         Resources resources = getResources();
-        networkErrorMessages = resources.getStringArray(R.array.network_error_messages);
+        networkErrorTitles = resources.getStringArray(R.array.network_error_titles);
         networkErrorRetryResponses = resources.getStringArray(R.array.network_error_retry_responses);
         networkErrorCancelResponses = resources.getStringArray(R.array.network_error_cancel_responses);
 
         return new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle)
-                .setMessage(getRandomText(networkErrorMessages))
-                .setPositiveButton(getRandomText(networkErrorRetryResponses), new DialogInterface.OnClickListener() {
-
+                .setTitle(getRandomText(networkErrorTitles))
+                .setItems(new String[]{getRandomText(networkErrorRetryResponses), getRandomText(networkErrorCancelResponses)}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        callback.onNetworkErrorRetry();
+                        switch (which) {
+                            case 0:
+                                callback.onNetworkErrorRetry();
+                                break;
+                            case 1:
+                            default:
+                                callback.onNetworkErrorCancel();
+                        }
                     }
                 })
-                .setNegativeButton(getRandomText(networkErrorCancelResponses), new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        callback.onNetworkErrorCancel();
-                    }
-                })
+//                .setPositiveButton(getRandomText(networkErrorRetryResponses), new DialogInterface.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                        callback.onNetworkErrorRetry();
+//                    }
+//                })
+//                .setNegativeButton(getRandomText(networkErrorCancelResponses), new DialogInterface.OnClickListener() {
+//
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                        callback.onNetworkErrorCancel();
+//                    }
+//                })
                 .setCancelable(false)
                 .create();
     }

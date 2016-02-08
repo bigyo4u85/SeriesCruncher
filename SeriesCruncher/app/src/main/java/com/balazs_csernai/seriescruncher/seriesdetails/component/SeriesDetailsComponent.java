@@ -9,6 +9,7 @@ import com.balazs_csernai.seriescruncher.utils.converter.ConverterModule;
 import com.balazs_csernai.seriescruncher.utils.dialog.DialogModule;
 import com.balazs_csernai.seriescruncher.utils.image.ImageModule;
 import com.balazs_csernai.seriescruncher.utils.navigator.NavigatorModule;
+import com.balazs_csernai.seriescruncher.utils.ui.animation.AnimationModule;
 
 import dagger.Component;
 
@@ -24,8 +25,9 @@ import dagger.Component;
                 SeriesDetailsModule.class,
                 NavigatorModule.class,
                 ConverterModule.class,
+                DialogModule.class,
                 ImageModule.class,
-                DialogModule.class
+                AnimationModule.class
         }
 )
 public interface SeriesDetailsComponent {
@@ -46,6 +48,7 @@ public interface SeriesDetailsComponent {
                     .converterModule(new ConverterModule())
                     .imageModule(new ImageModule())
                     .dialogModule(new DialogModule())
+                    .animationModule(new AnimationModule())
                     .build()
                     .inject(activity);
         }

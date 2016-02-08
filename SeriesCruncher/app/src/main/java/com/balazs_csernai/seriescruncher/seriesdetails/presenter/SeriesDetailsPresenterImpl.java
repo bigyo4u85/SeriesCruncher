@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
+import com.balazs_csernai.seriescruncher.preferences.PreferenceHandler;
+import com.balazs_csernai.seriescruncher.preferences.user.UserPreferencesModel;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
@@ -15,26 +17,29 @@ import javax.inject.Inject;
 /**
  * Created by Erik_Markus_Kramli on 2016-01-13.
  */
-public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
+public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, SeriesDetailsScreen.Callbacks {
 
     private final SeriesLoader seriesLoader;
     private final SeriesDetailsNavigator navigator;
     private final SeriesDetailsScreen screen;
     private final ModelConverter converter;
+    private final PreferenceHandler preference;
     private String seriesName;
     private String imdbId;
+    private SeriesDetailsModel detailsModel;
 
     @Inject
-    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsNavigator navigator, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter) {
+    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsNavigator navigator, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter, PreferenceHandler preference) {
         this.seriesLoader = seriesLoader;
         this.navigator = navigator;
         this.screen = screen;
         this.converter = converter;
+        this.preference = preference;
     }
 
     @Override
     public void onStart() {
-        screen.onCreate();
+        screen.onCreate(this);
         seriesLoader.bind();
     }
 
@@ -42,7 +47,9 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     public void loadSeriesDetails(String seriesName, String imdbId) {
         this.seriesName = seriesName;
         this.imdbId = imdbId;
+        screen.displayProgressIndicator();
         seriesLoader.loadDetails(seriesName, imdbId, seriesCallbacks);
+        screen.setAsFavorite(isFavorite());
     }
 
     @Override
@@ -54,8 +61,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
 
         @Override
         public void onSuccess(SeriesDetailsModel model) {
-            screen.setTitle(model.getTitle());
-            screen.setEpisodes((EpisodeListModel) converter.convert(model));
+            detailsModel = model;
             seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
         }
 
@@ -68,9 +74,11 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
     private final Callback<PosterModel> posterCallbacks = new Callback<PosterModel>() {
         @Override
         public void onSuccess(PosterModel result) {
-            screen.setColors(result.getPrimaryBackgroundColor(), result.getSecondaryBackgroundColor(), result.getPrimaryTextColor(), result.getSecondaryTextColor());
+            screen.setTitle(detailsModel.getTitle());
+            screen.setColors(result.getPrimaryColor(), result.getSecondaryColor(), result.getAccentColor());
             screen.setPoster(result.getPoster());
             screen.setBackground(result.getPosterBackground());
+            screen.displaySeriesDetails((EpisodeListModel) converter.convert(detailsModel));
         }
 
         @Override
@@ -78,6 +86,21 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
             screen.showNetworkErrorDialog();
         }
     };
+
+    @Override
+    public void onFavorFabClicked() {
+        UserPreferencesModel userPreferences = preference.getUserPreferences();
+        if (isFavorite()) {
+            userPreferences.removeSeriesFromFavorites(seriesName);
+        } else {
+            userPreferences.addSeriesToFavorites(seriesName);
+        }
+        preference.updateUserPreferences(userPreferences);
+    }
+
+    private boolean isFavorite() {
+        return preference.getUserPreferences().getFavoredSeries().contains(seriesName);
+    }
 
     @Override
     public void onNetworkErrorRetry() {

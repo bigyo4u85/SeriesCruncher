@@ -20,6 +20,8 @@ public interface SeriesListScreen {
 
     void clearFilterAndHideKeyboard();
 
+    void showNetworkErrorDialog();
+
     interface Callbacks {
 
         void onSeriesSelected(Series series);

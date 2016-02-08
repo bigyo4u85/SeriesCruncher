@@ -2,11 +2,11 @@
     <string name="app_name">SeriesCruncher</string>
     <string name="type_to_filter">Type to filter</string>
 
-    <string-array name="network_error_messages">
-        <item>I felt a great disturbance in the Force... I fear something terrible has happened.</item>
-        <item>There is a great disturbance in the Force.</item>
-        <item>We had a reactor leak here now. Give us a few minutes to lock it down. Large leak, very dangerous.</item>
-        <item>I have a very bad feeling about this.</item>
+    <string-array name="network_error_titles">
+        <item>I felt a great disturbance in the Force</item>
+        <item>There is a great disturbance in the Force</item>
+        <item>I fear something terrible has happened</item>
+        <item>I have a very bad feeling about this</item>
         <item>Uh, we had a slight weapons malfunction, but uh...</item>
     </string-array>
 

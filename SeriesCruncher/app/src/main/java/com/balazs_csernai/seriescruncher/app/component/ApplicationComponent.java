@@ -10,6 +10,8 @@ import com.balazs_csernai.seriescruncher.preferences.component.PreferenceModule;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.component.ApiModule;
+import com.balazs_csernai.seriescruncher.utils.ui.animation.Animation;
+import com.balazs_csernai.seriescruncher.utils.ui.animation.AnimationModule;
 
 import javax.inject.Singleton;
 
