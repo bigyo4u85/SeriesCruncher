@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.utils.dialog.DialogFactory;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
@@ -30,7 +31,6 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @InjectView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
-
     @InjectView(R.id.appbar)
     SmartAppBarLayout appbar;
 
@@ -55,11 +55,13 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     private final AppCompatActivity activity;
     private final EpisodeAdapter adapter;
     private SmartLayoutManager layoutManager;
+    private final DialogFactory dialogFactory;
 
     @Inject
-    public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider) {
+    public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider, DialogFactory dialogFactory) {
         this.activity = activity;
         this.adapter = adapterProvider.get();
+        this.dialogFactory = dialogFactory;
     }
 
     @Override
@@ -109,6 +111,11 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void setEpisodes(EpisodeListModel episodes) {
         adapter.setItems(episodes);
+    }
+
+    @Override
+    public void showNetworkErrorDialog() {
+        dialogFactory.createNetworkError();
     }
 
     @Override

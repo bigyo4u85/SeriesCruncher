@@ -21,4 +21,6 @@ public interface SeriesDetailsScreen {
     void setBackground(Bitmap bitmap);
 
     void setEpisodes(EpisodeListModel episodes);
+
+    void showNetworkErrorDialog();
 }

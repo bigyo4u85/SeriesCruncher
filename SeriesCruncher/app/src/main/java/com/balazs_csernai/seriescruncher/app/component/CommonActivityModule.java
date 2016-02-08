@@ -2,6 +2,7 @@ package com.balazs_csernai.seriescruncher.app.component;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import dagger.Module;
@@ -32,5 +33,10 @@ public class CommonActivityModule {
     @Provides
     Context provideContext() {
         return activity;
+    }
+
+    @Provides
+    FragmentManager provideFragmentManager() {
+        return activity.getSupportFragmentManager();
     }
 }

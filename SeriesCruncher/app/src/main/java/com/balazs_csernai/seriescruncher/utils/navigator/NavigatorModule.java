@@ -10,7 +10,12 @@ import dagger.Provides;
 public class NavigatorModule {
 
     @Provides
-    SeriesListNavigator provideNavigator(SeriesListNavigatorImpl impl) {
+    SeriesListNavigator providesListNavigator(SeriesListNavigatorImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    SeriesDetailsNavigator providesDetailsNavigator(SeriesDetailsNavigatorImpl impl) {
         return impl;
     }
 }

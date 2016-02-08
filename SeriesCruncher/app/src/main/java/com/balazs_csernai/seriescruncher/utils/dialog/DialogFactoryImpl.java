@@ -1,0 +1,29 @@
+package com.balazs_csernai.seriescruncher.utils.dialog;
+
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+
+import com.balazs_csernai.seriescruncher.app.component.ActivityScope;
+
+import javax.inject.Inject;
+
+/**
+ * Created by Balazs_Csernai on 2016.02.08..
+ */
+@ActivityScope
+public class DialogFactoryImpl implements DialogFactory {
+
+    private final FragmentManager fragmentManager;
+
+    @Inject
+    public DialogFactoryImpl(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+    }
+
+    @Override
+    public DialogFragment createNetworkError() {
+        DialogFragment dialogFragment = new NetworkErrorDialogFragment();
+        dialogFragment.show(fragmentManager, "network-error");
+        return dialogFragment;
+    }
+}

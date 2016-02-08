@@ -8,6 +8,7 @@ import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
 import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
 import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
+import com.balazs_csernai.seriescruncher.utils.navigator.SeriesDetailsNavigator;
 
 import javax.inject.Inject;
 
@@ -17,12 +18,16 @@ import javax.inject.Inject;
 public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
 
     private final SeriesLoader seriesLoader;
+    private final SeriesDetailsNavigator navigator;
     private final SeriesDetailsScreen screen;
     private final ModelConverter converter;
+    private String seriesName;
+    private String imdbId;
 
     @Inject
-    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter) {
+    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsNavigator navigator, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter) {
         this.seriesLoader = seriesLoader;
+        this.navigator = navigator;
         this.screen = screen;
         this.converter = converter;
     }
@@ -35,6 +40,8 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
 
     @Override
     public void loadSeriesDetails(String seriesName, String imdbId) {
+        this.seriesName = seriesName;
+        this.imdbId = imdbId;
         seriesLoader.loadDetails(seriesName, imdbId, seriesCallbacks);
     }
 
@@ -54,6 +61,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
 
         @Override
         public void onFailure() {
+            screen.showNetworkErrorDialog();
         }
     };
 
@@ -67,6 +75,17 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter {
 
         @Override
         public void onFailure() {
+            screen.showNetworkErrorDialog();
         }
     };
+
+    @Override
+    public void onNetworkErrorRetry() {
+        loadSeriesDetails(seriesName, imdbId);
+    }
+
+    @Override
+    public void onNetworkErrorCancel() {
+        navigator.closeSeriesDetails();
+    }
 }
