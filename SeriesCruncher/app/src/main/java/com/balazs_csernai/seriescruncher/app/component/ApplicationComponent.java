@@ -26,8 +26,7 @@ import retrofit.converter.Converter;
         modules = {
                 ApplicationModule.class,
                 ApiModule.class,
-                PreferenceModule.class,
-                AnimationModule.class
+                PreferenceModule.class
         }
 )
 public interface ApplicationComponent {
@@ -41,7 +40,6 @@ public interface ApplicationComponent {
     EPGuideApi epGuideApi();
     OmdbApi omdbApi();
     PreferenceHandler preferenceHandler();
-    Animation provideAnimation();
 
     final class Injector {
         private static ApplicationComponent component;
@@ -54,7 +52,6 @@ public interface ApplicationComponent {
                     .applicationModule(new ApplicationModule(application))
                     .apiModule(new ApiModule())
                     .preferenceModule(new PreferenceModule())
-                    .animationModule(new AnimationModule())
                     .build();
 
             component.inject(application);

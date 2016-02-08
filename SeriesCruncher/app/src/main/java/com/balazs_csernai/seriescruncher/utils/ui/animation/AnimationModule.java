@@ -1,7 +1,5 @@
 package com.balazs_csernai.seriescruncher.utils.ui.animation;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -12,7 +10,6 @@ import dagger.Provides;
 public class AnimationModule {
 
     @Provides
-    @Singleton
     Animation provideAnimation(AnimationImpl impl) {
         return impl;
     }

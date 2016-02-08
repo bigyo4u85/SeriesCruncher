@@ -59,7 +59,6 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
         public void onSuccess(SeriesDetailsModel model) {
             detailsModel = model;
             seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
-            screen.setTitle(model.getTitle());
         }
 
         @Override
@@ -70,6 +69,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     private final Callback<PosterModel> posterCallbacks = new Callback<PosterModel>() {
         @Override
         public void onSuccess(PosterModel result) {
+            screen.setTitle(detailsModel.getTitle());
             screen.setColors(result.getPrimaryColor(), result.getSecondaryColor(), result.getAccentColor());
             screen.setPoster(result.getPoster());
             screen.setBackground(result.getPosterBackground());

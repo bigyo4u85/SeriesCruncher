@@ -108,14 +108,13 @@ public class ColorProviderImpl implements ColorProvider {
 
     @Override
     public ColorModel getAccentColor() {
-        @ColorInt int bg = accentSwatch == null ? getColor(R.color.colorAccent) : accentSwatch.getRgb();
-        @ColorInt int fg = accentSwatch == null ? calculateForegroundColor(bg) : accentSwatch.getBodyTextColor();
-        return new ColorEntity(bg, fg);
+        return createColorModel(accentSwatch, R.color.colorAccent);
     }
 
     private ColorModel createColorModel(Swatch swatch, @ColorRes int defaultColorRes) {
         @ColorInt int bg = swatch == null ? getColor(defaultColorRes) : swatch.getRgb();
-        return new ColorEntity(bg, calculateForegroundColor(bg));
+        @ColorInt int fg = swatch == null ? calculateForegroundColor(bg) : swatch.getBodyTextColor();
+        return new ColorEntity(bg, fg);
     }
 
     @ColorInt
