@@ -67,22 +67,6 @@ public class NetworkErrorDialogFragment extends DialogFragment {
                         }
                     }
                 })
-//                .setPositiveButton(getRandomText(networkErrorRetryResponses), new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                        callback.onNetworkErrorRetry();
-//                    }
-//                })
-//                .setNegativeButton(getRandomText(networkErrorCancelResponses), new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                        callback.onNetworkErrorCancel();
-//                    }
-//                })
                 .setCancelable(false)
                 .create();
     }
