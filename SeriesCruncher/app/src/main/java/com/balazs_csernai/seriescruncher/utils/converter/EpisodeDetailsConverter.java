@@ -2,6 +2,7 @@ package com.balazs_csernai.seriescruncher.utils.converter;
 
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Episode;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeEntity;
+import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
 
 import javax.inject.Inject;
 
@@ -21,6 +22,6 @@ public class EpisodeDetailsConverter implements ModelConverter<EpisodeEntity, Ep
                 .setTitle(episode.getTitle())
                 .setSeasonNumber(episode.getSeasonNumber())
                 .setEpisodeNumber(episode.getEpisodeNumber())
-                .setAirDate(episode.getAirDate());
+                .setAirDate(DateUtils.parseDate(episode.getAirDate()));
     }
 }

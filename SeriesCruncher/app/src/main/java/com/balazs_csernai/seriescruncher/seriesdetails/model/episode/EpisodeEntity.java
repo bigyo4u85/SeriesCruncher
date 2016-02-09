@@ -2,6 +2,8 @@ package com.balazs_csernai.seriescruncher.seriesdetails.model.episode;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.Date;
+
 /**
  * Created by Balazs_Csernai on 2016.01.27..
  */
@@ -9,18 +11,21 @@ public class EpisodeEntity implements EpisodeModel {
 
     @Expose
     private String title;
+
     @Expose
     private int seasonNumber;
+
     @Expose
     private int episodeNumber;
+
     @Expose
-    private String airDate;
+    private Date airDate;
 
     public EpisodeEntity() {
         title = "";
         seasonNumber = 0;
         episodeNumber = 0;
-        airDate = "";
+        airDate = null;
     }
 
     @Override
@@ -39,7 +44,7 @@ public class EpisodeEntity implements EpisodeModel {
     }
 
     @Override
-    public String getAirDate() {
+    public Date getAirDate() {
         return airDate;
     }
 
@@ -58,8 +63,13 @@ public class EpisodeEntity implements EpisodeModel {
         return this;
     }
 
-    public EpisodeEntity setAirDate(String airDate) {
+    public EpisodeEntity setAirDate(Date airDate) {
         this.airDate = airDate;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "S" + seasonNumber + "E" + episodeNumber + " " + title + " air date: " + airDate;
     }
 }

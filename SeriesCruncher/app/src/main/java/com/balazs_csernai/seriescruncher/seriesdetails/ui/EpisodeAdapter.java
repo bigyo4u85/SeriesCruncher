@@ -12,6 +12,7 @@ import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListEntity;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
 
 import javax.inject.Inject;
@@ -65,7 +66,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
         }
         holder.episodeNumber.setText(item.getEpisodeNumber());
         holder.title.setText(item.getTitle());
-        holder.airDate.setText(item.getAirDate());
+        holder.airDate.setText(DateUtils.parseDate(item.getAirDate()));
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);
     }
