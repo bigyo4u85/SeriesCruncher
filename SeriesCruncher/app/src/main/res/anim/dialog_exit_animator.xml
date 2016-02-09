@@ -2,12 +2,12 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/decelerate_interpolator">
     <alpha
-        android:duration="250"
+        android:duration="@android:integer/config_shortAnimTime"
         android:fillAfter="true"
         android:fromAlpha="1.0"
         android:toAlpha="0.0" />
     <scale
-        android:duration="250"
+        android:duration="@android:integer/config_shortAnimTime"
         android:fillAfter="true"
         android:fromXScale="1.0"
         android:fromYScale="1.0"
