@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Translucent status bar theme. -->
+    <style name="AppTheme.TranslucentStatusBar" parent="AppTheme">
+    </style>
+
     <!-- Theme.AppCompat.Light.Dialog.Alert -->
     <style name="AlertDialogStyle" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColorPrimary">@color/white</item>

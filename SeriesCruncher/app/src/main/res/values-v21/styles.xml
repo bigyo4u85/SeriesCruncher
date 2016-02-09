@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="AppTheme.TranslucentStatusBar" parent="AppTheme">
+        <item name="android:statusBarColor">@color/semi_transparent_black</item>
+        <item name="android:colorEdgeEffect">@color/very_transparent_black</item>
+    </style>
+
+</resources>

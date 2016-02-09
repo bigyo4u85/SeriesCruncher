@@ -37,7 +37,8 @@ public class EpisodeListConverter implements ModelConverter<EpisodeListModel, Se
                 items.add(new EpisodeListItemEntity()
                         .setEpisode(false)
                         .setExpanded(false)
-                        .setEpisodeNumber(String.format("%02d", episodeModel.getSeasonNumber())));
+                        .setEpisodeNumber(String.format("%02d", episodeModel.getSeasonNumber()))
+                        .setTitle("Season"));
 
                 currentSeason = episodeModel.getSeasonNumber();
 

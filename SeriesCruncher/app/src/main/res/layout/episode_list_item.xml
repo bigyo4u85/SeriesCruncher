@@ -8,21 +8,33 @@
     android:paddingLeft="@dimen/spacing_double"
     android:paddingRight="@dimen/spacing_double">
 
-    <TextView
-        android:id="@+id/episode_number"
+    <RelativeLayout
         android:layout_width="@dimen/size_thumbnail_normal"
         android:layout_height="@dimen/size_thumbnail_normal"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="@dimen/spacing_simple"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/list_item_text_thumbnail"
-        android:textStyle="bold"
-        tools:text="S01" />
+        android:layout_marginRight="@dimen/spacing_simple">
+
+        <ImageView
+            android:id="@+id/episode_number_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/circular_thumbnail_background" />
+
+        <TextView
+            android:id="@+id/episode_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/list_item_text_thumbnail"
+            android:textStyle="bold"
+            tools:text="S01" />
+    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="vertical">
@@ -32,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"
             android:textSize="@dimen/list_item_text_main"
             tools:text="Episode title" />
@@ -41,6 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/gray"
             android:textSize="@dimen/list_item_text_supplementary"
             tools:text="Episode airdate" />

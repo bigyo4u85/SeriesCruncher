@@ -11,5 +11,7 @@
     <color name="gray">#c2c2c2</color>
 
     <color name="accent">#21f3b2</color>
+    <color name="semi_transparent_black">#40000000</color>
+    <color name="very_transparent_black">#18000000</color>
 
 </resources>
