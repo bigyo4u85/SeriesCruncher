@@ -14,8 +14,9 @@ import android.widget.ProgressBar;
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Series;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
-import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
+import com.balazs_csernai.seriescruncher.utils.dialog.DialogFactory;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
+import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
 
 import java.util.List;
 
@@ -32,7 +33,6 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
-
     @InjectView(R.id.series_progress)
     ProgressBar progressBar;
 
@@ -46,13 +46,15 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
     EditText seriesFilter;
 
     private final AppCompatActivity activity;
+    private final DialogFactory dialogFactory;
     private final InputMethodManager inputMethodManager;
     private final SeriesListAdapter adapter;
     private Callbacks callbacks;
 
     @Inject
-    public SeriesListScreenImpl(AppCompatActivity activity, InputMethodManager inputMethodManager, Provider<SeriesListAdapter> adapterProvider) {
+    public SeriesListScreenImpl(AppCompatActivity activity, DialogFactory dialogFactory, InputMethodManager inputMethodManager, Provider<SeriesListAdapter> adapterProvider) {
         this.activity = activity;
+        this.dialogFactory = dialogFactory;
         this.inputMethodManager = inputMethodManager;
         this.adapter = adapterProvider.get();
     }
@@ -108,6 +110,11 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
     public void clearFilterAndHideKeyboard() {
         seriesFilter.getText().clear();
         inputMethodManager.hideSoftInputFromWindow(seriesFilter.getWindowToken(), 0);
+    }
+
+    @Override
+    public void showNetworkErrorDialog() {
+        dialogFactory.createNetworkError();
     }
 
     @Override

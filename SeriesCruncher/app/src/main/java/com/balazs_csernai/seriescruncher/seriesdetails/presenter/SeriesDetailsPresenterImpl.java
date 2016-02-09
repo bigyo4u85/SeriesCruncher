@@ -14,6 +14,7 @@ import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
 import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
 import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
 import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
+import com.balazs_csernai.seriescruncher.utils.navigator.SeriesDetailsNavigator;
 
 import java.util.Date;
 import java.util.List;
@@ -26,16 +27,18 @@ import javax.inject.Inject;
 public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, SeriesDetailsScreen.Callbacks {
 
     private final SeriesLoader seriesLoader;
+    private final SeriesDetailsNavigator navigator;
     private final SeriesDetailsScreen screen;
     private final ModelConverter converter;
     private final PreferenceHandler preference;
-
     private String seriesName;
+    private String imdbId;
     private SeriesDetailsModel detailsModel;
 
     @Inject
-    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter, PreferenceHandler preference) {
+    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsNavigator navigator, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter, PreferenceHandler preference) {
         this.seriesLoader = seriesLoader;
+        this.navigator = navigator;
         this.screen = screen;
         this.converter = converter;
         this.preference = preference;
@@ -50,6 +53,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     @Override
     public void loadSeriesDetails(String seriesName, String imdbId) {
         this.seriesName = seriesName;
+        this.imdbId = imdbId;
         screen.displayProgressIndicator();
         seriesLoader.loadDetails(seriesName, imdbId, seriesCallbacks);
         screen.setAsFavorite(isFavorite());
@@ -70,6 +74,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
 
         @Override
         public void onFailure() {
+            screen.showNetworkErrorDialog();
         }
     };
 
@@ -86,6 +91,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
 
         @Override
         public void onFailure() {
+            screen.showNetworkErrorDialog();
         }
     };
 
@@ -137,5 +143,15 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
 
     private boolean isFavorite() {
         return preference.getUserPreferences().getFavoredSeries().contains(seriesName);
+    }
+
+    @Override
+    public void onNetworkErrorRetry() {
+        loadSeriesDetails(seriesName, imdbId);
+    }
+
+    @Override
+    public void onNetworkErrorCancel() {
+        navigator.closeSeriesDetails();
     }
 }

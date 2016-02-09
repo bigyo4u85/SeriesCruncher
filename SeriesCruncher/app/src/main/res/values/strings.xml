@@ -6,4 +6,26 @@
     <string name="last_episode">Last episode: %1$s. %2$s</string>
     <string name="air_date">Air date: %1$tY-%1$tm-%1$td</string>
     <string name="aired_at">Aired at: %1$tY-%1$tm-%1$td</string>
+
+    <string-array name="network_error_titles">
+        <item>I felt a great disturbance in the Force</item>
+        <item>There is a great disturbance in the Force</item>
+        <item>I fear something terrible has happened</item>
+        <item>I have a very bad feeling about this</item>
+        <item>Uh, we had a slight weapons malfunction, but uh...</item>
+    </string-array>
+
+    <string-array name="network_error_retry_responses">
+        <item>Retry</item>
+        <item>Once more</item>
+        <item>Try again</item>
+        <item>Once again</item>
+    </string-array>
+
+    <string-array name="network_error_cancel_responses">
+        <item>Back</item>
+        <item>Just... go back</item>
+        <item>I\'ve changed my mind</item>
+        <item>I wasn\'t interested anyway</item>
+    </string-array>
 </resources>

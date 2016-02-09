@@ -22,4 +22,9 @@ public class SeriesListNavigatorImpl implements SeriesListNavigator {
     public void launchSeriesDetails(String seriesName, String imdbId) {
         activity.startActivity(SeriesDetailsActivity.createLaunchIntent(activity, seriesName, imdbId));
     }
+
+    @Override
+    public void closeSeriesList() {
+        activity.finish();
+    }
 }

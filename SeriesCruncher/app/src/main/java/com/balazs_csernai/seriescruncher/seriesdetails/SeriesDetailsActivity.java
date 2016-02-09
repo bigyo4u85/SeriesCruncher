@@ -10,13 +10,14 @@ import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.component.SeriesDetailsComponent;
 import com.balazs_csernai.seriescruncher.seriesdetails.presenter.SeriesDetailsPresenter;
 import com.balazs_csernai.seriescruncher.utils.common.IntentUtils;
+import com.balazs_csernai.seriescruncher.utils.dialog.NetworkErrorDialogFragment;
 
 import javax.inject.Inject;
 
 /**
  * Created by ErikKramli on 2016.01.10..
  */
-public class SeriesDetailsActivity extends AppCompatActivity {
+public class SeriesDetailsActivity extends AppCompatActivity implements NetworkErrorDialogFragment.NetworkErrorDialogCallback {
 
     private static final String ARG_SERIES_NAME = "series-name";
     private static final String ARG_IMDB_ID = "imdb-id";
@@ -61,5 +62,15 @@ public class SeriesDetailsActivity extends AppCompatActivity {
         intent.putExtra(ARG_SERIES_NAME, showName);
         intent.putExtra(ARG_IMDB_ID, imdbId);
         return intent;
+    }
+
+    @Override
+    public void onNetworkErrorRetry() {
+        presenter.onNetworkErrorRetry();
+    }
+
+    @Override
+    public void onNetworkErrorCancel() {
+        presenter.onNetworkErrorCancel();
     }
 }
