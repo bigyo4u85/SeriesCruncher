@@ -80,12 +80,11 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     private final AppCompatActivity activity;
     private final EpisodeAdapter adapter;
+    private final DialogFactory dialogFactory;
     private final Animation animation;
     private Callbacks callbacks;
     private SmartLayoutManager layoutManager;
-    private final DialogFactory dialogFactory;
-
-    boolean favorite;
+    private boolean isFavorite;
 
     @Inject
     public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider, DialogFactory dialogFactory, Animation animation) {
@@ -123,7 +122,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void displaySeriesDetails(final EpisodeListModel episodes) {
         adapter.setItems(episodes);
-        float initialFavorFabRotation = favorite ? 180 : 0;
+        float initialFavorFabRotation = isFavorite ? 180 : 0;
         animation.create()
                 .fadeOut(progressBar)
                 .fadeIn(appbar, detailsContainer)
@@ -184,7 +183,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @Override
     public void setAsFavorite(boolean favorite) {
-        this.favorite = favorite;
+        this.isFavorite = favorite;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
-import android.util.Log;
-
 import com.balazs_csernai.seriescruncher.preferences.PreferenceHandler;
 import com.balazs_csernai.seriescruncher.preferences.user.UserPreferencesModel;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;

@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_double"
             android:layout_marginTop="@dimen/spacing_double"
-            android:textSize="16sp"
+            android:textSize="@dimen/list_item_text_main"
             tools:text="@string/next_episode" />
 
         <TextView
@@ -86,7 +86,7 @@
             android:layout_marginBottom="@dimen/spacing_double"
             android:layout_marginStart="@dimen/spacing_double"
             android:layout_marginTop="@dimen/spacing_simple"
-            android:textSize="16sp"
+            android:textSize="@dimen/list_item_text_main"
             tools:text="@string/air_date" />
 
         <android.support.v7.widget.RecyclerView
