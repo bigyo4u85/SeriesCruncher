@@ -136,13 +136,13 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @Override
     public void displayNextEpisode(EpisodeModel episode) {
-        nextOrLastEpisodeTitle.setText(getString(R.string.next_episode, episode.getEpisodeNumber(), episode.getTitle()));
+        nextOrLastEpisodeTitle.setText(getString(R.string.next_episode, episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
         nextOrLastEpisodeAirDate.setText(getString(R.string.air_date, episode.getAirDate()));
     }
 
     @Override
     public void displayLastEpisode(EpisodeModel episode) {
-        nextOrLastEpisodeTitle.setText(getString(R.string.last_episode, episode.getEpisodeNumber(), episode.getTitle()));
+        nextOrLastEpisodeTitle.setText(getString(R.string.last_episode, episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
         nextOrLastEpisodeAirDate.setText(getString(R.string.aired_at, episode.getAirDate()));
     }
 
