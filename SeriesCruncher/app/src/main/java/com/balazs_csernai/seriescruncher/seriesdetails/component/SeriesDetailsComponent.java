@@ -6,7 +6,9 @@ import com.balazs_csernai.seriescruncher.app.component.CommonActivityModule;
 import com.balazs_csernai.seriescruncher.rest.component.RestModule;
 import com.balazs_csernai.seriescruncher.seriesdetails.SeriesDetailsActivity;
 import com.balazs_csernai.seriescruncher.utils.converter.ConverterModule;
+import com.balazs_csernai.seriescruncher.utils.dialog.DialogModule;
 import com.balazs_csernai.seriescruncher.utils.image.ImageModule;
+import com.balazs_csernai.seriescruncher.utils.navigator.NavigatorModule;
 import com.balazs_csernai.seriescruncher.utils.ui.animation.AnimationModule;
 
 import dagger.Component;
@@ -21,7 +23,9 @@ import dagger.Component;
                 CommonActivityModule.class,
                 RestModule.class,
                 SeriesDetailsModule.class,
+                NavigatorModule.class,
                 ConverterModule.class,
+                DialogModule.class,
                 ImageModule.class,
                 AnimationModule.class
         }
@@ -40,8 +44,10 @@ public interface SeriesDetailsComponent {
                     .commonActivityModule(new CommonActivityModule(activity))
                     .restModule(new RestModule())
                     .seriesDetailsModule(new SeriesDetailsModule())
+                    .navigatorModule(new NavigatorModule())
                     .converterModule(new ConverterModule())
                     .imageModule(new ImageModule())
+                    .dialogModule(new DialogModule())
                     .animationModule(new AnimationModule())
                     .build()
                     .inject(activity);

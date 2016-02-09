@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.utils.dialog.DialogFactory;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
 import com.balazs_csernai.seriescruncher.utils.ui.DrawableUtil;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
@@ -73,13 +74,15 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     private final Animation animation;
     private Callbacks callbacks;
     private SmartLayoutManager layoutManager;
+    private final DialogFactory dialogFactory;
 
     boolean favorite;
 
     @Inject
-    public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider, Animation animation) {
+    public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider, DialogFactory dialogFactory, Animation animation) {
         this.activity = activity;
         this.adapter = adapterProvider.get();
+        this.dialogFactory = dialogFactory;
         this.animation = animation;
     }
 
@@ -151,6 +154,11 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void setAsFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    @Override
+    public void showNetworkErrorDialog() {
+        dialogFactory.createNetworkError();
     }
 
     @Override

@@ -29,4 +29,6 @@ public interface SeriesDetailsScreen {
     void setBackground(Bitmap bitmap);
 
     void setAsFavorite(boolean favorite);
+
+    void showNetworkErrorDialog();
 }
