@@ -2,8 +2,7 @@ package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -12,12 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
-import com.balazs_csernai.seriescruncher.utils.ui.DrawableUtil;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
 import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
@@ -62,6 +62,15 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @InjectView(R.id.background)
     ImageView background;
 
+    @InjectView(R.id.details_container)
+    LinearLayout detailsContainer;
+
+    @InjectView(R.id.next_or_last_episode_title)
+    TextView nextOrLastEpisodeTitle;
+
+    @InjectView(R.id.next_or_last_episode_air_date)
+    TextView nextOrLastEpisodeAirDate;
+
     @InjectView(R.id.episodes_recyclerview)
     RecyclerView episodesRecyclerView;
 
@@ -103,7 +112,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @Override
     public void displayProgressIndicator() {
-        ViewUtils.gone(appbar, episodesRecyclerView, favorFab);
+        ViewUtils.gone(appbar, detailsContainer, favorFab);
         ViewUtils.alpha(1f, progressBar);
         ViewUtils.visible(progressBar);
     }
@@ -114,12 +123,28 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
         float initialFavorFabRotation = favorite ? 180 : 0;
         animation.create()
                 .fadeOut(progressBar)
-                .fadeIn(appbar, episodesRecyclerView)
+                .fadeIn(appbar, detailsContainer)
                 .then()
                 .reveal(favorFab)
                 .then()
                 .rotate(initialFavorFabRotation, favorFab)
                 .play();
+    }
+
+    @Override
+    public void displayNextEpisode(EpisodeModel episode) {
+        nextOrLastEpisodeTitle.setText(getString(R.string.next_episode, episode.getEpisodeNumber(), episode.getTitle()));
+        nextOrLastEpisodeAirDate.setText(getString(R.string.air_date, episode.getAirDate()));
+    }
+
+    @Override
+    public void displayLastEpisode(EpisodeModel episode) {
+        nextOrLastEpisodeTitle.setText(getString(R.string.last_episode, episode.getEpisodeNumber(), episode.getTitle()));
+        nextOrLastEpisodeAirDate.setText(getString(R.string.aired_at, episode.getAirDate()));
+    }
+
+    private String getString(@StringRes int res, Object... formatArgs) {
+        return activity.getResources().getString(res, formatArgs);
     }
 
     @Override
@@ -129,11 +154,17 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @Override
     public void setColors(ColorModel primaryColor, ColorModel secondaryColor, ColorModel accentColor) {
-        coordinatorLayout.setBackgroundColor(primaryColor.getBackgroundColor());
         collapsingToolbar.setContentScrimColor(primaryColor.getBackgroundColor());
+
         title.setTextColor(primaryColor.getForegroundColor());
         activity.getSupportActionBar().setHomeAsUpIndicator(getColorizedDrawable(activity.getResources(), R.drawable.abc_ic_ab_back_mtrl_am_alpha, primaryColor.getForegroundColor()));
+
+        detailsContainer.setBackgroundColor(primaryColor.getBackgroundColor());
+        nextOrLastEpisodeTitle.setTextColor(primaryColor.getForegroundColor());
+        nextOrLastEpisodeAirDate.setTextColor(primaryColor.getForegroundColor());
+
         adapter.setColors(primaryColor, secondaryColor);
+
         favorFab.setBackgroundTintList(ColorStateList.valueOf(accentColor.getBackgroundColor()));
         favorFab.setImageDrawable(getColorizedDrawable(activity.getResources(), R.drawable.ic_thumb_up, accentColor.getForegroundColor()));
     }

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">SeriesCruncher</string>
     <string name="type_to_filter">Type to filter</string>
+
+    <string name="next_episode">Next episode: %1$s. %2$s</string>
+    <string name="last_episode">Last episode: %1$s. %2$s</string>
+    <string name="air_date">Air date: %1$tY-%1$tm-%1$td</string>
+    <string name="aired_at">Aired at: %1$tY-%1$tm-%1$td</string>
 </resources>
