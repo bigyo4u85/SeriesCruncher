@@ -49,20 +49,20 @@ public class SeriesJson implements Series, Comparable<SeriesJson> {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
-        SeriesJson otherShowJson = (SeriesJson) other;
+        SeriesJson otherSeriesJson = (SeriesJson) obj;
 
-        return imdbId.equals(otherShowJson.imdbId);
+        return !(imdbId != null ? !imdbId.equals(otherSeriesJson.imdbId) : otherSeriesJson.imdbId != null);
     }
 
     @Override
     public int hashCode() {
-        return imdbId.hashCode();
+        return imdbId != null ? imdbId.hashCode() : 0;
     }
-
+    
     @Override
     public String toString() {
         return title;
