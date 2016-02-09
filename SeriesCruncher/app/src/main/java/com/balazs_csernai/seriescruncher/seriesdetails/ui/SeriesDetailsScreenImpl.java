@@ -108,7 +108,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
         layoutManager = new SmartLayoutManager(activity);
         episodesRecyclerView.setLayoutManager(layoutManager);
-        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getDrawable(R.drawable.line_divider)));
+        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getColor(R.color.gray)));
         episodesRecyclerView.setAdapter(adapter);
         episodesRecyclerView.setHasFixedSize(true);
     }
