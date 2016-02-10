@@ -67,9 +67,4 @@ public class EpisodeEntity implements EpisodeModel {
         this.airDate = airDate;
         return this;
     }
-
-    @Override
-    public String toString() {
-        return "S" + seasonNumber + "E" + episodeNumber + " " + title + " air date: " + airDate;
-    }
 }
