@@ -5,7 +5,9 @@ import com.balazs_csernai.seriescruncher.rest.api.epguides.model.SeriesJson;
 import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ErikKramli on 2016.01.17..
@@ -13,14 +15,14 @@ import java.util.List;
 public class SeriesListEntity implements SeriesListModel {
 
     @Expose
-    private List<SeriesJson> seriesList;
+    private Set<SeriesJson> seriesSet;
 
     public SeriesListEntity(List<SeriesJson> seriesList) {
-        this.seriesList = seriesList;
+        seriesSet = new LinkedHashSet<>(seriesList);
     }
 
     @Override
     public List<Series> getSeriesList() {
-        return new ArrayList<Series>(seriesList);
+        return new ArrayList<Series>(seriesSet);
     }
 }
