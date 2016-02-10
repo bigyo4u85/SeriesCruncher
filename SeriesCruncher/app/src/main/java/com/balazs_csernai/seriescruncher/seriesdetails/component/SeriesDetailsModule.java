@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.component;
 
+import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinder;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinderImpl;
 import com.balazs_csernai.seriescruncher.seriesdetails.presenter.SeriesDetailsPresenter;
 import com.balazs_csernai.seriescruncher.seriesdetails.presenter.SeriesDetailsPresenterImpl;
 import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
@@ -24,4 +26,8 @@ public class SeriesDetailsModule {
         return impl;
     }
 
+    @Provides
+    EpisodeFinder provideEpisodeFinder(EpisodeFinderImpl impl) {
+        return impl;
+    }
 }

@@ -7,6 +7,7 @@ import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinder;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
 import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
@@ -29,17 +30,24 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     private final SeriesDetailsScreen screen;
     private final ModelConverter converter;
     private final PreferenceHandler preference;
-    private String seriesName;
-    private String imdbId;
+    private EpisodeFinder episodeFinder;
+
+    private String seriesName, imdbId;
     private SeriesDetailsModel detailsModel;
 
     @Inject
-    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsNavigator navigator, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter, PreferenceHandler preference) {
+    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader,
+                                      SeriesDetailsNavigator navigator,
+                                      SeriesDetailsScreen screen,
+                                      @EpisodeList ModelConverter converter,
+                                      PreferenceHandler preference,
+                                      EpisodeFinder episodeFinder) {
         this.seriesLoader = seriesLoader;
         this.navigator = navigator;
         this.screen = screen;
         this.converter = converter;
         this.preference = preference;
+        this.episodeFinder = episodeFinder;
     }
 
     @Override
@@ -67,6 +75,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
         @Override
         public void onSuccess(SeriesDetailsModel model) {
             detailsModel = model;
+            episodeFinder.findNextAndLastEpisodes(model.getEpisodes());
             seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
         }
 
@@ -94,38 +103,11 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     };
 
     private void displayNextOrLastEpisode() {
-        int lastAiredEpisodeIndex = findLastAiredEpisodeIndex(detailsModel.getEpisodes());
-        EpisodeModel nextEpisode = getEpisode(lastAiredEpisodeIndex - 1);
-        if (nextEpisode != null) {
-            screen.displayNextEpisode(nextEpisode);
-
+        if (episodeFinder.hasNextEpisode()) {
+            screen.displayNextEpisode(episodeFinder.getNextEpisode());
         } else {
-            EpisodeModel lastEpisode = getEpisode(lastAiredEpisodeIndex);
-            screen.displayLastEpisode(lastEpisode);
+            screen.displayLastEpisode(episodeFinder.getLastEpisode());
         }
-    }
-
-    private EpisodeModel getEpisode(int episodeIndex) {
-        try {
-            return detailsModel.getEpisodes().get(episodeIndex);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    private int findLastAiredEpisodeIndex(List<EpisodeModel> episodes) {
-        int index = -1;
-        for (int i = 0, n = episodes.size(); i < n && index == -1; i++) {
-            if (isLastEpisode(episodes.get(i))) {
-                index = i;
-            }
-        }
-        return index;
-    }
-
-    private boolean isLastEpisode(EpisodeModel episode) {
-        Date airDate = episode.getAirDate();
-        return airDate != null && DateUtils.getTodayDate().after(airDate);
     }
 
     @Override
