@@ -33,6 +33,7 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
+
     @InjectView(R.id.series_progress)
     ProgressBar progressBar;
 

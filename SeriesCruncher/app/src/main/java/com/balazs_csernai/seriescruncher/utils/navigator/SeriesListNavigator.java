@@ -7,5 +7,7 @@ public interface SeriesListNavigator {
 
     void launchSeriesDetails(String seriesName, String imdbId);
 
+    void launchSettings();
+
     void closeSeriesList();
 }

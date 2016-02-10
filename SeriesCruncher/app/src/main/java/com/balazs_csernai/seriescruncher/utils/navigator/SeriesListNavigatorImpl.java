@@ -1,8 +1,10 @@
 package com.balazs_csernai.seriescruncher.utils.navigator;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.balazs_csernai.seriescruncher.seriesdetails.SeriesDetailsActivity;
+import com.balazs_csernai.seriescruncher.settings.SettingsActivity;
 
 import javax.inject.Inject;
 
@@ -21,6 +23,11 @@ public class SeriesListNavigatorImpl implements SeriesListNavigator {
     @Override
     public void launchSeriesDetails(String seriesName, String imdbId) {
         activity.startActivity(SeriesDetailsActivity.createLaunchIntent(activity, seriesName, imdbId));
+    }
+
+    @Override
+    public void launchSettings() {
+        activity.startActivity(new Intent(activity, SettingsActivity.class));
     }
 
     @Override
