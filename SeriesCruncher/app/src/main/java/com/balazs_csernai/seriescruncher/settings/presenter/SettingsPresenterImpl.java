@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.settings.presenter;
 
-import com.balazs_csernai.seriescruncher.preferences.PreferenceHandler;
+import com.balazs_csernai.seriescruncher.preferences.Preferences;
 import com.balazs_csernai.seriescruncher.settings.ui.SettingsScreen;
 
 import javax.inject.Inject;
@@ -11,12 +11,12 @@ import javax.inject.Inject;
 public class SettingsPresenterImpl implements SettingsPresenter, SettingsScreen.Callbacks {
 
     private final SettingsScreen screen;
-    private final PreferenceHandler preferenceHandler;
+    private final Preferences preferences;
 
     @Inject
-    public SettingsPresenterImpl(SettingsScreen screen, PreferenceHandler preferenceHandler) {
+    public SettingsPresenterImpl(SettingsScreen screen, Preferences preferences) {
         this.screen = screen;
-        this.preferenceHandler = preferenceHandler;
+        this.preferences = preferences;
     }
 
     @Override
