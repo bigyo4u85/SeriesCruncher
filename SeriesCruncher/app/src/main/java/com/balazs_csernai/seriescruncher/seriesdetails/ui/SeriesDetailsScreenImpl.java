@@ -9,6 +9,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -107,7 +109,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
         layoutManager = new SmartLayoutManager(activity);
         episodesRecyclerView.setLayoutManager(layoutManager);
-        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getColor(R.color.gray)));
+        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getColor(R.color.light_gray)));
         episodesRecyclerView.setAdapter(adapter);
         episodesRecyclerView.setHasFixedSize(true);
     }
@@ -135,18 +137,18 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @Override
     public void displayNextEpisode(EpisodeModel episode) {
-        nextOrLastEpisodeTitle.setText(getString(R.string.next_episode, episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
-        nextOrLastEpisodeAirDate.setText(getString(R.string.air_date, episode.getAirDate()));
+        nextOrLastEpisodeAirDate.setText(getText(R.string.air_date, episode.getAirDate()));
+        nextOrLastEpisodeTitle.setText(getText(R.string.next_episode, episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
     }
 
     @Override
     public void displayLastEpisode(EpisodeModel episode) {
-        nextOrLastEpisodeTitle.setText(getString(R.string.last_episode, episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
-        nextOrLastEpisodeAirDate.setText(getString(R.string.aired_at, episode.getAirDate()));
+        nextOrLastEpisodeTitle.setText(getText(R.string.last_episode, episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
+        nextOrLastEpisodeAirDate.setText(getText(R.string.aired_at, episode.getAirDate()));
     }
 
-    private String getString(@StringRes int res, Object... formatArgs) {
-        return activity.getResources().getString(res, formatArgs);
+    private Spanned getText(@StringRes int res, Object... formatArgs) {
+        return Html.fromHtml(activity.getResources().getString(res, formatArgs));
     }
 
     @Override

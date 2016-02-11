@@ -77,23 +77,23 @@
         support:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
-            android:id="@+id/next_or_last_episode_title"
+            android:id="@+id/next_or_last_episode_air_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_double"
             android:layout_marginTop="@dimen/spacing_double"
             android:textSize="@dimen/list_item_text_main"
-            tools:text="@string/next_episode" />
+            tools:text="@string/air_date" />
 
         <TextView
-            android:id="@+id/next_or_last_episode_air_date"
+            android:id="@+id/next_or_last_episode_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_double"
             android:layout_marginStart="@dimen/spacing_double"
             android:layout_marginTop="@dimen/spacing_simple"
             android:textSize="@dimen/list_item_text_main"
-            tools:text="@string/air_date" />
+            tools:text="@string/next_episode" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/episodes_recyclerview"

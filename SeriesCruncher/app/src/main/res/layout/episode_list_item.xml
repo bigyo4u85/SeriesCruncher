@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/gray"
+            android:textColor="@color/heavy_gray"
             android:textSize="@dimen/list_item_text_supplementary"
             tools:text="Episode airdate" />
     </LinearLayout>
