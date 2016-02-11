@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:support="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -67,12 +68,39 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/episodes_recyclerview"
+    <LinearLayout
+        android:id="@+id/details_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        support:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:orientation="vertical"
+        support:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/next_or_last_episode_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_double"
+            android:layout_marginTop="@dimen/spacing_double"
+            android:textSize="@dimen/list_item_text_main"
+            tools:text="@string/next_episode" />
+
+        <TextView
+            android:id="@+id/next_or_last_episode_air_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_double"
+            android:layout_marginStart="@dimen/spacing_double"
+            android:layout_marginTop="@dimen/spacing_simple"
+            android:textSize="@dimen/list_item_text_main"
+            tools:text="@string/air_date" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/episodes_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/favor_fab"

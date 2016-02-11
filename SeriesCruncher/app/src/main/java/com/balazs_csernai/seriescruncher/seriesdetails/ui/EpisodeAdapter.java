@@ -3,7 +3,6 @@ package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListEntity;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
 
@@ -68,11 +68,12 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
         }
         holder.episodeNumber.setText(item.getEpisodeNumber());
         holder.title.setText(item.getTitle());
-        if (TextUtils.isEmpty(item.getAirDate())) {
+
+        if (item.getAirDate() == null) {
             ViewUtils.gone(holder.airDate);
         } else {
             ViewUtils.visible(holder.airDate);
-            holder.airDate.setText(item.getAirDate());
+            holder.airDate.setText(DateUtils.parseDate(item.getAirDate()));
         }
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);

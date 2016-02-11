@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.model.episode;
 
-import java.util.Comparator;
+import java.util.Date;
 
 /**
  * Created by Balazs_Csernai on 2016.01.27..
@@ -13,5 +13,5 @@ public interface EpisodeModel {
 
     int getEpisodeNumber();
 
-    String getAirDate();
+    Date getAirDate();
 }
