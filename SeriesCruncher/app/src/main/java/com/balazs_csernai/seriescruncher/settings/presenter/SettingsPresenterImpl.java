@@ -1,6 +1,7 @@
 package com.balazs_csernai.seriescruncher.settings.presenter;
 
 import com.balazs_csernai.seriescruncher.preferences.Preferences;
+import com.balazs_csernai.seriescruncher.preferences.user.UserPreferencesModel;
 import com.balazs_csernai.seriescruncher.settings.ui.SettingsScreen;
 
 import javax.inject.Inject;
@@ -22,17 +23,23 @@ public class SettingsPresenterImpl implements SettingsPresenter, SettingsScreen.
     @Override
     public void onCreate() {
         screen.onCreate(this);
-    }
 
-
-
-    @Override
-    public void onNotificationsTapped(boolean enabled) {
-
+        UserPreferencesModel userPreferences = preferences.getUserPreferences();
+        screen.setPreferenceValues(userPreferences.areNotificationsEnabled(), 12, 0);
     }
 
     @Override
-    public void onTimePicked() {
+    public void onNotificationCheckChanged(boolean isChecked) {
+
+    }
+
+    @Override
+    public void onNotificationTimeTapped() {
+        screen.showTimePickerDialog();
+    }
+
+    @Override
+    public void onTimePicked(int hour, int minute) {
 
     }
 }

@@ -13,8 +13,20 @@ public class UserPreferencesEntity implements UserPreferencesModel {
     @Expose
     private Set<String> favoredSeries;
 
+    @Expose
+    private boolean areNotificationsEnabled;
+
+    @Expose
+    private int notificationHour;
+
+    @Expose
+    private int notificationMinute;
+
     public UserPreferencesEntity() {
         favoredSeries = new LinkedHashSet<>();
+        areNotificationsEnabled = true;
+        notificationHour = 12;
+        notificationMinute = 0;
     }
 
     @Override
@@ -35,5 +47,31 @@ public class UserPreferencesEntity implements UserPreferencesModel {
     @Override
     public void clearFavorites() {
         favoredSeries.clear();
+    }
+
+    @Override
+    public boolean areNotificationsEnabled() {
+        return areNotificationsEnabled;
+    }
+
+    @Override
+    public void setNotificationsEnabled(boolean enabled) {
+        areNotificationsEnabled = enabled;
+    }
+
+    @Override
+    public int getNotificationHour() {
+        return notificationHour;
+    }
+
+    @Override
+    public int getNotificationMinute() {
+        return notificationMinute;
+    }
+
+    @Override
+    public void setNotificationTime(int hour, int minute) {
+        notificationHour = hour;
+        notificationMinute = minute;
     }
 }

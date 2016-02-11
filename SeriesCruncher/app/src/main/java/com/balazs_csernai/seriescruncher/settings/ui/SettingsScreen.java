@@ -7,12 +7,16 @@ public interface SettingsScreen {
 
     interface Callbacks {
 
-        void onNotificationsTapped(boolean enabled);
+        void onNotificationCheckChanged(boolean isChecked);
 
-        void onTimePicked();
+        void onNotificationTimeTapped();
+
+        void onTimePicked(int hour, int minute);
     }
 
     void onCreate(Callbacks callbacks);
+
+    void setPreferenceValues(boolean notificationEnabled, int notificationHour, int notificationMinute);
 
     void showTimePickerDialog();
     
