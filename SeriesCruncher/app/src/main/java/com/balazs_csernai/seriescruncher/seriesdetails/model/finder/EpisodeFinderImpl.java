@@ -1,8 +1,10 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.model.finder;
 
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.DescendingEpisodeComparator;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -28,8 +30,14 @@ public class EpisodeFinderImpl implements EpisodeFinder {
     }
 
     @Override
-    public void findNextAndLastEpisodes(final List<EpisodeModel> episodes) {
-        this.episodes = episodes;
+    public void setEpisodes(final List<EpisodeModel> episodes) {
+        /**
+         * Create a defensive copy of the list of episodes,
+         * which is then sorted in descending chronological order.
+         */
+        this.episodes = new ArrayList<>(episodes);
+        Collections.sort(this.episodes, new DescendingEpisodeComparator());
+
         lastAiredEpisodeIndex = findLastAiredEpisodeIndex(episodes);
         nextEpisodeIndex = lastAiredEpisodeIndex - 1;
     }

@@ -6,17 +6,12 @@ import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinder;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
-import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
 import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
 import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
 import com.balazs_csernai.seriescruncher.utils.navigator.SeriesDetailsNavigator;
-
-import java.util.Date;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -75,7 +70,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
         @Override
         public void onSuccess(SeriesDetailsModel model) {
             detailsModel = model;
-            episodeFinder.findNextAndLastEpisodes(model.getEpisodes());
+            episodeFinder.setEpisodes(model.getEpisodes());
             seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
         }
 

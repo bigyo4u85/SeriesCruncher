@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface EpisodeFinder {
 
-    void findNextAndLastEpisodes(List<EpisodeModel> episodes);
+    void setEpisodes(List<EpisodeModel> episodes);
 
     boolean hasNextEpisode();
 
