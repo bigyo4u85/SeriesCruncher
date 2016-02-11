@@ -3,10 +3,12 @@ package com.balazs_csernai.seriescruncher.settings.ui;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.utils.dialog.DialogFactory;
+import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
 
 import javax.inject.Inject;
 
@@ -24,6 +26,9 @@ public class SettingsScreenImpl implements SettingsScreen, DialogFactory.TimePic
 
     @InjectView(R.id.notification_check)
     AppCompatCheckBox notificationsCheck;
+
+    @InjectView(R.id.time_preference)
+    View timePreference;
 
     @InjectView(R.id.notification_time)
     TextView notificationTimeText;
@@ -54,6 +59,13 @@ public class SettingsScreenImpl implements SettingsScreen, DialogFactory.TimePic
         updateTimeText(notificationHour, notificationMinute);
         hour = notificationHour;
         minute = notificationMinute;
+    }
+
+    @Override
+    public void setTimePickerEnabled(boolean enabled) {
+        timePreference.setEnabled(enabled);
+        float alpha = enabled ? 1F : 0.6F;
+        ViewUtils.alpha(alpha, timePreference);
     }
 
     private void updateTimeText(int hour, int minute) {

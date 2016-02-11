@@ -25,12 +25,16 @@ public class SettingsPresenterImpl implements SettingsPresenter, SettingsScreen.
         screen.onCreate(this);
 
         UserPreferencesModel userPreferences = preferences.getUserPreferences();
-        screen.setPreferenceValues(userPreferences.areNotificationsEnabled(), 12, 0);
+        screen.setPreferenceValues(userPreferences.areNotificationsEnabled(), userPreferences.getNotificationHour(), userPreferences.getNotificationMinute());
+        screen.setTimePickerEnabled(userPreferences.areNotificationsEnabled());
     }
 
     @Override
     public void onNotificationCheckChanged(boolean isChecked) {
-
+        UserPreferencesModel userPreferences = preferences.getUserPreferences();
+        userPreferences.setNotificationsEnabled(isChecked);
+        preferences.updateUserPreferences(userPreferences);
+        screen.setTimePickerEnabled(isChecked);
     }
 
     @Override
@@ -40,6 +44,8 @@ public class SettingsPresenterImpl implements SettingsPresenter, SettingsScreen.
 
     @Override
     public void onTimePicked(int hour, int minute) {
-
+        UserPreferencesModel userPreferences = preferences.getUserPreferences();
+        userPreferences.setNotificationTime(hour, minute);
+        preferences.updateUserPreferences(userPreferences);
     }
 }

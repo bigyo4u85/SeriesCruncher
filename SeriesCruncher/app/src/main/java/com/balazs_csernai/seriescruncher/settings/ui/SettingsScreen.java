@@ -18,6 +18,8 @@ public interface SettingsScreen {
 
     void setPreferenceValues(boolean notificationEnabled, int notificationHour, int notificationMinute);
 
+    void setTimePickerEnabled(boolean enabled);
+
     void showTimePickerDialog();
     
 }
