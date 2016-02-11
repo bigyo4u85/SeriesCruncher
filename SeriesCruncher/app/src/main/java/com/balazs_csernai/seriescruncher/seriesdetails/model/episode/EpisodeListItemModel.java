@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.model.episode;
 
+import java.util.Date;
+
 /**
  * Created by Balazs_Csernai on 2016.01.27..
  */
@@ -15,5 +17,5 @@ public interface EpisodeListItemModel {
 
     String getTitle();
 
-    String getAirDate();
+    Date getAirDate();
 }

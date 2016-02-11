@@ -3,6 +3,7 @@ package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 import android.graphics.Bitmap;
 
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
 
 /**
@@ -19,6 +20,10 @@ public interface SeriesDetailsScreen {
     void displayProgressIndicator();
 
     void displaySeriesDetails(EpisodeListModel episodes);
+
+    void displayNextEpisode(EpisodeModel episode);
+
+    void displayLastEpisode(EpisodeModel episode);
 
     void setTitle(String title);
 

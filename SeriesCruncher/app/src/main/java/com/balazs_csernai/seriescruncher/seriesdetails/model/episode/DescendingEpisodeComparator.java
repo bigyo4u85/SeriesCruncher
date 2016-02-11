@@ -3,13 +3,14 @@ package com.balazs_csernai.seriescruncher.seriesdetails.model.episode;
 import java.util.Comparator;
 
 /**
- * Created by Balazs_Csernai on 2016.01.27..
+ * Created by erik_markus_kramli on 2016-02-08.
  */
-public class EpisodeComparator implements Comparator<EpisodeModel> {
+public class DescendingEpisodeComparator implements Comparator<EpisodeModel> {
+    
     @Override
     public int compare(EpisodeModel lhs, EpisodeModel rhs) {
-        int episodeDiff = lhs.getEpisodeNumber() - rhs.getEpisodeNumber();
-        int seasonDiff = lhs.getSeasonNumber() - rhs.getSeasonNumber();
+        int episodeDiff = rhs.getEpisodeNumber() - lhs.getEpisodeNumber();
+        int seasonDiff = rhs.getSeasonNumber() - lhs.getSeasonNumber();
 
         if (seasonDiff == 0) {
             return episodeDiff;

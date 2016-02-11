@@ -1,5 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.model.episode;
 
+import java.util.Date;
+
 /**
  * Created by Balazs_Csernai on 2016.01.27..
  */
@@ -9,14 +11,14 @@ public class EpisodeListItemEntity implements EpisodeListItemModel {
     private boolean expanded;
     private String episodeNumber;
     private String title;
-    private String airDate;
+    private Date airDate;
 
     public EpisodeListItemEntity() {
         episode = false;
         expanded = false;
         episodeNumber = "";
         title = "";
-        airDate = "";
+        airDate = null;
     }
 
     @Override
@@ -45,7 +47,7 @@ public class EpisodeListItemEntity implements EpisodeListItemModel {
     }
 
     @Override
-    public String getAirDate() {
+    public Date getAirDate() {
         return airDate;
     }
 
@@ -69,7 +71,7 @@ public class EpisodeListItemEntity implements EpisodeListItemModel {
         return this;
     }
 
-    public EpisodeListItemEntity setAirDate(String airDate) {
+    public EpisodeListItemEntity setAirDate(Date airDate) {
         this.airDate = airDate;
         return this;
     }
