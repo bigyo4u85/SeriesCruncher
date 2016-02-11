@@ -27,7 +27,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     private final PreferenceHandler preference;
     private EpisodeFinder episodeFinder;
 
-    private String seriesName, imdbId;
+    private String seriesName;
     private SeriesDetailsModel detailsModel;
 
     @Inject
@@ -52,11 +52,10 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     }
 
     @Override
-    public void loadSeriesDetails(String seriesName, String imdbId) {
+    public void loadSeriesDetails(String seriesName) {
         this.seriesName = seriesName;
-        this.imdbId = imdbId;
         screen.displayProgressIndicator();
-        seriesLoader.loadDetails(seriesName, imdbId, seriesCallbacks);
+        seriesLoader.loadDetails(seriesName, seriesCallbacks);
         screen.setAsFavorite(isFavorite());
     }
 
@@ -122,7 +121,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
 
     @Override
     public void onNetworkErrorRetry() {
-        loadSeriesDetails(seriesName, imdbId);
+        loadSeriesDetails(seriesName);
     }
 
     @Override

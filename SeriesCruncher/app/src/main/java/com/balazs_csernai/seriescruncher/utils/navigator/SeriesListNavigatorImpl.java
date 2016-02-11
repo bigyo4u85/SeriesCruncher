@@ -19,8 +19,8 @@ public class SeriesListNavigatorImpl implements SeriesListNavigator {
     }
 
     @Override
-    public void launchSeriesDetails(String seriesName, String imdbId) {
-        activity.startActivity(SeriesDetailsActivity.createLaunchIntent(activity, seriesName, imdbId));
+    public void launchSeriesDetails(String seriesName) {
+        activity.startActivity(SeriesDetailsActivity.createLaunchIntent(activity, seriesName));
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface CombinedModel {
 
-    Map<Integer, List<EpisodeJson>> getEpisodeMap();
+    Map<Integer, List<EpisodeJson>> getSeasonMap();
 
     OmdbDetailsJson getOmdbDetails();
 }

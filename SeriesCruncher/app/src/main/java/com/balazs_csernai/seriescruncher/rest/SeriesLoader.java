@@ -5,6 +5,8 @@ import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
 
+import java.util.Collection;
+
 /**
  * Created by Balazs_Csernai on 2016.01.08..
  */
@@ -12,7 +14,9 @@ public interface SeriesLoader extends Loader {
 
     void loadSeries(Callback<SeriesListModel> callback);
 
-    void loadDetails(String showName, String imdbId, Callback<SeriesDetailsModel> callback);
+    void loadDetails(String seriesName, Callback<SeriesDetailsModel> callback);
+
+    void loadDetails(Collection<String> seriesNames, final Callback<SeriesDetailsModel> callback);
 
     void loadPoster(String posterUrl, Callback<PosterModel> callback);
 }

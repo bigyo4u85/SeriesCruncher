@@ -33,9 +33,9 @@ public class RequestFactoryImpl implements RequestFactory {
     }
 
     @Override
-    public SeriesDetailsRequest createSeriesDetailsRequest(String seriesName, String imdbId) {
+    public SeriesDetailsRequest createSeriesDetailsRequest(String seriesName) {
         SeriesDetailsRequest request = seriesDetailsRequestProvider.get();
-        request.setRequestParams(seriesName, imdbId);
+        request.setRequestParams(seriesName);
         return request;
     }
 

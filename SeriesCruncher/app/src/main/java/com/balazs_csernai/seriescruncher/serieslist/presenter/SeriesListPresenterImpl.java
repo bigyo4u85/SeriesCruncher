@@ -61,7 +61,7 @@ public class SeriesListPresenterImpl implements SeriesListPresenter, Loader.Call
     @Override
     public void onSeriesSelected(Series series) {
         screen.clearFilterAndHideKeyboard();
-        navigator.launchSeriesDetails(series.getName(), series.getImdbId());
+        navigator.launchSeriesDetails(series.getName());
     }
 
     @Override
