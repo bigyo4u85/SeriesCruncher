@@ -2,36 +2,28 @@ package com.balazs_csernai.seriescruncher.settings;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.balazs_csernai.seriescruncher.R;
+import com.balazs_csernai.seriescruncher.settings.component.SettingsComponent;
+import com.balazs_csernai.seriescruncher.settings.presenter.SettingsPresenter;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import javax.inject.Inject;
 
 /**
  * Created by erik_markus_kramli on 2016-02-10.
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    @InjectView(R.id.toolbar)
-    Toolbar toolbar;
+    @Inject
+    SettingsPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
-        ButterKnife.inject(this);
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.settings_container, new SettingsFragment())
-                .commit();
+        SettingsComponent.Injector.inject(this);
+        presenter.onCreate();
     }
 
     @Override
