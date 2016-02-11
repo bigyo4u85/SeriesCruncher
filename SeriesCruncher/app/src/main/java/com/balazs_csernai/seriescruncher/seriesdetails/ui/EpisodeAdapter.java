@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
@@ -13,6 +14,7 @@ import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeList
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
+import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
 
 import javax.inject.Inject;
@@ -58,15 +60,21 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
     public void onBindViewHolder(SeasonsViewHolder holder, int position) {
         EpisodeListItemModel item = episodes.getItem(position);
         if (item.isEpisode()) {
-            holder.episodeNumber.setBackgroundColor(secondaryBackgroundColor);
+            holder.episodeNumberBackground.setColorFilter(secondaryBackgroundColor);
             holder.episodeNumber.setTextColor(secondaryTextColor);
         } else {
-            holder.episodeNumber.setBackgroundColor(primaryBackgroundColor);
+            holder.episodeNumberBackground.setColorFilter(primaryBackgroundColor);
             holder.episodeNumber.setTextColor(primaryTextColor);
         }
         holder.episodeNumber.setText(item.getEpisodeNumber());
         holder.title.setText(item.getTitle());
-        holder.airDate.setText(DateUtils.parseDate(item.getAirDate()));
+
+        if (item.getAirDate() == null) {
+            ViewUtils.gone(holder.airDate);
+        } else {
+            ViewUtils.visible(holder.airDate);
+            holder.airDate.setText(DateUtils.parseDate(item.getAirDate()));
+        }
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(this);
     }
@@ -86,6 +94,8 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
     public class SeasonsViewHolder extends RecyclerView.ViewHolder {
         @InjectView(R.id.episode_number)
         TextView episodeNumber;
+        @InjectView(R.id.episode_number_background)
+        ImageView episodeNumberBackground;
         @InjectView(R.id.episode_title)
         TextView title;
         @InjectView(R.id.episode_airdate)

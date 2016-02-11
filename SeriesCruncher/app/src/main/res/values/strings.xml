@@ -2,10 +2,10 @@
     <string name="app_name">SeriesCruncher</string>
     <string name="type_to_filter">Type to filter</string>
 
-    <string name="next_episode">Next episode: S%1$02d - E%2$02d %3$s</string>
-    <string name="last_episode">Last episode: S%1$02d - E%2$02d %3$s</string>
-    <string name="air_date">Air date: %1$tY-%1$tm-%1$td</string>
-    <string name="aired_at">Aired at: %1$tY-%1$tm-%1$td</string>
+    <string name="next_episode">S%1$02d - E%2$02d &lt;b>%3$s&lt;/b></string>
+    <string name="last_episode">S%1$02d - E%2$02d &lt;b>%3$s&lt;/b></string>
+    <string name="air_date">Next &lt;b>%1$tY-%1$tm-%1$td&lt;/b></string>
+    <string name="aired_at">Last &lt;b>%1$tY-%1$tm-%1$td&lt;/b></string>
 
     <string-array name="network_error_titles">
         <item>I felt a great disturbance in the Force</item>
