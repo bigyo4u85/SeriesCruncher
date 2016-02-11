@@ -6,6 +6,7 @@ import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinder;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.ui.SeriesDetailsScreen;
 import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
@@ -24,17 +25,24 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     private final SeriesDetailsScreen screen;
     private final ModelConverter converter;
     private final Preferences preferences;
+    private final EpisodeFinder episodeFinder;
     private String seriesName;
     private String imdbId;
     private SeriesDetailsModel detailsModel;
 
     @Inject
-    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader, SeriesDetailsNavigator navigator, SeriesDetailsScreen screen, @EpisodeList ModelConverter converter, Preferences preferences) {
+    public SeriesDetailsPresenterImpl(SeriesLoader seriesLoader,
+                                      SeriesDetailsNavigator navigator,
+                                      SeriesDetailsScreen screen,
+                                      @EpisodeList ModelConverter converter,
+                                      Preferences preferences,
+                                      EpisodeFinder episodeFinder) {
         this.seriesLoader = seriesLoader;
         this.navigator = navigator;
         this.screen = screen;
         this.converter = converter;
         this.preferences = preferences;
+        this.episodeFinder = episodeFinder;
     }
 
     @Override
@@ -62,6 +70,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
         @Override
         public void onSuccess(SeriesDetailsModel model) {
             detailsModel = model;
+            episodeFinder.setEpisodes(model.getEpisodes());
             seriesLoader.loadPoster(model.getImageUrl(), posterCallbacks);
         }
 
@@ -79,6 +88,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
             screen.setPoster(result.getPoster());
             screen.setBackground(result.getPosterBackground());
             screen.displaySeriesDetails((EpisodeListModel) converter.convert(detailsModel));
+            displayNextOrLastEpisode();
         }
 
         @Override
@@ -86,6 +96,14 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
             screen.showNetworkErrorDialog();
         }
     };
+
+    private void displayNextOrLastEpisode() {
+        if (episodeFinder.hasNextEpisode()) {
+            screen.displayNextEpisode(episodeFinder.getNextEpisode());
+        } else {
+            screen.displayLastEpisode(episodeFinder.getLastEpisode());
+        }
+    }
 
     @Override
     public void onFavorFabClicked() {

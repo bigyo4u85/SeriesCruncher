@@ -5,6 +5,7 @@ import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeMode
 import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,16 +15,21 @@ public class SeriesDetailsEntity implements SeriesDetailsModel {
 
     @Expose
     private String title;
+
     @Expose
     private String name;
+
     @Expose
     private String imdbId;
+
     @Expose
     private String imageUrl;
+
     @Expose
     private List<EpisodeEntity> episodes;
 
     public SeriesDetailsEntity() {
+        episodes = Collections.emptyList();
     }
 
     @Override

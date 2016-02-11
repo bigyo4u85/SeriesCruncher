@@ -26,7 +26,8 @@
 
         <activity
             android:name=".seriesdetails.SeriesDetailsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TranslucentStatusBar" />
 
         <activity
             android:name=".settings.SettingsActivity"

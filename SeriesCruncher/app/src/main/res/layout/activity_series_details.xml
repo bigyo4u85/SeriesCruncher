@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:support="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout
         android:id="@+id/appbar"
@@ -17,21 +19,24 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
+            android:background="@color/semi_transparent_black"
             android:fitsSystemWindows="true"
-            support:contentScrim="@android:color/transparent"
+            support:contentScrim="@color/semi_transparent_black"
             support:layout_scrollFlags="scroll|exitUntilCollapsed"
+            support:statusBarScrim="@color/semi_transparent_black"
             support:titleEnabled="false">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
                 support:layout_collapseMode="parallax">
 
                 <ImageView
                     android:id="@+id/background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
                     android:scaleType="centerCrop" />
 
                 <ImageView
@@ -39,6 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/spacing_quadruple"
+                    android:fitsSystemWindows="true"
                     android:scaleType="fitCenter" />
             </RelativeLayout>
 
@@ -55,18 +61,46 @@
                     android:layout_height="wrap_content"
                     android:alpha="0"
                     android:textIsSelectable="true"
-                    android:textSize="@dimen/toolbar_text" />
+                    android:textSize="@dimen/toolbar_text"
+                    android:textStyle="bold" />
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/episodes_recyclerview"
-        android:fitsSystemWindows="true"
+    <LinearLayout
+        android:id="@+id/details_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        support:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        support:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/next_or_last_episode_air_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_double"
+            android:layout_marginTop="@dimen/spacing_double"
+            android:textSize="@dimen/list_item_text_main"
+            tools:text="@string/air_date" />
+
+        <TextView
+            android:id="@+id/next_or_last_episode_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_double"
+            android:layout_marginStart="@dimen/spacing_double"
+            android:layout_marginTop="@dimen/spacing_simple"
+            android:textSize="@dimen/list_item_text_main"
+            tools:text="@string/next_episode" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/episodes_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/favor_fab"
@@ -83,6 +117,6 @@
         android:id="@+id/details_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>

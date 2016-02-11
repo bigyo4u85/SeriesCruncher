@@ -2,23 +2,25 @@ package com.balazs_csernai.seriescruncher.seriesdetails.ui;
 
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 import com.balazs_csernai.seriescruncher.utils.dialog.DialogFactory;
 import com.balazs_csernai.seriescruncher.utils.ui.DividerDecoration;
-import com.balazs_csernai.seriescruncher.utils.ui.DrawableUtil;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartAppBarLayout;
 import com.balazs_csernai.seriescruncher.utils.ui.SmartLayoutManager;
 import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
@@ -63,6 +65,15 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @InjectView(R.id.background)
     ImageView background;
 
+    @InjectView(R.id.details_container)
+    LinearLayout detailsContainer;
+
+    @InjectView(R.id.next_or_last_episode_title)
+    TextView nextOrLastEpisodeTitle;
+
+    @InjectView(R.id.next_or_last_episode_air_date)
+    TextView nextOrLastEpisodeAirDate;
+
     @InjectView(R.id.episodes_recyclerview)
     RecyclerView episodesRecyclerView;
 
@@ -71,12 +82,11 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     private final AppCompatActivity activity;
     private final EpisodeAdapter adapter;
+    private final DialogFactory dialogFactory;
     private final Animation animation;
     private Callbacks callbacks;
     private SmartLayoutManager layoutManager;
-    private final DialogFactory dialogFactory;
-
-    boolean favorite;
+    private boolean isFavorite;
 
     @Inject
     public SeriesDetailsScreenImpl(AppCompatActivity activity, Provider<EpisodeAdapter> adapterProvider, DialogFactory dialogFactory, Animation animation) {
@@ -99,14 +109,14 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
         layoutManager = new SmartLayoutManager(activity);
         episodesRecyclerView.setLayoutManager(layoutManager);
-        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getDrawable(R.drawable.line_divider)));
+        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getColor(R.color.light_gray)));
         episodesRecyclerView.setAdapter(adapter);
         episodesRecyclerView.setHasFixedSize(true);
     }
 
     @Override
     public void displayProgressIndicator() {
-        ViewUtils.gone(appbar, episodesRecyclerView, favorFab);
+        ViewUtils.gone(appbar, detailsContainer, favorFab);
         ViewUtils.alpha(1f, progressBar);
         ViewUtils.visible(progressBar);
     }
@@ -114,15 +124,31 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
     @Override
     public void displaySeriesDetails(final EpisodeListModel episodes) {
         adapter.setItems(episodes);
-        float initialFavorFabRotation = favorite ? 180 : 0;
+        float initialFavorFabRotation = isFavorite ? 180 : 0;
         animation.create()
                 .fadeOut(progressBar)
-                .fadeIn(appbar, episodesRecyclerView)
+                .fadeIn(appbar, detailsContainer)
                 .then()
                 .reveal(favorFab)
                 .then()
                 .rotate(initialFavorFabRotation, favorFab)
                 .play();
+    }
+
+    @Override
+    public void displayNextEpisode(EpisodeModel episode) {
+        nextOrLastEpisodeAirDate.setText(getText(R.string.air_date, episode.getAirDate()));
+        nextOrLastEpisodeTitle.setText(getText(R.string.next_episode, episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
+    }
+
+    @Override
+    public void displayLastEpisode(EpisodeModel episode) {
+        nextOrLastEpisodeTitle.setText(getText(R.string.last_episode, episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
+        nextOrLastEpisodeAirDate.setText(getText(R.string.aired_at, episode.getAirDate()));
+    }
+
+    private Spanned getText(@StringRes int res, Object... formatArgs) {
+        return Html.fromHtml(activity.getResources().getString(res, formatArgs));
     }
 
     @Override
@@ -132,11 +158,17 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @Override
     public void setColors(ColorModel primaryColor, ColorModel secondaryColor, ColorModel accentColor) {
-        coordinatorLayout.setBackgroundColor(primaryColor.getBackgroundColor());
         collapsingToolbar.setContentScrimColor(primaryColor.getBackgroundColor());
+
         title.setTextColor(primaryColor.getForegroundColor());
         activity.getSupportActionBar().setHomeAsUpIndicator(getColorizedDrawable(activity.getResources(), R.drawable.abc_ic_ab_back_mtrl_am_alpha, primaryColor.getForegroundColor()));
+
+        detailsContainer.setBackgroundColor(primaryColor.getBackgroundColor());
+        nextOrLastEpisodeTitle.setTextColor(primaryColor.getForegroundColor());
+        nextOrLastEpisodeAirDate.setTextColor(primaryColor.getForegroundColor());
+
         adapter.setColors(primaryColor, secondaryColor);
+
         favorFab.setBackgroundTintList(ColorStateList.valueOf(accentColor.getBackgroundColor()));
         favorFab.setImageDrawable(getColorizedDrawable(activity.getResources(), R.drawable.ic_thumb_up, accentColor.getForegroundColor()));
     }
@@ -153,7 +185,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
     @Override
     public void setAsFavorite(boolean favorite) {
-        this.favorite = favorite;
+        this.isFavorite = favorite;
     }
 
     @Override

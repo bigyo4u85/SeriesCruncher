@@ -57,13 +57,6 @@ public class SeriesDetailsActivity extends AppCompatActivity implements NetworkE
         }
     }
 
-    public static Intent createLaunchIntent(Context context, String showName, String imdbId) {
-        Intent intent = new Intent(context, SeriesDetailsActivity.class);
-        intent.putExtra(ARG_SERIES_NAME, showName);
-        intent.putExtra(ARG_IMDB_ID, imdbId);
-        return intent;
-    }
-
     @Override
     public void onNetworkErrorRetry() {
         presenter.onNetworkErrorRetry();
@@ -72,5 +65,12 @@ public class SeriesDetailsActivity extends AppCompatActivity implements NetworkE
     @Override
     public void onNetworkErrorCancel() {
         presenter.onNetworkErrorCancel();
+    }
+
+    public static Intent createLaunchIntent(Context context, String showName, String imdbId) {
+        Intent intent = new Intent(context, SeriesDetailsActivity.class);
+        intent.putExtra(ARG_SERIES_NAME, showName);
+        intent.putExtra(ARG_IMDB_ID, imdbId);
+        return intent;
     }
 }

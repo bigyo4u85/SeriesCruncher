@@ -2,12 +2,12 @@ package com.balazs_csernai.seriescruncher.rest.component;
 
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
+import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
 import com.balazs_csernai.seriescruncher.utils.common.LinkedHashSetSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.inject.Singleton;
@@ -28,6 +28,7 @@ public class ApiModule {
     @Singleton
     Gson provideGson() {
         return new GsonBuilder()
+                .setDateFormat(DateUtils.DATE_PATTERN)
                 .registerTypeAdapter(new TypeToken<Set<String>>(){}.getType(), new LinkedHashSetSerializer())
                 .create();
     }
