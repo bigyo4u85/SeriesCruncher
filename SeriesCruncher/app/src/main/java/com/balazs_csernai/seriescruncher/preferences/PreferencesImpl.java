@@ -11,7 +11,7 @@ import javax.inject.Inject;
 /**
  * Created by Erik_Markus_Kramli on 2016-02-04.
  */
-public class PreferenceHandlerImpl implements PreferenceHandler {
+public class PreferencesImpl implements Preferences {
 
     private static final String KEY_USER_PREFERENCES = "user";
 
@@ -19,7 +19,7 @@ public class PreferenceHandlerImpl implements PreferenceHandler {
     private final Gson gson;
 
     @Inject
-    public PreferenceHandlerImpl(SharedPreferences prefs, Gson gson) {
+    public PreferencesImpl(SharedPreferences prefs, Gson gson) {
         this.prefs = prefs;
         this.gson = gson;
     }

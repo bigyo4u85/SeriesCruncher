@@ -2,6 +2,8 @@ package com.balazs_csernai.seriescruncher.serieslist;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.serieslist.presenter.SeriesListPresenter;
@@ -43,5 +45,21 @@ public class SeriesListActivity extends AppCompatActivity implements NetworkErro
     @Override
     public void onNetworkErrorCancel() {
         presenter.onNetworkErrorCancel();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            presenter.onSettingsMenuRequest();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

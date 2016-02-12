@@ -10,4 +10,6 @@ public interface SeriesListPresenter extends NetworkErrorDialogFragment.NetworkE
     void onStart();
 
     void onStop();
+
+    void onSettingsMenuRequest();
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings">Settings</string>
+    <string name="notification_settings">Notification settings</string>
+    <string name="enable_notifications">Enable notifications</string>
+    <string name="time_of_notification">Time of notification</string>
+
+</resources>

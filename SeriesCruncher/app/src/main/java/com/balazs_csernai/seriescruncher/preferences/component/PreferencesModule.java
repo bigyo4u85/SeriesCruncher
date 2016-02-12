@@ -1,7 +1,7 @@
 package com.balazs_csernai.seriescruncher.preferences.component;
 
-import com.balazs_csernai.seriescruncher.preferences.PreferenceHandler;
-import com.balazs_csernai.seriescruncher.preferences.PreferenceHandlerImpl;
+import com.balazs_csernai.seriescruncher.preferences.Preferences;
+import com.balazs_csernai.seriescruncher.preferences.PreferencesImpl;
 
 import javax.inject.Singleton;
 
@@ -12,11 +12,11 @@ import dagger.Provides;
  * Created by Erik_Markus_Kramli on 2016-02-04.
  */
 @Module
-public class PreferenceModule {
+public class PreferencesModule {
 
     @Provides
     @Singleton
-    PreferenceHandler providePreferenceHandler(PreferenceHandlerImpl impl) {
+    Preferences providePreferences(PreferencesImpl impl) {
         return impl;
     }
 }
