@@ -30,8 +30,8 @@ public class AlarmHandlerImpl implements AlarmHandler {
     @Override
     public void registerDailyNotificationAlarm(int hour, int minute) {
         PendingIntent operation = getNotificationServiceIntent();
-        long triggerTime = DateUtils.getTimeInMillis(hour, minute);
-        alarmManager.setInexactRepeating(RTC, triggerTime, INTERVAL_DAY, operation);
+        long triggerTime = DateUtils.getLocalTimeInMillis(hour, minute);
+        alarmManager.setRepeating(RTC, triggerTime, INTERVAL_DAY, operation);
     }
 
     @Override

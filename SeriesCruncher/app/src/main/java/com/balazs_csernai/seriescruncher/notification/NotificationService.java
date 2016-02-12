@@ -17,17 +17,17 @@ public class NotificationService extends Service {
         Log.d("notification", "onCreate");
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("notification", "onStartCommand");
+        return START_NOT_STICKY;
+
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d("notification", "onBind");
         return null;
-    }
-
-    @Override
-    public boolean onUnbind(Intent intent) {
-        Log.d("notification", "onUnbind");
-        return super.onUnbind(intent);
     }
 
     @Override
@@ -35,5 +35,4 @@ public class NotificationService extends Service {
         super.onDestroy();
         Log.d("notification", "onDestroy");
     }
-
 }

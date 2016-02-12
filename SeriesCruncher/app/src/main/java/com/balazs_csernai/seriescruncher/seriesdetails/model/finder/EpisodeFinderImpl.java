@@ -63,6 +63,19 @@ public class EpisodeFinderImpl implements EpisodeFinder {
     }
 
     @Override
+    public boolean hasNewEpisodeToday() {
+
+        if (hasNextEpisode()) {
+            EpisodeModel nextEpisode = getNextEpisode();
+
+
+            nextEpisode.getAirDate()
+        }
+
+        return hasNextEpisode() && true;
+    }
+
+    @Override
     public EpisodeModel getNextEpisode() {
         return episodes.get(nextEpisodeIndex);
     }

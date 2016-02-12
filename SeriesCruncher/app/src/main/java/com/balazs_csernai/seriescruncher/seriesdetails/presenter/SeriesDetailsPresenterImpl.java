@@ -1,7 +1,6 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
-import com.balazs_csernai.seriescruncher.preferences.Preferences;
-import com.balazs_csernai.seriescruncher.preferences.user.UserPreferencesModel;
+import com.balazs_csernai.seriescruncher.notification.FavoriteSeriesHandler;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader.LoadType;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;
@@ -25,7 +24,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     private final SeriesDetailsNavigator navigator;
     private final SeriesDetailsScreen screen;
     private final ModelConverter converter;
-    private final Preferences preferences;
+    private final FavoriteSeriesHandler favoriteHandler;
     private final EpisodeFinder episodeFinder;
 
     private String seriesName;
@@ -36,13 +35,13 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
                                       SeriesDetailsNavigator navigator,
                                       SeriesDetailsScreen screen,
                                       @EpisodeList ModelConverter converter,
-                                      Preferences preferences,
+                                      FavoriteSeriesHandler favoriteHandler,
                                       EpisodeFinder episodeFinder) {
         this.seriesLoader = seriesLoader;
         this.navigator = navigator;
         this.screen = screen;
         this.converter = converter;
-        this.preferences = preferences;
+        this.favoriteHandler = favoriteHandler;
         this.episodeFinder = episodeFinder;
     }
 
@@ -57,7 +56,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
         this.seriesName = seriesName;
         screen.displayProgressIndicator();
         seriesLoader.loadDetails(seriesName, LoadType.DEFAULT, seriesCallbacks);
-        screen.setAsFavorite(isFavorite());
+        screen.setAsFavorite(favoriteHandler.isFavorite(seriesName));
     }
 
     @Override
@@ -107,17 +106,11 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
 
     @Override
     public void onFavorFabClicked() {
-        UserPreferencesModel userPreferences = preferences.getUserPreferences();
-        if (isFavorite()) {
-            userPreferences.removeSeriesFromFavorites(seriesName);
+        if (favoriteHandler.isFavorite(seriesName)) {
+            favoriteHandler.removeFromFavorites(seriesName);
         } else {
-            userPreferences.addSeriesToFavorites(seriesName);
+            favoriteHandler.addToFavorites(seriesName);
         }
-        preferences.updateUserPreferences(userPreferences);
-    }
-
-    private boolean isFavorite() {
-        return preferences.getUserPreferences().getFavoredSeries().contains(seriesName);
     }
 
     @Override

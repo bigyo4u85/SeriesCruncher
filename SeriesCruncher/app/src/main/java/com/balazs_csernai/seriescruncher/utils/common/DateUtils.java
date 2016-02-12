@@ -35,12 +35,21 @@ public final class DateUtils {
         return Calendar.getInstance().getTime();
     }
 
-    public static long getTimeInMillis(int hour, int minute) {
+    public static long getLocalTimeInMillis(int hour, int minute) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         return calendar.getTimeInMillis();
+    }
+
+
+    public static boolean isToday(Date date) {
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date);
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
     private DateUtils() {}
