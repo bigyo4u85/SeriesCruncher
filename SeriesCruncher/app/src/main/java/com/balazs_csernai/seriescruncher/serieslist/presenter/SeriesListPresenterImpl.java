@@ -49,6 +49,11 @@ public class SeriesListPresenterImpl implements SeriesListPresenter, Loader.Call
     }
 
     @Override
+    public void onSettingsMenuRequest() {
+        navigator.launchSettings();
+    }
+
+    @Override
     public void onSuccess(SeriesListModel model) {
         filter.create(model.getSeriesList(), this);
         screen.displaySeriesList(model);

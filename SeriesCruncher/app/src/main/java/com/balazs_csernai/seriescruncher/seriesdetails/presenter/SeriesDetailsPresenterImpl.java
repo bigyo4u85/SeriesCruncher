@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
-import com.balazs_csernai.seriescruncher.preferences.PreferenceHandler;
+import com.balazs_csernai.seriescruncher.preferences.Preferences;
 import com.balazs_csernai.seriescruncher.preferences.user.UserPreferencesModel;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader.LoadType;
@@ -25,8 +25,8 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     private final SeriesDetailsNavigator navigator;
     private final SeriesDetailsScreen screen;
     private final ModelConverter converter;
-    private final PreferenceHandler preference;
-    private EpisodeFinder episodeFinder;
+    private final Preferences preferences;
+    private final EpisodeFinder episodeFinder;
 
     private String seriesName;
     private SeriesDetailsModel detailsModel;
@@ -36,13 +36,13 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
                                       SeriesDetailsNavigator navigator,
                                       SeriesDetailsScreen screen,
                                       @EpisodeList ModelConverter converter,
-                                      PreferenceHandler preference,
+                                      Preferences preferences,
                                       EpisodeFinder episodeFinder) {
         this.seriesLoader = seriesLoader;
         this.navigator = navigator;
         this.screen = screen;
         this.converter = converter;
-        this.preference = preference;
+        this.preferences = preferences;
         this.episodeFinder = episodeFinder;
     }
 
@@ -107,17 +107,17 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
 
     @Override
     public void onFavorFabClicked() {
-        UserPreferencesModel userPreferences = preference.getUserPreferences();
+        UserPreferencesModel userPreferences = preferences.getUserPreferences();
         if (isFavorite()) {
             userPreferences.removeSeriesFromFavorites(seriesName);
         } else {
             userPreferences.addSeriesToFavorites(seriesName);
         }
-        preference.updateUserPreferences(userPreferences);
+        preferences.updateUserPreferences(userPreferences);
     }
 
     private boolean isFavorite() {
-        return preference.getUserPreferences().getFavoredSeries().contains(seriesName);
+        return preferences.getUserPreferences().getFavoredSeries().contains(seriesName);
     }
 
     @Override

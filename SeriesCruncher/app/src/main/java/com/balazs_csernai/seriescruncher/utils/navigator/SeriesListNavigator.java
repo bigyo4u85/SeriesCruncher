@@ -7,5 +7,7 @@ public interface SeriesListNavigator {
 
     void launchSeriesDetails(String seriesName);
 
+    void launchSettings();
+
     void closeSeriesList();
 }

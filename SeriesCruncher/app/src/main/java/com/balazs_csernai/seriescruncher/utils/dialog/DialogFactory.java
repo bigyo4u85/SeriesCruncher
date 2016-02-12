@@ -8,4 +8,6 @@ import android.support.v4.app.DialogFragment;
 public interface DialogFactory {
 
     DialogFragment createNetworkError();
+
+    DialogFragment createTimePickerDialog(int hour, int minute);
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:support="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".settings.SettingsActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_double"
+        android:text="@string/notification_settings"
+        android:textSize="@dimen/list_item_text_main"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/notification_preference"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_double">
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/notification_check"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            support:buttonTint="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@id/notification_check"
+            android:gravity="center_vertical"
+            android:text="@string/enable_notifications"
+            android:textSize="@dimen/list_item_text_main" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/time_preference"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_double">
+
+        <TextView
+            android:id="@+id/notification_time"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/list_item_text_main"
+            tools:text="12:00" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@id/notification_time"
+            android:gravity="center_vertical"
+            android:text="@string/time_of_notification"
+            android:textSize="@dimen/list_item_text_main" />
+
+    </RelativeLayout>
+</LinearLayout>

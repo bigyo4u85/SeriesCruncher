@@ -14,4 +14,14 @@ public interface UserPreferencesModel {
     void removeSeriesFromFavorites(String seriesName);
 
     void clearFavorites();
+
+    boolean areNotificationsEnabled();
+
+    void setNotificationsEnabled(boolean enabled);
+
+    int getNotificationHour();
+
+    int getNotificationMinute();
+
+    void setNotificationTime(int hour, int minute);
 }
