@@ -1,12 +1,10 @@
 package com.balazs_csernai.seriescruncher.utils.dialog;
 
-import android.app.Activity;
-import android.app.TimePickerDialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
-import android.widget.TimePicker;
 
 import com.balazs_csernai.seriescruncher.app.component.ActivityScope;
+import com.balazs_csernai.seriescruncher.utils.dialog.TimePickerDialogFragment.OnTimePickListener;
 
 import javax.inject.Inject;
 
@@ -16,12 +14,10 @@ import javax.inject.Inject;
 @ActivityScope
 public class DialogFactoryImpl implements DialogFactory {
 
-    private final Activity activity;
     private final FragmentManager fragmentManager;
 
     @Inject
-    public DialogFactoryImpl(Activity activity, FragmentManager fragmentManager) {
-        this.activity = activity;
+    public DialogFactoryImpl(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
     }
 
@@ -33,14 +29,10 @@ public class DialogFactoryImpl implements DialogFactory {
     }
 
     @Override
-    public TimePickerDialog createTimePickerDialog(int hour, int minute, final TimePickListener listener) {
-        final TimePickerDialog dialog = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                listener.onTimePicked(hourOfDay, minute);
-            }
-        }, hour, minute, true);
-        dialog.show();
-        return dialog;
+    public DialogFragment createTimePickerDialog(int hour, int minute) {
+        TimePickerDialogFragment dialogFragment = new TimePickerDialogFragment();
+        dialogFragment.setTime(hour, minute);
+        dialogFragment.show(fragmentManager, "time-picker");
+        return dialogFragment;
     }
 }

@@ -7,13 +7,14 @@ import android.view.MenuItem;
 import com.balazs_csernai.seriescruncher.R;
 import com.balazs_csernai.seriescruncher.settings.component.SettingsComponent;
 import com.balazs_csernai.seriescruncher.settings.presenter.SettingsPresenter;
+import com.balazs_csernai.seriescruncher.utils.dialog.TimePickerDialogFragment;
 
 import javax.inject.Inject;
 
 /**
  * Created by erik_markus_kramli on 2016-02-10.
  */
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements TimePickerDialogFragment.OnTimePickListener {
 
     @Inject
     SettingsPresenter presenter;
@@ -34,5 +35,10 @@ public class SettingsActivity extends AppCompatActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onTimePicked(int hour, int minute) {
+        presenter.onTimePicked(hour, minute);
     }
 }

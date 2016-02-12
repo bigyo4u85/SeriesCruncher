@@ -10,13 +10,13 @@ public interface SettingsScreen {
         void onNotificationCheckChanged(boolean isChecked);
 
         void onNotificationTimeTapped();
-
-        void onTimePicked(int hour, int minute);
     }
 
     void onCreate(Callbacks callbacks);
 
-    void setPreferenceValues(boolean notificationEnabled, int notificationHour, int notificationMinute);
+    void setNotificationsEnabled(boolean enabled);
+
+    void setNotificationTime(int hour, int minute);
 
     void setTimePickerEnabled(boolean enabled);
 

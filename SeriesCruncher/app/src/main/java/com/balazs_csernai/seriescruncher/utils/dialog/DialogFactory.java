@@ -1,6 +1,5 @@
 package com.balazs_csernai.seriescruncher.utils.dialog;
 
-import android.app.TimePickerDialog;
 import android.support.v4.app.DialogFragment;
 
 /**
@@ -10,9 +9,5 @@ public interface DialogFactory {
 
     DialogFragment createNetworkError();
 
-    interface TimePickListener {
-        void onTimePicked(int hour, int minute);
-    }
-
-    TimePickerDialog createTimePickerDialog(int hour, int minute, TimePickListener listener);
+    DialogFragment createTimePickerDialog(int hour, int minute);
 }

@@ -19,7 +19,7 @@ import butterknife.OnClick;
 /**
  * Created by erik_markus_kramli on 2016-02-11.
  */
-public class SettingsScreenImpl implements SettingsScreen, DialogFactory.TimePickListener {
+public class SettingsScreenImpl implements SettingsScreen {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -54,11 +54,15 @@ public class SettingsScreenImpl implements SettingsScreen, DialogFactory.TimePic
     }
 
     @Override
-    public void setPreferenceValues(boolean notificationEnabled, int notificationHour, int notificationMinute) {
-        notificationsCheck.setChecked(notificationEnabled);
-        updateTimeText(notificationHour, notificationMinute);
-        hour = notificationHour;
-        minute = notificationMinute;
+    public void setNotificationsEnabled(boolean enabled) {
+        notificationsCheck.setChecked(enabled);
+    }
+
+    @Override
+    public void setNotificationTime(int hour, int minute) {
+        this.hour = hour;
+        this.minute = minute;
+        notificationTimeText.setText(String.format("%02d:%02d", hour, minute));
     }
 
     @Override
@@ -68,21 +72,9 @@ public class SettingsScreenImpl implements SettingsScreen, DialogFactory.TimePic
         ViewUtils.alpha(alpha, timePreference);
     }
 
-    private void updateTimeText(int hour, int minute) {
-        notificationTimeText.setText(String.format("%02d:%02d", hour, minute));
-    }
-
     @Override
     public void showTimePickerDialog() {
-        dialogFactory.createTimePickerDialog(hour, minute, this);
-    }
-
-    @Override
-    public void onTimePicked(int hour, int minute) {
-        this.hour = hour;
-        this.minute = minute;
-        updateTimeText(hour, minute);
-        callbacks.onTimePicked(hour, minute);
+        dialogFactory.createTimePickerDialog(hour, minute);
     }
 
     @OnClick(R.id.notification_preference)

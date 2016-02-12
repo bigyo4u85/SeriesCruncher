@@ -7,4 +7,5 @@ public interface SettingsPresenter {
 
     void onCreate();
 
+    void onTimePicked(int hour, int minute);
 }
