@@ -3,6 +3,7 @@ package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 import com.balazs_csernai.seriescruncher.preferences.PreferenceHandler;
 import com.balazs_csernai.seriescruncher.preferences.user.UserPreferencesModel;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
+import com.balazs_csernai.seriescruncher.rest.SeriesLoader.LoadType;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
@@ -55,7 +56,7 @@ public class SeriesDetailsPresenterImpl implements SeriesDetailsPresenter, Serie
     public void loadSeriesDetails(String seriesName) {
         this.seriesName = seriesName;
         screen.displayProgressIndicator();
-        seriesLoader.loadDetails(seriesName, seriesCallbacks);
+        seriesLoader.loadDetails(seriesName, LoadType.DEFAULT, seriesCallbacks);
         screen.setAsFavorite(isFavorite());
     }
 

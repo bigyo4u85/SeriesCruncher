@@ -12,8 +12,6 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
-import static com.octo.android.robospice.persistence.DurationInMillis.ONE_HOUR;
-
 /**
  * Created by Balazs_Csernai on 2016.01.08..
  */
@@ -39,30 +37,30 @@ public class SeriesLoaderImpl implements SeriesLoader {
     }
 
     @Override
-    public void loadSeries(Callback<SeriesListModel> callback) {
+    public void loadSeries(@LoadType long type, final Callback<SeriesListModel> callback) {
         SeriesRequest request = requestFactory.createSeriesRequest();
         loader.perform(
-                requestFactory.createCachedRequest(request, "series", ONE_HOUR),
+                requestFactory.createCachedRequest(request, "series", type),
                 callback
         );
     }
 
     @Override
-    public void loadDetails(String seriesName, final Callback<SeriesDetailsModel> callback) {
+    public void loadDetails(String seriesName, @LoadType long type, final Callback<SeriesDetailsModel> callback) {
         SeriesDetailsRequest request = requestFactory.createSeriesDetailsRequest(seriesName);
         loader.perform(
-                requestFactory.createCachedRequest(request, seriesName, ONE_HOUR),
+                requestFactory.createCachedRequest(request, seriesName, type),
                 callback
         );
     }
 
     @Override
-    public void loadDetails(Collection<String> seriesNames, final Callback<SeriesDetailsModel> callback) {
+    public void loadDetails(Collection<String> seriesNames, @LoadType long type, final Callback<SeriesDetailsModel> callback) {
         SeriesDetailsRequest request;
         for (String seriesName : seriesNames) {
             request = requestFactory.createSeriesDetailsRequest(seriesName);
             loader.perform(
-                    requestFactory.createCachedRequest(request, seriesName, ONE_HOUR),
+                    requestFactory.createCachedRequest(request, seriesName, type),
                     callback
             );
         }
