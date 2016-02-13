@@ -5,5 +5,9 @@ package com.balazs_csernai.seriescruncher.notification.controller;
  */
 public interface NotificationController {
 
-    void showNewEpisodeNotifications();
+    interface Callback {
+        void onFinish();
+    }
+
+    void showNewEpisodeNotifications(Callback callback);
 }
