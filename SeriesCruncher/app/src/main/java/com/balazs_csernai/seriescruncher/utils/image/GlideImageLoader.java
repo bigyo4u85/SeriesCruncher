@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.utils.image;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.bumptech.glide.Glide;
@@ -16,16 +16,16 @@ import javax.inject.Inject;
  */
 public class GlideImageLoader implements ImageLoader {
 
-    private final Activity activity;
+    private final Context context;
 
     @Inject
-    public GlideImageLoader(Activity activity) {
-        this.activity = activity;
+    public GlideImageLoader(Context context) {
+        this.context = context;
     }
 
     @Override
     public Bitmap load(String url) throws ExecutionException, InterruptedException {
-        FutureTarget<Bitmap> target = Glide.with(activity)
+        FutureTarget<Bitmap> target = Glide.with(context)
                 .load(url)
                 .asBitmap()
                 .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
