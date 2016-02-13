@@ -43,13 +43,20 @@ public final class DateUtils {
         return calendar.getTimeInMillis();
     }
 
+    public static boolean isToday(final Date date) {
+        return android.text.format.DateUtils.isToday(date.getTime());
+    }
 
-    public static boolean isToday(Date date) {
-        Calendar cal1 = Calendar.getInstance();
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTime(date);
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+    public static boolean isToday(final Date today, final Date date) {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(today);
+        int thisYear = calendar.get(Calendar.YEAR);
+        int dayOfThisYear = calendar.get(Calendar.DAY_OF_YEAR);
+
+        calendar.setTime(date);
+        return thisYear == calendar.get(Calendar.YEAR) &&
+                dayOfThisYear == calendar.get(Calendar.DAY_OF_YEAR);
     }
 
     private DateUtils() {}
