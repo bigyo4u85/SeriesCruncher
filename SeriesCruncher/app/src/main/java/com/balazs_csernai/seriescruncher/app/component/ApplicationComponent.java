@@ -1,6 +1,7 @@
 package com.balazs_csernai.seriescruncher.app.component;
 
 import android.app.Application;
+import android.app.NotificationManager;
 import android.content.res.Resources;
 import android.view.inputmethod.InputMethodManager;
 
@@ -37,6 +38,7 @@ public interface ApplicationComponent {
     Application application();
     Resources resources();
     InputMethodManager inputMethodManager();
+    NotificationManager notificationManager();
     Converter converter();
     EPGuideApi epGuideApi();
     OmdbApi omdbApi();
