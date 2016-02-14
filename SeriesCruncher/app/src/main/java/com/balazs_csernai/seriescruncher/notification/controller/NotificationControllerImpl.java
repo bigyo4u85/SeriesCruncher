@@ -1,11 +1,13 @@
 package com.balazs_csernai.seriescruncher.notification.controller;
 
+import com.balazs_csernai.seriescruncher.notification.model.TodaysEpisodeEntity;
+import com.balazs_csernai.seriescruncher.notification.model.TodaysEpisodeModel;
+import com.balazs_csernai.seriescruncher.notification.ui.Notification;
 import com.balazs_csernai.seriescruncher.preferences.Preferences;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader.LoadType;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinder;
 
 import java.util.ArrayList;
@@ -23,16 +25,18 @@ public class NotificationControllerImpl implements NotificationController, Loade
     private final Preferences preferences;
     private final SeriesLoader loader;
     private final EpisodeFinder episodeFinder;
-    private final List<EpisodeModel> todaysEpisodes;
+    private final Notification notification;
+    private final List<TodaysEpisodeModel> todaysEpisodes;
 
     private CountDownLatch latch;
     private Callback callback;
 
     @Inject
-    public NotificationControllerImpl(Preferences preferences, SeriesLoader loader, EpisodeFinder episodeFinder) {
+    public NotificationControllerImpl(Preferences preferences, SeriesLoader loader, EpisodeFinder episodeFinder, Notification notification) {
         this.preferences = preferences;
         this.loader = loader;
         this.episodeFinder = episodeFinder;
+        this.notification = notification;
         todaysEpisodes = new ArrayList<>();
     }
 
@@ -44,7 +48,6 @@ public class NotificationControllerImpl implements NotificationController, Loade
         if (!favoredSeries.isEmpty()) {
             todaysEpisodes.clear();
             latch = new CountDownLatch(favoredSeries.size());
-
             loader.bind();
             loader.loadDetails(favoredSeries, LoadType.CACHE_ONLY, this);
         }
@@ -54,24 +57,28 @@ public class NotificationControllerImpl implements NotificationController, Loade
     public synchronized void onSuccess(SeriesDetailsModel result) {
         episodeFinder.setEpisodes(result.getEpisodes());
         if (episodeFinder.hasNewEpisodeToday()) {
-            todaysEpisodes.add(episodeFinder.getNextEpisode());
+            todaysEpisodes.add(new TodaysEpisodeEntity(result.getTitle(), result.getName(), episodeFinder.getNextEpisode()));
         }
-        tryToShowNotifications();
+        tryToFinish();
     }
 
     @Override
     public synchronized void onFailure() {
-        tryToShowNotifications();
+        tryToFinish();
     }
 
-    private void tryToShowNotifications() {
+    private void tryToFinish() {
         latch.countDown();
         if (latch.getCount() == 0) {
-
-
-
-            loader.unbind();
-            callback.onFinish();
+            finish();
         }
+    }
+
+    private void finish() {
+        if (!todaysEpisodes.isEmpty()) {
+            notification.create(todaysEpisodes).show();
+        }
+        loader.unbind();
+        callback.onFinish();
     }
 }
