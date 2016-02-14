@@ -1,0 +1,72 @@
+package com.balazs_csernai.seriescruncher.notification.ui;
+
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.StringRes;
+import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.app.NotificationCompat;
+
+import com.balazs_csernai.seriescruncher.R;
+import com.balazs_csernai.seriescruncher.notification.model.TodaysEpisodeModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeModel;
+import com.balazs_csernai.seriescruncher.serieslist.SeriesListActivity;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+/**
+ * Created by ErikKramli on 2016.02.14..
+ */
+public class AndroidNotification implements Notification {
+
+    private final Context context;
+    private final NotificationManager notificationManager;
+    private NotificationCompat.Builder notificationBuilder;
+
+    @Inject
+    public AndroidNotification(Context context, NotificationManager notificationManager) {
+        this.context = context;
+        this.notificationManager = notificationManager;
+    }
+
+    @Override
+    public Notification create(List<TodaysEpisodeModel> todaysEpisodes) {
+        StringBuilder sb = new StringBuilder();
+        for (TodaysEpisodeModel todaysEpisode : todaysEpisodes) {
+            EpisodeModel episode = todaysEpisode.getEpisode();
+            sb.append(getText(R.string.todays_episode, todaysEpisode.getTitle(), episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
+            sb.append("\n");
+        }
+        notificationBuilder = new NotificationCompat.Builder(context)
+                        .setColor(context.getResources().getColor(R.color.colorPrimary))
+                        .setSmallIcon(R.drawable.ic_thumb_up)
+                        .setContentTitle(getText(R.string.new_episode_airing_today))
+                        .setContentText(sb.toString().trim());
+        notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(sb.toString()));
+        notificationBuilder.setContentIntent(createNotificationIntent());
+        return this;
+    }
+
+    private String getText(@StringRes int res, Object... args) {
+        return context.getResources().getString(res, args);
+    }
+
+    private PendingIntent createNotificationIntent() {
+        Intent intent = new Intent(context, SeriesListActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(SeriesListActivity.class);
+        stackBuilder.addNextIntent(intent);
+        return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    @Override
+    public void show() {
+        if (notificationBuilder != null) {
+            notificationManager.notify(0, notificationBuilder.build());
+            notificationBuilder = null;
+        }
+    }
+}

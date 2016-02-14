@@ -2,6 +2,8 @@ package com.balazs_csernai.seriescruncher.notification.component;
 
 import com.balazs_csernai.seriescruncher.notification.controller.NotificationController;
 import com.balazs_csernai.seriescruncher.notification.controller.NotificationControllerImpl;
+import com.balazs_csernai.seriescruncher.notification.ui.AndroidNotification;
+import com.balazs_csernai.seriescruncher.notification.ui.Notification;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinder;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinderImpl;
 
@@ -21,6 +23,11 @@ public class NotificationModule {
 
     @Provides
     EpisodeFinder provideEpisodeFinder(EpisodeFinderImpl impl) {
+        return impl;
+    }
+
+    @Provides
+    Notification provideNotification(AndroidNotification impl) {
         return impl;
     }
 }
