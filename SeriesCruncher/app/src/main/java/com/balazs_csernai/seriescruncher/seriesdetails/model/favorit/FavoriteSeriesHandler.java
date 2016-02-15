@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.notification;
+package com.balazs_csernai.seriescruncher.seriesdetails.model.favorit;
 
 /**
  * Created by Erik_Markus_Kramli on 2016-02-12.

@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.notification;
+package com.balazs_csernai.seriescruncher.seriesdetails.model.favorit;
 
 import com.balazs_csernai.seriescruncher.preferences.Preferences;
 import com.balazs_csernai.seriescruncher.preferences.user.UserPreferencesModel;

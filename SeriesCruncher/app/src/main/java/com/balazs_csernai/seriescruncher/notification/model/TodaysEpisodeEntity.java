@@ -7,24 +7,24 @@ import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeMode
  */
 public class TodaysEpisodeEntity implements TodaysEpisodeModel {
 
-    private final String title;
-    private final String name;
+    private final String seriesTitle;
+    private final String seriesName;
     private final EpisodeModel episode;
 
-    public TodaysEpisodeEntity(String title, String name, EpisodeModel episode) {
-        this.title = title;
-        this.name = name;
+    public TodaysEpisodeEntity(String seriesTitle, String seriesName, EpisodeModel episode) {
+        this.seriesTitle = seriesTitle;
+        this.seriesName = seriesName;
         this.episode = episode;
     }
 
     @Override
-    public String getTitle() {
-        return title;
+    public String getSeriesTitle() {
+        return seriesTitle;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String getSeriesName() {
+        return seriesName;
     }
 
     @Override

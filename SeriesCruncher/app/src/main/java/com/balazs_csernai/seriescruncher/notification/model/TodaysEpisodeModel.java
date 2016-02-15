@@ -7,9 +7,9 @@ import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeMode
  */
 public interface TodaysEpisodeModel {
 
-    String getTitle();
+    String getSeriesTitle();
 
-    String getName();
+    String getSeriesName();
 
     EpisodeModel getEpisode();
 }

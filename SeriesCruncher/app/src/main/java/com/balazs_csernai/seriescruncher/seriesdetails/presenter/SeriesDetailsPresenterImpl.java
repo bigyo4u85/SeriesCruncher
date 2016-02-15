@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.presenter;
 
-import com.balazs_csernai.seriescruncher.notification.FavoriteSeriesHandler;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.favorit.FavoriteSeriesHandler;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader.LoadType;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader.Callback;

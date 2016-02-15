@@ -1,7 +1,7 @@
 package com.balazs_csernai.seriescruncher.seriesdetails.component;
 
-import com.balazs_csernai.seriescruncher.notification.FavoriteSeriesHandler;
-import com.balazs_csernai.seriescruncher.notification.FavoriteSeriesHandlerImpl;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.favorit.FavoriteSeriesHandler;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.favorit.FavoriteSeriesHandlerImpl;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinder;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinderImpl;
 import com.balazs_csernai.seriescruncher.seriesdetails.presenter.SeriesDetailsPresenter;
