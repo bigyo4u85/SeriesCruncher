@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.StringRes;
+import android.support.v4.app.NotificationCompat.BigTextStyle;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.app.NotificationCompat;
 
@@ -16,6 +17,9 @@ import com.balazs_csernai.seriescruncher.serieslist.SeriesListActivity;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import static android.app.Notification.DEFAULT_LIGHTS;
+import static android.app.Notification.DEFAULT_SOUND;
 
 /**
  * Created by ErikKramli on 2016.02.14..
@@ -34,20 +38,33 @@ public class AndroidNotification implements Notification {
 
     @Override
     public Notification create(List<TodaysEpisodeModel> todaysEpisodes) {
+        notificationBuilder = new NotificationCompat.Builder(context)
+                .setDefaults(DEFAULT_SOUND | DEFAULT_LIGHTS)
+                .setColor(context.getResources().getColor(R.color.colorPrimary))
+                .setSmallIcon(R.drawable.ic_tv)
+                .setContentTitle(getTitle(todaysEpisodes.size()))
+                .setStyle(new BigTextStyle().bigText(getContentMsg(todaysEpisodes)))
+                .setContentIntent(createNotificationIntent());
+        return this;
+    }
+
+    private String getTitle(int episodeCount) {
+        if (episodeCount == 1) {
+            return getText(R.string.new_episode_airing_today);
+        } else {
+            return getText(R.string.new_episodes_airing_today);
+        }
+    }
+
+    private String getContentMsg(List<TodaysEpisodeModel> todaysEpisodes) {
         StringBuilder sb = new StringBuilder();
+        EpisodeModel episode;
         for (TodaysEpisodeModel todaysEpisode : todaysEpisodes) {
-            EpisodeModel episode = todaysEpisode.getEpisode();
-            sb.append(getText(R.string.todays_episode, todaysEpisode.getTitle(), episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
+            episode = todaysEpisode.getEpisode();
+            sb.append(getText(R.string.todays_episode, todaysEpisode.getSeriesTitle(), episode.getSeasonNumber(), episode.getEpisodeNumber(), episode.getTitle()));
             sb.append("\n");
         }
-        notificationBuilder = new NotificationCompat.Builder(context)
-                        .setColor(context.getResources().getColor(R.color.colorPrimary))
-                        .setSmallIcon(R.drawable.ic_thumb_up)
-                        .setContentTitle(getText(R.string.new_episode_airing_today))
-                        .setContentText(sb.toString().trim());
-        notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(sb.toString()));
-        notificationBuilder.setContentIntent(createNotificationIntent());
-        return this;
+        return sb.toString().trim();
     }
 
     private String getText(@StringRes int res, Object... args) {
