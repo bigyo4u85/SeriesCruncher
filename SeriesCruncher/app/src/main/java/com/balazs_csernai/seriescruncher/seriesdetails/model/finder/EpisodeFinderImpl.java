@@ -54,7 +54,7 @@ public class EpisodeFinderImpl implements EpisodeFinder {
 
     private boolean isLastAiredEpisode(EpisodeModel episode) {
         Date episodeAirDate = episode.getAirDate();
-        return episodeAirDate != null && today.after(episodeAirDate);
+        return episodeAirDate != null && DateUtils.isBefore(today, episodeAirDate);
     }
 
     @Override
