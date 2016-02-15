@@ -45,11 +45,7 @@ public final class DateUtils {
         return calendar.getTimeInMillis();
     }
 
-    public static boolean isToday(final Date date) {
-        return android.text.format.DateUtils.isToday(date.getTime());
-    }
-
-    public static boolean isToday(final Date today, final Date date) {
+    public static boolean isBefore(final Date today, Date date) {
         Calendar calendar = Calendar.getInstance();
 
         calendar.setTime(today);
@@ -57,8 +53,11 @@ public final class DateUtils {
         int dayOfThisYear = calendar.get(Calendar.DAY_OF_YEAR);
 
         calendar.setTime(date);
-        return thisYear == calendar.get(Calendar.YEAR) &&
-                dayOfThisYear == calendar.get(Calendar.DAY_OF_YEAR);
+        return thisYear != calendar.get(Calendar.YEAR) || dayOfThisYear > calendar.get(Calendar.DAY_OF_YEAR);
+    }
+    
+    public static boolean isToday(final Date date) {
+        return android.text.format.DateUtils.isToday(date.getTime());
     }
 
     private DateUtils() {}
