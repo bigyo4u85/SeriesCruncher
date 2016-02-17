@@ -103,7 +103,7 @@ public class NetworkErrorDialogFragment extends DialogFragment {
             ViewHolder holder;
 
             if (view == null) {
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.alert_dialog_list_item, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alert_dialog_list_item, parent, false);
                 holder = new ViewHolder(view);
                 view.setTag(holder);
             } else {
