@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainText"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    android:padding="0dp"
     android:layout_margin="0dp"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/mainText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="center_vertical|right"
-        android:minHeight="@dimen/list_item_height_one_lined_small"
-        android:paddingBottom="@dimen/spacing_double"
-        android:paddingLeft="@dimen/spacing_triple"
-        android:paddingRight="@dimen/spacing_triple"
-        android:paddingTop="@dimen/spacing_double"
-        android:text="Item"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/list_item_text_main" />
-</LinearLayout>
+    android:background="@color/colorPrimary"
+    android:gravity="center_vertical|right"
+    android:minHeight="@dimen/list_item_height_one_lined_small"
+    android:paddingBottom="@dimen/spacing_double"
+    android:paddingLeft="@dimen/spacing_triple"
+    android:paddingRight="@dimen/spacing_triple"
+    android:paddingTop="@dimen/spacing_double"
+    android:text="Item"
+    android:textColor="@color/colorAccent"
+    android:textSize="@dimen/list_item_text_main" />

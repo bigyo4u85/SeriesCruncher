@@ -35,10 +35,6 @@ public class NetworkErrorDialogFragment extends DialogFragment {
     }
 
     private NetworkErrorDialogCallback callback;
-    private Random random;
-    private String[] networkErrorTitles;
-    private String[] networkErrorRetryResponses;
-    private String[] networkErrorCancelResponses;
 
     @Override
     public void onAttach(Activity activity) {
@@ -53,25 +49,22 @@ public class NetworkErrorDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        random = new Random();
+        Random random = new Random();
         Resources resources = getResources();
-        networkErrorTitles = resources.getStringArray(R.array.network_error_titles);
-        networkErrorRetryResponses = resources.getStringArray(R.array.network_error_retry_responses);
-        networkErrorCancelResponses = resources.getStringArray(R.array.network_error_cancel_responses);
-
-        String[] items = new String[]{
-                getRandomText(networkErrorRetryResponses),
-                getRandomText(networkErrorCancelResponses)
+        String dialogTitleText = getRandomText(random, resources.getStringArray(R.array.network_error_titles));
+        String[] dialogOptionTexts = new String[]{
+                getRandomText(random, resources.getStringArray(R.array.network_error_retry_responses)),
+                getRandomText(random, resources.getStringArray(R.array.network_error_cancel_responses))
         };
 
         return new AlertDialog.Builder(getActivity(), R.style.AlertDialogStyle)
-                .setTitle(getRandomText(networkErrorTitles))
-                .setAdapter(new CustomAdapter(items), new CustomListener())
+                .setTitle(dialogTitleText)
+                .setAdapter(new CustomAdapter(dialogOptionTexts), new CustomListener())
                 .setCancelable(false)
                 .create();
     }
 
-    public String getRandomText(String[] texts) {
+    public String getRandomText(Random random, String[] texts) {
         return texts[random.nextInt(texts.length)];
     }
 
