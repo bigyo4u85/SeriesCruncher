@@ -9,6 +9,7 @@
     <dimen name="size_thumbnail_small">32dp</dimen>
     <dimen name="size_thumbnail_normal">48dp</dimen>
     <dimen name="size_thumbnail_big">72dp</dimen>
+    <dimen name="list_item_height_one_lined_small">32dp</dimen>
     <dimen name="list_item_height_two_lined_small">60dp</dimen>
     <dimen name="list_item_height_two_lined_normal">72dp</dimen>
     <dimen name="divider_height">1dp</dimen>

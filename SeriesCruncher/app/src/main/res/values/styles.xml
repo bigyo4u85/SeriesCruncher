@@ -6,18 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:alertDialogStyle">@style/AlertDialogStyle</item>
     </style>
 
     <!-- Translucent status bar theme. -->
-    <style name="AppTheme.TranslucentStatusBar" parent="AppTheme">
-    </style>
+    <style name="AppTheme.TranslucentStatusBar" parent="AppTheme"></style>
 
     <!-- Theme.AppCompat.Light.Dialog.Alert -->
     <style name="AlertDialogStyle" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textColorAlertDialogListItem">@color/colorAccent</item>
-        <item name="android:textAlignment">viewEnd</item>
         <item name="android:windowAnimationStyle">@style/AlertDialogAnimation</item>
     </style>
 
