@@ -33,4 +33,9 @@ public class GlideImageLoader implements ImageLoader {
         Glide.clear(target);
         return bitmap;
     }
+
+    @Override
+    public void cancel() {
+        Glide.with(context).pauseRequests();
+    }
 }
