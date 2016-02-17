@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="0dp"
+    android:background="@color/colorPrimary"
+    android:gravity="center_vertical|right"
+    android:minHeight="@dimen/list_item_height_one_lined_small"
+    android:paddingBottom="@dimen/spacing_double"
+    android:paddingLeft="@dimen/spacing_triple"
+    android:paddingRight="@dimen/spacing_triple"
+    android:paddingTop="@dimen/spacing_double"
+    android:text="Item"
+    android:textColor="@color/colorAccent"
+    android:textSize="@dimen/list_item_text_main" />
