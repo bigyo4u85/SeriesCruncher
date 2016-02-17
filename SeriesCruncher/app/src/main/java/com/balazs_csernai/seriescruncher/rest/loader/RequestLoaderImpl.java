@@ -1,6 +1,6 @@
 package com.balazs_csernai.seriescruncher.rest.loader;
 
-import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.octo.android.robospice.SpiceManager;
@@ -19,19 +19,19 @@ import javax.inject.Inject;
  */
 public class RequestLoaderImpl implements RequestLoader {
 
-    private final Activity activity;
+    private final Context context;
     private final SpiceManager spiceManager;
 
     @Inject
-    public RequestLoaderImpl(Activity activity, SpiceManager spiceManager) {
-        this.activity = activity;
+    public RequestLoaderImpl(Context context, SpiceManager spiceManager) {
+        this.context = context;
         this.spiceManager = spiceManager;
     }
 
     @Override
     public void bind() {
         if (!spiceManager.isStarted()) {
-            spiceManager.start(activity);
+            spiceManager.start(context);
         }
     }
 

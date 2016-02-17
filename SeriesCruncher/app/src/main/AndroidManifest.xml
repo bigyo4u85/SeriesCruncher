@@ -38,5 +38,7 @@
             android:name=".rest.loader.NetworkingService"
             android:exported="false" />
 
+        <service android:name=".notification.NotificationService" />
+
     </application>
 </manifest>

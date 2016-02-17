@@ -2,12 +2,13 @@ package com.balazs_csernai.seriescruncher.rest;
 
 import com.balazs_csernai.seriescruncher.rest.loader.RequestLoader;
 import com.balazs_csernai.seriescruncher.rest.request.RequestFactory;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
+import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.request.SeriesDetailsRequest;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
 import com.balazs_csernai.seriescruncher.serieslist.request.SeriesRequest;
-import com.octo.android.robospice.persistence.DurationInMillis;
+
+import java.util.Collection;
 
 import javax.inject.Inject;
 
@@ -36,21 +37,33 @@ public class SeriesLoaderImpl implements SeriesLoader {
     }
 
     @Override
-    public void loadSeries(Callback<SeriesListModel> callback) {
+    public void loadSeries(@LoadType long type, final Callback<SeriesListModel> callback) {
         SeriesRequest request = requestFactory.createSeriesRequest();
         loader.perform(
-                requestFactory.createCachedRequest(request, "series", DurationInMillis.ONE_HOUR),
+                requestFactory.createCachedRequest(request, "series", type),
                 callback
         );
     }
 
     @Override
-    public void loadDetails(String showName, String imdbId, final Callback<SeriesDetailsModel> callback) {
-        SeriesDetailsRequest request = requestFactory.createSeriesDetailsRequest(showName, imdbId);
+    public void loadDetails(String seriesName, @LoadType long type, final Callback<SeriesDetailsModel> callback) {
+        SeriesDetailsRequest request = requestFactory.createSeriesDetailsRequest(seriesName);
         loader.perform(
-                requestFactory.createCachedRequest(request, showName, DurationInMillis.ONE_HOUR),
+                requestFactory.createCachedRequest(request, seriesName, type),
                 callback
         );
+    }
+
+    @Override
+    public void loadDetails(Collection<String> seriesNames, @LoadType long type, final Callback<SeriesDetailsModel> callback) {
+        SeriesDetailsRequest request;
+        for (String seriesName : seriesNames) {
+            request = requestFactory.createSeriesDetailsRequest(seriesName);
+            loader.perform(
+                    requestFactory.createCachedRequest(request, seriesName, type),
+                    callback
+            );
+        }
     }
 
     @Override

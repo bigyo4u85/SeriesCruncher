@@ -5,7 +5,7 @@ package com.balazs_csernai.seriescruncher.utils.navigator;
  */
 public interface SeriesListNavigator {
 
-    void launchSeriesDetails(String seriesName, String imdbId);
+    void launchSeriesDetails(String seriesName);
 
     void launchSettings();
 

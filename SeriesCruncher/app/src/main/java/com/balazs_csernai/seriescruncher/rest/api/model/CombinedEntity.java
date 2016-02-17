@@ -11,14 +11,14 @@ import java.util.Map;
  */
 public class CombinedEntity implements CombinedModel {
 
-    private Map<Integer, List<EpisodeJson>> episodeMap;
+    private Map<Integer, List<EpisodeJson>> seasonMap;
     private OmdbDetailsJson omdbDetails;
 
     public CombinedEntity() {
     }
 
-    public CombinedEntity setEpisodeMap(Map<Integer, List<EpisodeJson>> episodeMap) {
-        this.episodeMap = episodeMap;
+    public CombinedEntity setSeasonMap(Map<Integer, List<EpisodeJson>> seasonMap) {
+        this.seasonMap = seasonMap;
         return this;
     }
 
@@ -28,8 +28,8 @@ public class CombinedEntity implements CombinedModel {
     }
 
     @Override
-    public Map<Integer, List<EpisodeJson>> getEpisodeMap() {
-        return episodeMap;
+    public Map<Integer, List<EpisodeJson>> getSeasonMap() {
+        return seasonMap;
     }
 
     @Override

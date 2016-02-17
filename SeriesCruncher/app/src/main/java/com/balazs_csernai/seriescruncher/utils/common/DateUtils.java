@@ -35,5 +35,30 @@ public final class DateUtils {
         return Calendar.getInstance().getTime();
     }
 
+    public static long getLocalTimeInMillis(int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, calendar.getActualMinimum(Calendar.SECOND));
+        calendar.set(Calendar.MILLISECOND, calendar.getActualMinimum(Calendar.MILLISECOND));
+        return calendar.getTimeInMillis();
+    }
+
+    public static boolean isBefore(final Date today, Date date) {
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(today);
+        int thisYear = calendar.get(Calendar.YEAR);
+        int dayOfThisYear = calendar.get(Calendar.DAY_OF_YEAR);
+
+        calendar.setTime(date);
+        return thisYear != calendar.get(Calendar.YEAR) || dayOfThisYear > calendar.get(Calendar.DAY_OF_YEAR);
+    }
+    
+    public static boolean isToday(final Date date) {
+        return android.text.format.DateUtils.isToday(date.getTime());
+    }
+
     private DateUtils() {}
 }

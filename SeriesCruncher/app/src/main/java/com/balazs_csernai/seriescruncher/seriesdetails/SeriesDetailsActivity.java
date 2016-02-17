@@ -20,7 +20,6 @@ import javax.inject.Inject;
 public class SeriesDetailsActivity extends AppCompatActivity implements NetworkErrorDialogFragment.NetworkErrorDialogCallback {
 
     private static final String ARG_SERIES_NAME = "series-name";
-    private static final String ARG_IMDB_ID = "imdb-id";
 
     @Inject
     SeriesDetailsPresenter presenter;
@@ -37,8 +36,7 @@ public class SeriesDetailsActivity extends AppCompatActivity implements NetworkE
         super.onStart();
         presenter.onStart();
         String seriesName = IntentUtils.getStringArgOrThrow(getIntent(), ARG_SERIES_NAME);
-        String imdbId = IntentUtils.getStringArgOrThrow(getIntent(), ARG_IMDB_ID);
-        presenter.loadSeriesDetails(seriesName, imdbId);
+        presenter.loadSeriesDetails(seriesName);
     }
 
     @Override
@@ -67,10 +65,9 @@ public class SeriesDetailsActivity extends AppCompatActivity implements NetworkE
         presenter.onNetworkErrorCancel();
     }
 
-    public static Intent createLaunchIntent(Context context, String showName, String imdbId) {
+    public static Intent createLaunchIntent(Context context, String showName) {
         Intent intent = new Intent(context, SeriesDetailsActivity.class);
         intent.putExtra(ARG_SERIES_NAME, showName);
-        intent.putExtra(ARG_IMDB_ID, imdbId);
         return intent;
     }
 }

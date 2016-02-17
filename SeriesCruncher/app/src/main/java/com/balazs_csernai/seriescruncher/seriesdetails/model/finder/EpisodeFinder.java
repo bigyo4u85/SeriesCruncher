@@ -13,6 +13,8 @@ public interface EpisodeFinder {
 
     boolean hasNextEpisode();
 
+    boolean hasNewEpisodeToday();
+
     EpisodeModel getNextEpisode();
 
     EpisodeModel getLastEpisode();

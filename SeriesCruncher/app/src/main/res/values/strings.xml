@@ -7,6 +7,12 @@
     <string name="air_date">Next &lt;b>%1$tY-%1$tm-%1$td&lt;/b></string>
     <string name="aired_at">Last &lt;b>%1$tY-%1$tm-%1$td&lt;/b></string>
 
+    <string name="new_episode_airing_today">New episode airing today!</string>
+    <string name="new_episodes_airing_today">New episodes airing today!</string>
+
+    <string name="you_should_watch">You should watch:</string>
+    <string name="todays_episode">%1$s S%2$02d - E%3$02d %4$s</string>
+
     <string-array name="network_error_titles">
         <item>I felt a great disturbance in the Force</item>
         <item>There is a great disturbance in the Force</item>

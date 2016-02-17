@@ -1,6 +1,7 @@
 package com.balazs_csernai.seriescruncher.app.component;
 
 import android.app.Application;
+import android.app.NotificationManager;
 import android.content.res.Resources;
 import android.view.inputmethod.InputMethodManager;
 
@@ -10,6 +11,8 @@ import com.balazs_csernai.seriescruncher.preferences.component.PreferencesModule
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.component.ApiModule;
+import com.balazs_csernai.seriescruncher.utils.alarm.AlarmHandler;
+import com.balazs_csernai.seriescruncher.utils.alarm.AlarmModule;
 
 import javax.inject.Singleton;
 
@@ -24,6 +27,7 @@ import retrofit.converter.Converter;
         modules = {
                 ApplicationModule.class,
                 ApiModule.class,
+                AlarmModule.class,
                 PreferencesModule.class
         }
 )
@@ -34,9 +38,11 @@ public interface ApplicationComponent {
     Application application();
     Resources resources();
     InputMethodManager inputMethodManager();
+    NotificationManager notificationManager();
     Converter converter();
     EPGuideApi epGuideApi();
     OmdbApi omdbApi();
+    AlarmHandler alarmHandler();
     Preferences preferences();
 
     final class Injector {
@@ -49,6 +55,7 @@ public interface ApplicationComponent {
             component = DaggerApplicationComponent.builder()
                     .applicationModule(new ApplicationModule(application))
                     .apiModule(new ApiModule())
+                    .alarmModule(new AlarmModule())
                     .preferencesModule(new PreferencesModule())
                     .build();
 

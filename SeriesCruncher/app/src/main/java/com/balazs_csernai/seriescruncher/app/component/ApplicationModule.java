@@ -1,6 +1,8 @@
 package com.balazs_csernai.seriescruncher.app.component;
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -47,6 +49,18 @@ public class ApplicationModule {
     @Singleton
     InputMethodManager provideInputMethodManager() {
         return (InputMethodManager) application.getSystemService(Context.INPUT_METHOD_SERVICE);
+    }
+
+    @Provides
+    @Singleton
+    AlarmManager provideAlarmManager() {
+        return (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
+    }
+
+    @Provides
+    @Singleton
+    NotificationManager provideNotificationManager() {
+        return (NotificationManager) application.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     @Provides

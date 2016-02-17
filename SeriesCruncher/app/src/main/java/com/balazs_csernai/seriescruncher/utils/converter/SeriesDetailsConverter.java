@@ -31,8 +31,8 @@ public class SeriesDetailsConverter implements ModelConverter<SeriesDetailsEntit
         Series series = null;
         List<EpisodeEntity> episodes = new ArrayList<>();
 
-        for (Integer seasonKey : model.getEpisodeMap().keySet()) {
-            for (Episode episode : model.getEpisodeMap().get(seasonKey)) {
+        for (Integer seasonKey : model.getSeasonMap().keySet()) {
+            for (Episode episode : model.getSeasonMap().get(seasonKey)) {
                 if (series == null) {
                     series = episode.getSeries();
                 }

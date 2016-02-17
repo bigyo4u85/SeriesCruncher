@@ -9,7 +9,7 @@ public interface SeriesDetailsPresenter extends NetworkErrorDialogFragment.Netwo
 
     void onStart();
 
-    void loadSeriesDetails(String seriesName, String imdbId);
+    void loadSeriesDetails(String seriesName);
 
     void onStop();
 }

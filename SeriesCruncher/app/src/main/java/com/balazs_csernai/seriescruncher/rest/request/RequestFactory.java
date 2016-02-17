@@ -13,7 +13,7 @@ public interface RequestFactory {
 
     SeriesRequest createSeriesRequest();
 
-    SeriesDetailsRequest createSeriesDetailsRequest(String showName, String imdbId);
+    SeriesDetailsRequest createSeriesDetailsRequest(String showName);
 
     PosterRequest createPosterRequest(String url);
 

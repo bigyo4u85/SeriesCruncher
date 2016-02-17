@@ -1,6 +1,7 @@
 package com.balazs_csernai.seriescruncher.serieslist.presenter;
 
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
+import com.balazs_csernai.seriescruncher.rest.SeriesLoader.LoadType;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Series;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader;
 import com.balazs_csernai.seriescruncher.serieslist.filter.SeriesFilter;
@@ -39,7 +40,7 @@ public class SeriesListPresenterImpl implements SeriesListPresenter, Loader.Call
 
     private void loadSeriesList() {
         screen.displayProgressIndicator();
-        loader.loadSeries(this);
+        loader.loadSeries(LoadType.DEFAULT, this);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class SeriesListPresenterImpl implements SeriesListPresenter, Loader.Call
     @Override
     public void onSeriesSelected(Series series) {
         screen.clearFilterAndHideKeyboard();
-        navigator.launchSeriesDetails(series.getName(), series.getImdbId());
+        navigator.launchSeriesDetails(series.getName());
     }
 
     @Override
