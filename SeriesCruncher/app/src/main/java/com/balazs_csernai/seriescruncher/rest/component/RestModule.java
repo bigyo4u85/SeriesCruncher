@@ -2,7 +2,7 @@ package com.balazs_csernai.seriescruncher.rest.component;
 
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoaderImpl;
-import com.balazs_csernai.seriescruncher.rest.loader.NetworkingService;
+import com.balazs_csernai.seriescruncher.rest.loader.RoboSpiceService;
 import com.balazs_csernai.seriescruncher.rest.loader.RequestLoader;
 import com.balazs_csernai.seriescruncher.rest.loader.RequestLoaderImpl;
 import com.balazs_csernai.seriescruncher.rest.request.RequestFactory;
@@ -20,7 +20,7 @@ public class RestModule {
 
     @Provides
     SpiceManager provideSpiceManager() {
-        return new SpiceManager(NetworkingService.class);
+        return new SpiceManager(RoboSpiceService.class);
     }
 
     @Provides

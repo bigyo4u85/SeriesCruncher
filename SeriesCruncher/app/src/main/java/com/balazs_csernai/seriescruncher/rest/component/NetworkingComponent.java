@@ -1,29 +1,54 @@
 package com.balazs_csernai.seriescruncher.rest.component;
 
-import com.balazs_csernai.seriescruncher.app.component.ActivityScope;
-import com.balazs_csernai.seriescruncher.app.component.ApplicationComponent;
-import com.balazs_csernai.seriescruncher.rest.loader.NetworkingService;
+import android.app.Application;
+import android.app.NotificationManager;
+import android.content.res.Resources;
+import android.view.inputmethod.InputMethodManager;
 
-import dagger.Component;
+import com.balazs_csernai.seriescruncher.app.component.NetworkingScope;
+import com.balazs_csernai.seriescruncher.preferences.Preferences;
+import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
+import com.balazs_csernai.seriescruncher.utils.alarm.AlarmHandler;
+import com.balazs_csernai.seriescruncher.utils.converter.ConverterModule;
+import com.balazs_csernai.seriescruncher.utils.converter.EpisodeList;
+import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
+import com.balazs_csernai.seriescruncher.utils.image.ImageModule;
+
+import dagger.Subcomponent;
+import retrofit.converter.Converter;
 
 /**
- * Created by ErikKramli on 2016.01.11..
+ * Created by Erik_Markus_Kramli on 2016-02-17.
  */
-@ActivityScope
-@Component(
-        dependencies = ApplicationComponent.class
+@NetworkingScope    // Subcomponents need a different scope than its parent's by dagger convention
+@Subcomponent(
+        modules = {
+                ApiModule.class,
+                RestModule.class,
+                ImageModule.class,
+                ConverterModule.class
+        }
 )
 public interface NetworkingComponent {
 
-    void inject(NetworkingService service);
+    // We must expose the same dependencies as in the parent component
+    Application application();
 
-    final class Injector {
+    Resources resources();
 
-        public static void inject(NetworkingService service) {
-            DaggerNetworkingComponent.builder()
-                    .applicationComponent(ApplicationComponent.Injector.component())
-                    .build()
-                    .inject(service);
-        }
-    }
+    Converter converter();
+
+    InputMethodManager inputMethodManager();
+
+    NotificationManager notificationManager();
+
+    AlarmHandler alarmHandler();
+
+    Preferences preferences();
+
+    SeriesLoader seriesLoader();
+
+    @EpisodeList
+    ModelConverter provideEpisodeListConverter();
+
 }

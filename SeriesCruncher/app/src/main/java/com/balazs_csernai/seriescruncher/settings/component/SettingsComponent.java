@@ -32,7 +32,7 @@ public interface SettingsComponent {
 
         public static void inject(SettingsActivity activity) {
             DaggerSettingsComponent.builder()
-                    .applicationComponent(ApplicationComponent.Injector.component())
+                    .applicationComponent(ApplicationComponent.Injector.appComponent())
                     .commonActivityModule(new CommonActivityModule(activity))
                     .settingsModule(new SettingsModule())
                     .navigatorModule(new NavigatorModule())

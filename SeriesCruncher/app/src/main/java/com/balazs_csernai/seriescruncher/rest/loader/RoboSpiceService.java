@@ -2,7 +2,7 @@ package com.balazs_csernai.seriescruncher.rest.loader;
 
 import android.app.Application;
 
-import com.balazs_csernai.seriescruncher.rest.component.NetworkingComponent;
+import com.balazs_csernai.seriescruncher.rest.component.RoboSpiceComponent;
 import com.octo.android.robospice.SpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.exception.CacheCreationException;
@@ -17,14 +17,14 @@ import retrofit.converter.Converter;
 /**
  * Created by ErikKramli on 2016.01.09..
  */
-public class NetworkingService extends SpiceService {
+public class RoboSpiceService extends SpiceService {
 
     @Inject
     Converter converter;
 
     @Override
     public void onCreate() {
-        NetworkingComponent.Injector.inject(this);
+        RoboSpiceComponent.Injector.inject(this);
         super.onCreate();
     }
 
