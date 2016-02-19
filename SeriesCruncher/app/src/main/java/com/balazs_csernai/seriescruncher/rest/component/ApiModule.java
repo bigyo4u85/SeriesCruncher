@@ -1,5 +1,6 @@
 package com.balazs_csernai.seriescruncher.rest.component;
 
+import com.balazs_csernai.seriescruncher.app.component.NetworkingScope;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
@@ -25,22 +26,13 @@ import retrofit.converter.GsonConverter;
 public class ApiModule {
 
     @Provides
-    @Singleton
-    Gson provideGson() {
-        return new GsonBuilder()
-                .setDateFormat(DateUtils.DATE_PATTERN)
-                .registerTypeAdapter(new TypeToken<Set<String>>(){}.getType(), new LinkedHashSetSerializer())
-                .create();
-    }
-
-    @Provides
-    @Singleton
+    @NetworkingScope
     Converter provideConverter(Gson gson) {
         return new GsonConverter(gson);
     }
 
     @Provides
-    @Singleton
+    @NetworkingScope
     OmdbApi provideOmdbApi(Converter converter) {
         return new RestAdapter.Builder()
                 .setEndpoint(OmdbApi.ENDPOINT_URL)
@@ -50,7 +42,7 @@ public class ApiModule {
     }
 
     @Provides
-    @Singleton
+    @NetworkingScope
     EPGuideApi provideEpisodeGuideApi(Converter converter) {
         return new RestAdapter.Builder()
                 .setEndpoint(EPGuideApi.ENDPOINT_URL)

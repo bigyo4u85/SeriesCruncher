@@ -1,5 +1,6 @@
 package com.balazs_csernai.seriescruncher.rest.loader;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -23,7 +24,7 @@ public class RequestLoaderImpl implements RequestLoader {
     private final SpiceManager spiceManager;
 
     @Inject
-    public RequestLoaderImpl(Context context, SpiceManager spiceManager) {
+    public RequestLoaderImpl(Application context, SpiceManager spiceManager) {
         this.context = context;
         this.spiceManager = spiceManager;
     }
@@ -37,6 +38,7 @@ public class RequestLoaderImpl implements RequestLoader {
 
     @Override
     public void unbind() {
+        spiceManager.cancelAllRequests();
         spiceManager.shouldStop();
     }
 

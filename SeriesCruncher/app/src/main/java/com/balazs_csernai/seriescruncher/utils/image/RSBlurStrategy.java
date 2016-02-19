@@ -9,14 +9,11 @@ import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
 
-import com.balazs_csernai.seriescruncher.app.component.ActivityScope;
-
 import javax.inject.Inject;
 
 /**
  * Created by Balazs_Csernai on 2016.02.02..
  */
-@ActivityScope
 public class RSBlurStrategy implements BlurStrategy {
 
     private final RenderScript renderScript;

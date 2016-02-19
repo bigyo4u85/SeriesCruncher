@@ -20,7 +20,7 @@ public class OmdbDetailsJson implements OmdbDetails {
     private String language;
 
     @SerializedName("imdbRating")
-    private float imdbRating;
+    private String imdbRating;
 
     @Override
     public String getImdbId() {

@@ -35,7 +35,7 @@
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".rest.loader.NetworkingService"
+            android:name=".rest.loader.RoboSpiceService"
             android:exported="false" />
 
         <service android:name=".notification.NotificationService" />

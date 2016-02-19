@@ -10,4 +10,6 @@ import java.util.concurrent.ExecutionException;
 public interface ImageLoader {
 
     Bitmap load(String url) throws ExecutionException, InterruptedException;
+
+    void cancel();
 }

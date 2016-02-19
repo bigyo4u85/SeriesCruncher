@@ -1,5 +1,6 @@
 package com.balazs_csernai.seriescruncher.notification.ui;
 
+import android.app.Application;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -31,7 +32,7 @@ public class AndroidNotification implements Notification {
     private NotificationCompat.Builder notificationBuilder;
 
     @Inject
-    public AndroidNotification(Context context, NotificationManager notificationManager) {
+    public AndroidNotification(Application context, NotificationManager notificationManager) {
         this.context = context;
         this.notificationManager = notificationManager;
     }
