@@ -7,6 +7,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -109,7 +110,7 @@ public class SeriesDetailsScreenImpl implements SeriesDetailsScreen, SmartAppBar
 
         layoutManager = new SmartLayoutManager(activity);
         episodesRecyclerView.setLayoutManager(layoutManager);
-        episodesRecyclerView.addItemDecoration(new DividerDecoration(activity.getResources().getColor(R.color.light_gray)));
+        episodesRecyclerView.setItemAnimator(new DefaultItemAnimator());
         episodesRecyclerView.setAdapter(adapter);
         episodesRecyclerView.setHasFixedSize(true);
     }
