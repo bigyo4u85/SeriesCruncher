@@ -1,12 +1,11 @@
 package com.balazs_csernai.seriescruncher.rest;
 
+import com.balazs_csernai.seriescruncher.rest.interactor.CacheType;
 import com.balazs_csernai.seriescruncher.rest.loader.RequestLoader;
-import com.balazs_csernai.seriescruncher.rest.request.RequestFactory;
+import com.balazs_csernai.seriescruncher.rest.interactor.InteractorFactory;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterModel;
-import com.balazs_csernai.seriescruncher.seriesdetails.request.SeriesDetailsRequest;
 import com.balazs_csernai.seriescruncher.serieslist.model.SeriesListModel;
-import com.balazs_csernai.seriescruncher.serieslist.request.SeriesRequest;
 
 import java.util.Collection;
 
@@ -18,12 +17,12 @@ import javax.inject.Inject;
 public class SeriesLoaderImpl implements SeriesLoader {
 
     private final RequestLoader loader;
-    private final RequestFactory requestFactory;
+    private final InteractorFactory interactorFactory;
 
     @Inject
-    public SeriesLoaderImpl(RequestLoader loader, RequestFactory requestFactory) {
+    public SeriesLoaderImpl(RequestLoader loader, InteractorFactory interactorFactory) {
         this.loader = loader;
-        this.requestFactory = requestFactory;
+        this.interactorFactory = interactorFactory;
     }
 
     @Override
@@ -37,30 +36,32 @@ public class SeriesLoaderImpl implements SeriesLoader {
     }
 
     @Override
-    public void loadSeries(@LoadType long type, final Callback<SeriesListModel> callback) {
-        SeriesRequest request = requestFactory.createSeriesRequest();
+    public void loadSeries(@CacheType long type, final Callback<SeriesListModel> callback) {
         loader.perform(
-                requestFactory.createCachedRequest(request, "series", type),
+                interactorFactory.createSeriesListInteractor(),
+                "series",
+                type,
                 callback
         );
     }
 
     @Override
-    public void loadDetails(String seriesName, @LoadType long type, final Callback<SeriesDetailsModel> callback) {
-        SeriesDetailsRequest request = requestFactory.createSeriesDetailsRequest(seriesName);
+    public void loadDetails(String seriesName, @CacheType long type, final Callback<SeriesDetailsModel> callback) {
         loader.perform(
-                requestFactory.createCachedRequest(request, seriesName, type),
+                interactorFactory.createSeriesDetailsInteractor(seriesName),
+                seriesName,
+                type,
                 callback
         );
     }
 
     @Override
-    public void loadDetails(Collection<String> seriesNames, @LoadType long type, final Callback<SeriesDetailsModel> callback) {
-        SeriesDetailsRequest request;
+    public void loadDetails(Collection<String> seriesNames, @CacheType long type, final Callback<SeriesDetailsModel> callback) {
         for (String seriesName : seriesNames) {
-            request = requestFactory.createSeriesDetailsRequest(seriesName);
             loader.perform(
-                    requestFactory.createCachedRequest(request, seriesName, type),
+                    interactorFactory.createSeriesDetailsInteractor(seriesName),
+                    seriesName,
+                    type,
                     callback
             );
         }
@@ -69,7 +70,7 @@ public class SeriesLoaderImpl implements SeriesLoader {
     @Override
     public void loadPoster(String posterUrl, Callback<PosterModel> callback) {
         loader.perform(
-                requestFactory.createPosterRequest(posterUrl),
+                interactorFactory.createPosterInteractor(posterUrl),
                 callback
         );
     }

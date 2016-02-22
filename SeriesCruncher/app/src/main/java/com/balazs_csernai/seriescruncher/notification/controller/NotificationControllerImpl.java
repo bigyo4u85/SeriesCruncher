@@ -5,7 +5,7 @@ import com.balazs_csernai.seriescruncher.notification.model.TodaysEpisodeModel;
 import com.balazs_csernai.seriescruncher.notification.ui.Notification;
 import com.balazs_csernai.seriescruncher.preferences.Preferences;
 import com.balazs_csernai.seriescruncher.rest.SeriesLoader;
-import com.balazs_csernai.seriescruncher.rest.SeriesLoader.LoadType;
+import com.balazs_csernai.seriescruncher.rest.interactor.CacheType;
 import com.balazs_csernai.seriescruncher.rest.loader.Loader;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.finder.EpisodeFinder;
@@ -49,7 +49,7 @@ public class NotificationControllerImpl implements NotificationController, Loade
             todaysEpisodes.clear();
             latch = new CountDownLatch(favoredSeries.size());
             loader.bind();
-            loader.loadDetails(favoredSeries, LoadType.CACHE_ONLY, this);
+            loader.loadDetails(favoredSeries, CacheType.CACHE_ONLY, this);
         }
     }
 
