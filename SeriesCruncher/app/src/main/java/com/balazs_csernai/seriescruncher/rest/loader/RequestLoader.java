@@ -1,15 +1,14 @@
 package com.balazs_csernai.seriescruncher.rest.loader;
 
-import com.octo.android.robospice.request.CachedSpiceRequest;
-import com.octo.android.robospice.request.SpiceRequest;
+import com.balazs_csernai.seriescruncher.rest.interactor.Interactor;
 
 /**
  * Created by ErikKramli on 2016.01.15..
  */
 public interface RequestLoader extends Loader {
 
-    <MODEL, JSON extends MODEL> void perform(SpiceRequest<JSON> request, Callback<MODEL> callback);
+    <MODEL, JSON extends MODEL> void perform(Interactor<JSON> interactor, final Callback<MODEL> callback);
 
-    <MODEL, JSON extends MODEL> void perform(CachedSpiceRequest<JSON> request, Callback<MODEL> callback);
+    <MODEL, JSON extends MODEL> void perform(Interactor<JSON> interactor, String cacheKey, long cacheDuration, final Callback<MODEL> callback);
 
 }

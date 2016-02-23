@@ -4,13 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.balazs_csernai.seriescruncher.rest.interactor.Interactor;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.NetworkException;
 import com.octo.android.robospice.exception.NoNetworkException;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.CachedSpiceRequest;
-import com.octo.android.robospice.request.SpiceRequest;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 import javax.inject.Inject;
@@ -43,18 +42,20 @@ public class RequestLoaderImpl implements RequestLoader {
     }
 
     @Override
-    public <MODEL, JSON extends MODEL> void perform(SpiceRequest<JSON> request, final Callback<MODEL> callback) {
+    public <MODEL, JSON extends MODEL> void perform(Interactor<JSON> interactor, Callback<MODEL> callback) {
         spiceManager.execute(
-                request,
+                new InteractorRequest<>(interactor),
                 new SimpleRequestListener<MODEL, JSON>(callback)
         );
     }
 
     @Override
-    public <MODEL, JSON extends MODEL> void perform(CachedSpiceRequest<JSON> request, Callback<MODEL> callback) {
+    public <MODEL, JSON extends MODEL> void perform(Interactor<JSON> interactor, String cacheKey, long cacheDuration, final Callback<MODEL> callback) {
         spiceManager.execute(
-                request,
-                new CacheFallbackRequestListener<>(request, callback)
+                new InteractorRequest<>(interactor),
+                cacheKey,
+                cacheDuration,
+                new CacheFallbackRequestListener<>(interactor.getResultType(), cacheKey, callback)
         );
     }
 
@@ -75,7 +76,7 @@ public class RequestLoaderImpl implements RequestLoader {
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            Log.e("RequestLoaderImpl", spiceException.getMessage());
+            Log.e("RequestLoader", spiceException.getMessage());
             if (callback != null) {
                 callback.onFailure();
             }
@@ -85,13 +86,13 @@ public class RequestLoaderImpl implements RequestLoader {
     private final class CacheFallbackRequestListener<MODEL, JSON extends MODEL> extends SimpleRequestListener<MODEL, JSON> {
 
         private final Class<JSON> resultType;
-        private final Object cacheKey;
+        private final String cacheKey;
         private SpiceException networkException;
 
-        private CacheFallbackRequestListener(CachedSpiceRequest<JSON> request, Callback<MODEL> callback) {
+        private CacheFallbackRequestListener(Class<JSON> resultType, String cacheKey, Callback<MODEL> callback) {
             super(callback);
-            this.resultType = request.getResultType();
-            this.cacheKey = request.getRequestCacheKey();
+            this.resultType = resultType;
+            this.cacheKey = cacheKey;
         }
 
         @Override
@@ -107,8 +108,12 @@ public class RequestLoaderImpl implements RequestLoader {
         public void onRequestFailure(SpiceException spiceException) {
             if (isNetworkException(spiceException)) {
                 networkException = spiceException;
-                spiceManager.getFromCache(resultType, cacheKey, DurationInMillis.ALWAYS_RETURNED, this);
-
+                spiceManager.getFromCache(
+                        resultType,
+                        cacheKey,
+                        DurationInMillis.ALWAYS_RETURNED,
+                        this
+                );
             } else {
                 super.onRequestFailure(spiceException);
             }

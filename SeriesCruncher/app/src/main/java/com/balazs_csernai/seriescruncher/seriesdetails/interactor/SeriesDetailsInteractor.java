@@ -1,4 +1,4 @@
-package com.balazs_csernai.seriescruncher.seriesdetails.request;
+package com.balazs_csernai.seriescruncher.seriesdetails.interactor;
 
 import com.balazs_csernai.seriescruncher.rest.api.epguides.EPGuideApi;
 import com.balazs_csernai.seriescruncher.rest.api.epguides.model.Episode;
@@ -6,7 +6,7 @@ import com.balazs_csernai.seriescruncher.rest.api.epguides.model.EpisodeJson;
 import com.balazs_csernai.seriescruncher.rest.api.model.CombinedEntity;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.OmdbApi;
 import com.balazs_csernai.seriescruncher.rest.api.omdb.model.OmdbDetailsJson;
-import com.balazs_csernai.seriescruncher.rest.request.NetworkRequest;
+import com.balazs_csernai.seriescruncher.rest.interactor.NetworkInteractor;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.SeriesDetailsEntity;
 import com.balazs_csernai.seriescruncher.utils.converter.ModelConverter;
 import com.balazs_csernai.seriescruncher.utils.converter.SeriesDetails;
@@ -19,23 +19,28 @@ import javax.inject.Inject;
 /**
  * Created by ErikKramli on 2016.01.11..
  */
-public class SeriesDetailsRequest extends NetworkRequest<SeriesDetailsEntity> {
+public class SeriesDetailsInteractor extends NetworkInteractor<SeriesDetailsEntity> {
 
     private final ModelConverter converter;
     private String showName;
 
     @Inject
-    public SeriesDetailsRequest(EPGuideApi epGuideApi, OmdbApi omdbApi, @SeriesDetails ModelConverter converter) {
-        super(SeriesDetailsEntity.class, epGuideApi, omdbApi);
+    public SeriesDetailsInteractor(EPGuideApi epGuideApi, OmdbApi omdbApi, @SeriesDetails ModelConverter converter) {
+        super(epGuideApi, omdbApi);
         this.converter = converter;
     }
 
-    public void setRequestParams(String showName) {
+    public void setRequestParam(String showName) {
         this.showName = showName;
     }
 
     @Override
-    public SeriesDetailsEntity loadDataFromNetwork() throws Exception {
+    public Class<SeriesDetailsEntity> getResultType() {
+        return SeriesDetailsEntity.class;
+    }
+
+    @Override
+    public SeriesDetailsEntity execute() throws Exception {
         Map<Integer, List<EpisodeJson>> seasonMap = getEpGuideApi().loadSeriesDetails(showName);
 
         String imdbId = findImdbId(seasonMap);

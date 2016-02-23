@@ -1,19 +1,19 @@
-package com.balazs_csernai.seriescruncher.seriesdetails.request;
+package com.balazs_csernai.seriescruncher.seriesdetails.interactor;
 
 import android.graphics.Bitmap;
 
+import com.balazs_csernai.seriescruncher.rest.interactor.Interactor;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.poster.PosterEntity;
 import com.balazs_csernai.seriescruncher.utils.image.BlurStrategy;
 import com.balazs_csernai.seriescruncher.utils.image.ImageLoader;
 import com.balazs_csernai.seriescruncher.utils.ui.color.ColorProvider;
-import com.octo.android.robospice.request.SpiceRequest;
 
 import javax.inject.Inject;
 
 /**
  * Created by ErikKramli on 2016.01.31..
  */
-public class PosterRequest extends SpiceRequest<PosterEntity> {
+public class PosterInteractor implements Interactor<PosterEntity> {
 
     private final ImageLoader imageLoader;
     private final ColorProvider colorProvider;
@@ -21,8 +21,7 @@ public class PosterRequest extends SpiceRequest<PosterEntity> {
     private String url;
 
     @Inject
-    public PosterRequest(ImageLoader imageLoader, ColorProvider colorProvider, BlurStrategy blurStrategy) {
-        super(PosterEntity.class);
+    public PosterInteractor(ImageLoader imageLoader, ColorProvider colorProvider, BlurStrategy blurStrategy) {
         this.imageLoader = imageLoader;
         this.colorProvider = colorProvider;
         this.blurStrategy = blurStrategy;
@@ -33,7 +32,12 @@ public class PosterRequest extends SpiceRequest<PosterEntity> {
     }
 
     @Override
-    public PosterEntity loadDataFromNetwork() throws Exception {
+    public Class<PosterEntity> getResultType() {
+        return PosterEntity.class;
+    }
+
+    @Override
+    public PosterEntity execute() throws Exception {
         Bitmap poster = imageLoader.load(url);
         Bitmap posterBackground = blurStrategy.blur(poster);
         colorProvider.generateColorPalette(poster);
@@ -48,7 +52,6 @@ public class PosterRequest extends SpiceRequest<PosterEntity> {
 
     @Override
     public void cancel() {
-        super.cancel();
         imageLoader.cancel();
     }
 }
