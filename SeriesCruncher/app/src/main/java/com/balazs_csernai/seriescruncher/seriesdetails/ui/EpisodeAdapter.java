@@ -6,16 +6,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balazs_csernai.seriescruncher.R;
-import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListEntity;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListItemModel;
 import com.balazs_csernai.seriescruncher.seriesdetails.model.episode.EpisodeListModel;
 import com.balazs_csernai.seriescruncher.utils.common.DateUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.ViewUtils;
 import com.balazs_csernai.seriescruncher.utils.ui.color.model.ColorModel;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,26 +29,25 @@ import butterknife.InjectView;
  */
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsViewHolder> implements View.OnClickListener {
 
-    private EpisodeListModel episodes;
+    private List<EpisodeListItemModel> items;
+
     @ColorInt
-    private int primaryBackgroundColor, primaryTextColor, secondaryTextColor, secondaryBackgroundColor;
+    private int primaryTextColor, secondaryTextColor;
 
     @Inject
     public EpisodeAdapter() {
-        episodes = new EpisodeListEntity();
-        primaryBackgroundColor = primaryTextColor = secondaryBackgroundColor = secondaryTextColor = Color.WHITE;
+        items = Collections.emptyList();
+        primaryTextColor = secondaryTextColor = Color.WHITE;
     }
 
-    public void setItems(EpisodeListModel episodes) {
-        this.episodes = episodes;
+    public void setItems(EpisodeListModel model) {
+        this.items = new ArrayList<>(model.getEpisodes());
         notifyDataSetChanged();
     }
 
     public void setColors(ColorModel primaryColor, ColorModel secondaryColor) {
-        this.primaryBackgroundColor = primaryColor.getBackgroundColor();
-        this.secondaryBackgroundColor = secondaryColor.getBackgroundColor();
-        this.primaryTextColor = primaryColor.getForegroundColor();
-        this.secondaryTextColor = secondaryColor.getForegroundColor();
+        this.primaryTextColor = primaryColor.getBackgroundColor();
+        this.secondaryTextColor = secondaryColor.getBackgroundColor();
         notifyDataSetChanged();
     }
 
@@ -58,12 +59,10 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
 
     @Override
     public void onBindViewHolder(SeasonsViewHolder holder, int position) {
-        EpisodeListItemModel item = episodes.getItem(position);
+        EpisodeListItemModel item = getItem(position);
         if (item.isEpisode()) {
-            holder.episodeNumberBackground.setColorFilter(secondaryBackgroundColor);
             holder.episodeNumber.setTextColor(secondaryTextColor);
         } else {
-            holder.episodeNumberBackground.setColorFilter(primaryBackgroundColor);
             holder.episodeNumber.setTextColor(primaryTextColor);
         }
         holder.episodeNumber.setText(item.getEpisodeNumber());
@@ -75,27 +74,30 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
             ViewUtils.visible(holder.airDate);
             holder.airDate.setText(DateUtils.parseDate(item.getAirDate()));
         }
-        holder.itemView.setTag(position);
+        holder.itemView.setTag(mapVisiblePositionToInnerPosition(position));
         holder.itemView.setOnClickListener(this);
     }
 
     @Override
     public int getItemCount() {
-        return episodes.getItemCount();
+        int visibleItemCount = 0;
+        for (EpisodeListItemModel episode : items) {
+            if (isVisible(episode)) {
+                visibleItemCount++;
+            }
+        }
+        return visibleItemCount;
     }
 
     @Override
     public void onClick(View view) {
         int position = (int) view.getTag();
-        episodes.toggle(position);
-        notifyDataSetChanged();
+        onItemTap(position);
     }
 
     public class SeasonsViewHolder extends RecyclerView.ViewHolder {
         @InjectView(R.id.episode_number)
         TextView episodeNumber;
-        @InjectView(R.id.episode_number_background)
-        ImageView episodeNumberBackground;
         @InjectView(R.id.episode_title)
         TextView title;
         @InjectView(R.id.episode_airdate)
@@ -105,5 +107,77 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
             super(view);
             ButterKnife.inject(this, view);
         }
+    }
+
+    private EpisodeListItemModel getItem(int position) {
+        return items.get(mapVisiblePositionToInnerPosition(position));
+    }
+
+    private void onItemTap(int position) {
+        EpisodeListItemModel item = items.get(position);
+
+        if (!item.isEpisode()) {
+            int nextSeasonOrEndPosition = getNextSeasonOrEndPosition(position);
+
+            for (int itemPosition = position; itemPosition < nextSeasonOrEndPosition; itemPosition++) {
+                items.get(itemPosition).toggle();
+            }
+
+            int firstInsertedOrRemovedItemPosition = position + 1;
+            int modifiedItemCount = nextSeasonOrEndPosition - firstInsertedOrRemovedItemPosition;
+            int firstInsertedOrRemovedVisibleItemPosition = mapInnerPositionToVisiblePosition(firstInsertedOrRemovedItemPosition);
+
+            notifyAdapter(firstInsertedOrRemovedVisibleItemPosition, modifiedItemCount, item.isExpanded());
+        }
+    }
+
+    private void notifyAdapter(int position, int count, boolean insertion) {
+        if (insertion) {
+            notifyItemRangeInserted(position, count);
+        } else {
+            notifyItemRangeRemoved(position, count);
+        }
+    }
+
+    private int mapVisiblePositionToInnerPosition(int position) {
+        return countItemsBeforeVisiblePosition(position);
+    }
+
+    private int mapInnerPositionToVisiblePosition(int position) {
+        return position - countInvisibleItemsBeforePosition(position);
+    }
+
+    private int countItemsBeforeVisiblePosition(int position) {
+        int itemCount = 0;
+        int visibleItemCount = 0;
+        while (visibleItemCount != position && itemCount < items.size()) {
+            if (isVisible(items.get(++itemCount))) {
+                visibleItemCount++;
+            }
+        }
+        return itemCount;
+    }
+
+    private int countInvisibleItemsBeforePosition(int position) {
+        int invisibleItemCount = 0;
+        for (int innerPosition = 0; innerPosition < position; innerPosition++) {
+            if (!isVisible(items.get(innerPosition))) {
+                invisibleItemCount++;
+            }
+        }
+        return invisibleItemCount;
+    }
+
+    private int getNextSeasonOrEndPosition(int position) {
+        for (int itemPosition = position + 1; itemPosition < items.size(); itemPosition++) {
+            if (!items.get(itemPosition).isEpisode()) {
+                return itemPosition;
+            }
+        }
+        return items.size();
+    }
+
+    private boolean isVisible(EpisodeListItemModel episode) {
+        return !episode.isEpisode() || episode.isExpanded();
     }
 }

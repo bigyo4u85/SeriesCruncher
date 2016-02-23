@@ -47,6 +47,6 @@ public class EpisodeListConverter implements ModelConverter<EpisodeListModel, Se
             items.add((EpisodeListItemModel) listItemConverter.convert(episodeModel));
         }
 
-        return new EpisodeListEntity().setItems(items);
+        return new EpisodeListEntity().setEpisodes(items);
     }
 }

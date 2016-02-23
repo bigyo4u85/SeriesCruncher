@@ -8,30 +8,19 @@
     android:paddingLeft="@dimen/spacing_double"
     android:paddingRight="@dimen/spacing_double">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/episode_number"
         android:layout_width="@dimen/size_thumbnail_normal"
         android:layout_height="@dimen/size_thumbnail_normal"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="@dimen/spacing_simple">
-
-        <ImageView
-            android:id="@+id/episode_number_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/circular_thumbnail_background" />
-
-        <TextView
-            android:id="@+id/episode_number"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/list_item_text_thumbnail"
-            android:textStyle="bold"
-            tools:text="S01" />
-    </RelativeLayout>
+        android:layout_marginRight="@dimen/spacing_simple"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/list_item_text_thumbnail"
+        android:textStyle="bold"
+        tools:text="S01" />
 
     <LinearLayout
         android:layout_width="match_parent"
