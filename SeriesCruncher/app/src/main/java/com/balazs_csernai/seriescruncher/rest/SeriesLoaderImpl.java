@@ -36,32 +36,32 @@ public class SeriesLoaderImpl implements SeriesLoader {
     }
 
     @Override
-    public void loadSeries(@CacheType long type, final Callback<SeriesListModel> callback) {
+    public void loadSeries(@CacheType long cacheType, final Callback<SeriesListModel> callback) {
         loader.perform(
                 interactorFactory.createSeriesListInteractor(),
                 "series",
-                type,
+                cacheType,
                 callback
         );
     }
 
     @Override
-    public void loadDetails(String seriesName, @CacheType long type, final Callback<SeriesDetailsModel> callback) {
+    public void loadDetails(String seriesName, @CacheType long cacheType, final Callback<SeriesDetailsModel> callback) {
         loader.perform(
                 interactorFactory.createSeriesDetailsInteractor(seriesName),
                 seriesName,
-                type,
+                cacheType,
                 callback
         );
     }
 
     @Override
-    public void loadDetails(Collection<String> seriesNames, @CacheType long type, final Callback<SeriesDetailsModel> callback) {
+    public void loadDetails(Collection<String> seriesNames, @CacheType long cacheType, final Callback<SeriesDetailsModel> callback) {
         for (String seriesName : seriesNames) {
             loader.perform(
                     interactorFactory.createSeriesDetailsInteractor(seriesName),
                     seriesName,
-                    type,
+                    cacheType,
                     callback
             );
         }

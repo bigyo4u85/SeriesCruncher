@@ -12,11 +12,11 @@ import java.util.Collection;
  */
 public interface SeriesLoader extends Loader {
 
-    void loadSeries(@CacheType long type, Callback<SeriesListModel> callback);
+    void loadSeries(@CacheType long cacheType, Callback<SeriesListModel> callback);
 
-    void loadDetails(String seriesName, @CacheType long type, Callback<SeriesDetailsModel> callback);
+    void loadDetails(String seriesName, @CacheType long cacheType, Callback<SeriesDetailsModel> callback);
 
-    void loadDetails(Collection<String> seriesNames, @CacheType long type, final Callback<SeriesDetailsModel> callback);
+    void loadDetails(Collection<String> seriesNames, @CacheType long cacheType, final Callback<SeriesDetailsModel> callback);
 
     void loadPoster(String posterUrl, Callback<PosterModel> callback);
 }
