@@ -1,5 +1,6 @@
 package com.balazs_csernai.seriescruncher.serieslist.ui;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -65,6 +66,7 @@ public class SeriesListScreenImpl implements SeriesListScreen, SeriesListAdapter
         this.callbacks = callbacks;
         ButterKnife.inject(this, activity);
 
+        activity.getWindow().setBackgroundDrawable(new ColorDrawable(activity.getResources().getColor(R.color.white)));
         activity.setSupportActionBar(toolbar);
 
         seriesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));

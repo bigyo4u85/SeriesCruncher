@@ -16,6 +16,8 @@
 
         <activity
             android:name=".serieslist.SeriesListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.WindowBackground"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -24,11 +24,10 @@
 
         <EditText
             android:id="@+id/filter_edit"
+            style="@style/FilterEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/type_to_filter"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white_transparent" />
+            android:hint="@string/type_to_filter" />
 
     </FrameLayout>
 
