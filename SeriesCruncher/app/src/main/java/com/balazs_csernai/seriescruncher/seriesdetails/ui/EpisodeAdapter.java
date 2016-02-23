@@ -151,7 +151,9 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.SeasonsV
         int itemCount = 0;
         int visibleItemCount = 0;
         while (visibleItemCount != position && itemCount < items.size()) {
-            visibleItemCount += isVisible(items.get(++itemCount)) ? 1 : 0;
+            if (isVisible(items.get(++itemCount))) {
+                visibleItemCount++;
+            }
         }
         return itemCount;
     }
